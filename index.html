@@ -458,8 +458,8 @@
     <div class="cinematic" id="cinematic">
         <div class="cinematic-sticky" id="cinematicSticky">
 
-            <!-- BG LAYER 0: Video -->
-            <video id="bgVideo" class="bg-video" autoplay muted loop playsinline style="opacity:1;">
+            <!-- BG LAYER 0: Video (scroll-scrubbed, not autoplay) -->
+            <video id="bgVideo" class="bg-video" muted playsinline preload="auto" style="opacity:1;">
                 <source src="images/hero.mp4" type="video/mp4">
             </video>
 
@@ -628,113 +628,124 @@
     (() => {
         'use strict';
 
-        const cinematic   = document.getElementById('cinematic');
-        const bgVideo     = document.getElementById('bgVideo');
-        const bgBefore    = document.getElementById('bgBefore');
-        const bgAfter     = document.getElementById('bgAfter');
-        const scenes      = [0,1,2,3,4,5].map(i => document.getElementById('scene' + i));
-        const pdots       = document.querySelectorAll('.pdot');
-        const mainNav     = document.getElementById('mainNav');
+        const cinematic = document.getElementById('cinematic');
+        const bgVideo   = document.getElementById('bgVideo');
+        const bgBefore  = document.getElementById('bgBefore');
+        const bgAfter   = document.getElementById('bgAfter');
+        const scenes    = [0,1,2,3,4,5].map(i => document.getElementById('scene' + i));
+        const pdots     = document.querySelectorAll('.pdot');
+        const mainNav   = document.getElementById('mainNav');
 
         const TOTAL_SCENES = 6;
 
-        // Easing
-        function ease(t) {
-            // Quartic ease in-out
+        // ── Easing ──
+        function easeQuart(t) {
             return t < 0.5 ? 8*t*t*t*t : 1 - 8*(--t)*t*t*t;
+        }
+        function easeOut3(t) {
+            return 1 - Math.pow(1 - t, 3);
         }
 
         function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+        function norm(v, a, b)    { return clamp((v - a) / (b - a), 0, 1); }
 
-        // Map a value from [a,b] → [0,1], clamped
-        function normalize(v, a, b) { return clamp((v - a) / (b - a), 0, 1); }
+        // ── Video scrubbing ──
+        // Video covers scroll progress 0 → 0.55 (scenes 0, 1, and half of 2)
+        // currentTime is driven directly by scroll — no autoplay loop
+        const VIDEO_END = 0.55; // how far into total progress the video plays to
+        let videoDuration = 0;
+        let videoReady    = false;
 
-        function setOpacity(el, val) { el.style.opacity = val; }
+        bgVideo.addEventListener('loadedmetadata', () => {
+            videoDuration = bgVideo.duration;
+            videoReady    = true;
+            bgVideo.pause();
+        });
 
-        // Scene transition window: each scene owns 1/6 of total scroll.
-        // Within that 1/6, the scene fades in over first 20% and out over last 20%.
-        function sceneOpacity(progress, sceneIndex) {
-            const step = 1 / TOTAL_SCENES;
-            const start = sceneIndex * step;
-            const end   = start + step;
-            const fadeIn  = step * 0.22;
-            const fadeOut = step * 0.22;
+        // Fallback if metadata already loaded
+        if (bgVideo.readyState >= 1) {
+            videoDuration = bgVideo.duration;
+            videoReady    = true;
+            bgVideo.pause();
+        }
+
+        // ── Scene opacity: each scene owns 1/TOTAL_SCENES of progress ──
+        // Fades in over first 25% of its window, fades out over last 25%
+        function sceneOpacity(progress, i, noFadeOut) {
+            const step    = 1 / TOTAL_SCENES;
+            const start   = i * step;
+            const fadeIn  = step * 0.25;
+            const fadeOut = step * 0.25;
 
             if (progress < start) return 0;
-            if (progress >= end)  return 0;
-
             const local = progress - start;
-            if (local < fadeIn)          return ease(normalize(local, 0, fadeIn));
-            if (local > step - fadeOut)  return ease(normalize(step - local, 0, fadeOut));
+            if (local > step && !noFadeOut) return 0;
+
+            if (local < fadeIn) return easeOut3(norm(local, 0, fadeIn));
+            if (!noFadeOut && local > step - fadeOut) return easeOut3(norm(step - local, 0, fadeOut));
             return 1;
         }
 
-        // For the very last scene (5), don't fade out — stay visible until end
-        function scene5Opacity(progress) {
+        function sceneTranslate(progress, i) {
             const step  = 1 / TOTAL_SCENES;
-            const start = 5 * step;
-            const fadeIn = step * 0.22;
-            if (progress < start) return 0;
-            const local = progress - start;
-            if (local < fadeIn) return ease(normalize(local, 0, fadeIn));
-            return 1;
+            const local = progress - i * step;
+            const rel   = clamp(local / step, 0, 1);
+            return (0.5 - rel) * 36;
         }
 
-        // Subtle vertical parallax per scene
-        function sceneTranslate(progress, sceneIndex) {
-            const step  = 1 / TOTAL_SCENES;
-            const start = sceneIndex * step;
-            const local = progress - start;
-            const rel   = local / step; // 0→1 within scene
-            // Moves from +20px (before entering) → 0px (centered) → -20px (leaving)
-            return (0.5 - clamp(rel, 0, 1)) * 40;
-        }
-
-        let lastScrollY = -1;
         let ticking = false;
 
         function update() {
-            const scrollY = window.scrollY;
-            const top     = cinematic.offsetTop;
-            const height  = cinematic.offsetHeight - window.innerHeight;
+            const scrollY  = window.scrollY;
+            const top      = cinematic.offsetTop;
+            const height   = cinematic.offsetHeight - window.innerHeight;
             const progress = clamp((scrollY - top) / height, 0, 1);
 
-            // ── Background layers ──
-            // Video: full opacity scene 0, fades out entering scene 1
-            const videoOpacity = 1 - ease(normalize(progress, 0, 1/TOTAL_SCENES));
-            setOpacity(bgVideo, videoOpacity);
+            // ── VIDEO SCRUBBING ──
+            // The video plays across progress 0 → VIDEO_END
+            // We scrub currentTime directly so the building transformation
+            // is perfectly in sync with scroll speed
+            if (videoReady && videoDuration > 0) {
+                const videoProgress = clamp(progress / VIDEO_END, 0, 1);
+                const targetTime    = videoProgress * videoDuration;
+                // Only update if diff > 1 frame (avoid micro-jitter)
+                if (Math.abs(bgVideo.currentTime - targetTime) > 0.02) {
+                    bgVideo.currentTime = targetTime;
+                }
+            }
 
-            // Before image: fades in at scene 1, fades out at scene 2→3 boundary
-            const beforeIn  = normalize(progress, 1/TOTAL_SCENES, 2/TOTAL_SCENES);
-            const beforeOut = normalize(progress, 2.5/TOTAL_SCENES, 3.5/TOTAL_SCENES);
-            const beforeOpacity = ease(beforeIn) * (1 - ease(beforeOut));
-            setOpacity(bgBefore, clamp(beforeOpacity, 0, 1));
+            // ── BG LAYER OPACITIES ──
+            // Video: visible from start, fades out as we enter scene 3
+            const videoOpacity = 1 - easeQuart(norm(progress, VIDEO_END * 0.7, VIDEO_END));
+            bgVideo.style.opacity = clamp(videoOpacity, 0, 1);
 
-            // After image: fades in at scene 2→3, stays through end
-            const afterIn = normalize(progress, 2.5/TOTAL_SCENES, 3.5/TOTAL_SCENES);
-            setOpacity(bgAfter, ease(afterIn));
+            // After image: crossfades IN as video fades out, stays to end
+            const afterOpacity = easeQuart(norm(progress, VIDEO_END * 0.6, VIDEO_END));
+            bgAfter.style.opacity = clamp(afterOpacity, 0, 1);
 
-            // ── Scene panels ──
+            // Before image not needed — video already shows the before→after transformation
+            bgBefore.style.opacity = 0;
+
+            // ── SCENE PANELS ──
             for (let i = 0; i < 5; i++) {
-                const op = sceneOpacity(progress, i);
+                const op = sceneOpacity(progress, i, false);
                 const ty = sceneTranslate(progress, i);
                 scenes[i].style.opacity   = op;
                 scenes[i].style.transform = `translateY(${ty}px)`;
             }
-            // Scene 5 stays visible
-            const op5 = scene5Opacity(progress);
+            // Last scene: no fade-out
+            const op5 = sceneOpacity(progress, 5, true);
             const ty5 = sceneTranslate(progress, 5);
             scenes[5].style.opacity   = op5;
             scenes[5].style.transform = `translateY(${ty5}px)`;
 
-            // ── Active dot ──
+            // ── PROGRESS DOTS ──
             const activeScene = Math.min(5, Math.floor(progress * TOTAL_SCENES));
             pdots.forEach((d, i) => d.classList.toggle('active', i === activeScene));
 
-            // ── Nav: hide while deep in cinematic, show at end ──
-            const insideCinematic = scrollY > top + window.innerHeight * 0.8 &&
-                                    scrollY < top + height - window.innerHeight * 0.5;
-            mainNav.classList.toggle('hidden', insideCinematic);
+            // ── NAV: hide mid-cinematic, show at very start and at end ──
+            const navHide = progress > 0.08 && progress < 0.88;
+            mainNav.classList.toggle('hidden', navHide);
 
             ticking = false;
         }
@@ -746,7 +757,7 @@
             }
         }, { passive: true });
 
-        // Dot click → scroll to scene
+        // Dot click → jump to scene
         pdots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
                 const top    = cinematic.offsetTop;
@@ -756,7 +767,7 @@
             });
         });
 
-        // Initial render
+        // Initial paint
         update();
     })();
     </script>
