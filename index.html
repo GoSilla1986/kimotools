@@ -181,13 +181,30 @@
             line-height: 1.06;
             letter-spacing: -0.025em;
             margin-bottom: 1.25rem;
+            /* Subtle text shadow for legibility over bright backgrounds */
+            text-shadow: 0 2px 24px rgba(6,6,14,0.55);
         }
 
         .scene-title em { font-style: italic; color: rgba(240,240,245,0.52); }
 
+        /* Glass pill wrapping body text for contrast on bright frames */
+        .scene-glass {
+            display: inline-block;
+            background: rgba(6,6,14,0.52);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1rem 1.4rem;
+            margin-top: 0.25rem;
+        }
+
+        .scene.left  .scene-glass,
+        .scene.right .scene-glass { display: block; }
+
         .scene-body {
             font-size: 1.05rem;
-            color: var(--text-secondary);
+            color: rgba(240,240,245,0.92);
             line-height: 1.75;
             max-width: 500px;
             margin: 0 auto;
@@ -232,18 +249,16 @@
         /* ── STATS ROW (in scene 3) ── */
         .stats-row {
             display: flex;
-            gap: 1.5rem;
-            margin-top: 2.5rem;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
             flex-wrap: wrap;
         }
 
         .stat-pill {
-            background: rgba(6,6,14,0.55);
+            background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.12);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border-radius: 100px;
-            padding: 0.6rem 1.4rem;
+            padding: 0.5rem 1.1rem;
             display: flex;
             align-items: baseline;
             gap: 0.4rem;
@@ -480,9 +495,11 @@
                         Immobilien verkaufen<br>
                         <em>mit der Kraft von KI</em>
                     </h1>
-                    <p class="scene-body">
-                        Die besten KI-Tools für Makler — kuratiert, bewertet und direkt vergleichbar.
-                    </p>
+                    <div class="scene-glass">
+                        <p class="scene-body">
+                            Die besten KI-Tools für Makler — kuratiert, bewertet und direkt vergleichbar.
+                        </p>
+                    </div>
                 </div>
                 <!-- Scroll nudge -->
                 <div class="scene0-scroll">
@@ -499,9 +516,11 @@
                         Immobilien vermarkten<br>
                         <em>kostet enorm viel Zeit</em>
                     </h2>
-                    <p class="scene-body">
-                        Exposés schreiben, Fotos bearbeiten, Leads qualifizieren — Makler verbringen bis zu 60% ihrer Zeit mit Aufgaben, die KI in Minuten erledigt.
-                    </p>
+                    <div class="scene-glass">
+                        <p class="scene-body">
+                            Exposés schreiben, Fotos bearbeiten, Leads qualifizieren — Makler verbringen bis zu 60% ihrer Zeit mit Aufgaben, die KI in Minuten erledigt.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -513,9 +532,11 @@
                         KI verändert<br>
                         <em>die Spielregeln</em>
                     </h2>
-                    <p class="scene-body">
-                        Von der Baustelle zum Traumobjekt. Was früher Wochen dauerte, geht heute in Stunden. Virtual Staging, KI-Exposés, automatisierte Kommunikation.
-                    </p>
+                    <div class="scene-glass">
+                        <p class="scene-body">
+                            Von der Baustelle zum Traumobjekt. Was früher Wochen dauerte, geht heute in Stunden. Virtual Staging, KI-Exposés, automatisierte Kommunikation.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -527,13 +548,15 @@
                         Mehr Abschlüsse,<br>
                         <em>weniger Aufwand</em>
                     </h2>
-                    <p class="scene-body">
-                        Makler die KI einsetzen, vermarkten Objekte durchschnittlich schneller — und gewinnen die Zeit zurück für das, was wirklich zählt.
-                    </p>
-                    <div class="stats-row">
-                        <div class="stat-pill"><strong>33</strong><span>Tools bewertet</span></div>
-                        <div class="stat-pill"><strong>∅ 4h</strong><span>Zeitersparnis / Woche</span></div>
-                        <div class="stat-pill"><strong>40%</strong><span>schnellere Vermarktung</span></div>
+                    <div class="scene-glass">
+                        <p class="scene-body">
+                            Makler die KI einsetzen, vermarkten Objekte durchschnittlich schneller — und gewinnen die Zeit zurück für das, was wirklich zählt.
+                        </p>
+                        <div class="stats-row">
+                            <div class="stat-pill"><strong>33</strong><span>Tools bewertet</span></div>
+                            <div class="stat-pill"><strong>∅ 4h</strong><span>Zeitersparnis / Woche</span></div>
+                            <div class="stat-pill"><strong>40%</strong><span>schnellere Vermarktung</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -597,9 +620,11 @@
                         33 Tools,<br>
                         <em>ehrlich bewertet</em>
                     </h2>
-                    <p class="scene-body">
-                        Kein Marketing-Sprech. Nur Tools die wirklich funktionieren — kuratiert, getestet, mit klaren Empfehlungen für jeden Makler.
-                    </p>
+                    <div class="scene-glass">
+                        <p class="scene-body">
+                            Kein Marketing-Sprech. Nur Tools die wirklich funktionieren — kuratiert, getestet, mit klaren Empfehlungen für jeden Makler.
+                        </p>
+                    </div>
                     <div class="cta-actions">
                         <a href="tools.html" class="btn-primary">Alle Tools entdecken →</a>
                         <a href="compare.html" class="btn-secondary">Vergleichen</a>
