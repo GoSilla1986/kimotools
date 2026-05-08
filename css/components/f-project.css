@@ -1,0 +1,33 @@
+.swiper {
+    width: 100%;
+    z-index: 0;
+}
+
+.swiper-slide .feat-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fprojects {
+    display: flex;
+}
+
+.fprojects .f-text {
+    width: 40%;
+    border-right: 1.8px solid var(--black);
+}
+
+.feat-text-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feat-text{
+    padding-right: 1.56vw;
+    border-right: 1.8px solid var(--black);
+}
+
+.swiperwrapperF{
+    margin-left: 50px;
+}

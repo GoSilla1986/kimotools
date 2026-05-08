@@ -1,0 +1,50 @@
+.hero {
+    display: flex;
+    align-items: center;
+    padding-top: 100px;
+}
+
+.hero-wrapper-text {
+    width: 65%;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-wrapper-text h1 {
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--black);
+    text-shadow: 0 2px 20px rgba(247, 246, 241, 0.8);
+}
+
+.hero-wrapper-img {
+    width: 35%;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-wrapper-img img {
+    width: 100%;
+}
+
+.hero-wrapper-img .star {
+    position: absolute;
+    width: 6.250vw;
+    height: 6.250vw;
+    bottom: -7%;
+    right: 90%;
+    animation: rotation 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation: rotation 5s linear infinite;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}

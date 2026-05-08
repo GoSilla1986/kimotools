@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI-Tools Vergleichen — KImo</title>
+    <meta name="description" content="Vergleiche bis zu 4 KI-Tools für Immobilienmakler direkt miteinander. Preise, Features und Bewertungen auf einen Blick.">
+
+    <!-- Premium Fonts: Fraunces (Serif) + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           DESIGN SYSTEM: Editorial Luxury (Real Estate Vibe)
+        ═══════════════════════════════════════════════════════════ */
+
+        :root {
+            /* Warm Cream & Sage Tones */
+            --bg-cream: #FDFBF7;
+            --bg-warm: #F5F2EB;
+            --bg-sage: #E8EDE6;
+            --bg-deep: #1A1A18;
+
+            /* Text Hierarchy */
+            --text-primary: #1A1A18;
+            --text-secondary: #4A4A45;
+            --text-tertiary: #8A8A82;
+            --text-inverse: #FDFBF7;
+
+            /* Category Colors */
+            --color-expose: #B8755C;
+            --color-foto: #7B9E87;
+            --color-staging: #9B8AA3;
+            --color-leads: #C4956A;
+            --color-video: #6B8FAD;
+
+            /* Accent */
+            --accent-primary: #B8755C;
+            --accent-warm: rgba(184, 117, 92, 0.1);
+
+            /* Borders */
+            --border-light: rgba(26, 26, 24, 0.08);
+            --border-medium: rgba(26, 26, 24, 0.15);
+
+            /* Shadows */
+            --shadow-soft: 0 4px 24px rgba(26, 26, 24, 0.06);
+            --shadow-medium: 0 8px 40px rgba(26, 26, 24, 0.08);
+            --shadow-lift: 0 16px 48px rgba(26, 26, 24, 0.12);
+
+            /* Motion */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-fast: 200ms;
+            --duration-medium: 500ms;
+            --duration-slow: 800ms;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            --space-3xl: 6rem;
+            --space-4xl: 8rem;
+
+            /* Radii */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 9999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Film Grain */
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           NAVIGATION
+        ═══════════════════════════════════════════════════════════ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(253, 251, 247, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out-expo);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            padding: 0.6rem 1.2rem;
+            background: var(--text-primary);
+            color: var(--text-inverse);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all var(--duration-fast) var(--ease-out-expo);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           HERO
+        ═══════════════════════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 2;
+            padding: calc(80px + var(--space-3xl)) var(--space-xl) var(--space-2xl);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 0.5rem 1rem;
+            background: var(--accent-warm);
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-md);
+
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 800ms var(--ease-out-expo) 200ms forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1000ms var(--ease-out-expo) 400ms forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1000ms var(--ease-out-expo) 600ms forwards;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SELECTOR GRID
+        ═══════════════════════════════════════════════════════════ */
+        .selector-section {
+            position: relative;
+            z-index: 2;
+            padding: 0 var(--space-xl) var(--space-2xl);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .selector-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+        }
+
+        /* Slot Shell (Double-Bezel) */
+        .selector-shell {
+            padding: 5px;
+            background: var(--bg-warm);
+            border: 2px dashed var(--border-medium);
+            border-radius: var(--radius-lg);
+            transition: all var(--duration-medium) var(--ease-out-expo);
+            cursor: pointer;
+        }
+
+        .selector-shell:hover {
+            border-color: var(--accent-primary);
+            border-style: solid;
+        }
+
+        .selector-shell.filled {
+            border-style: solid;
+            border-color: var(--border-medium);
+        }
+
+        .selector-slot {
+            padding: var(--space-xl);
+            background: var(--bg-cream);
+            border-radius: calc(var(--radius-lg) - 5px);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .slot-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-warm);
+            border-radius: 50%;
+            color: var(--text-tertiary);
+            font-size: 28px;
+            margin-bottom: var(--space-md);
+            transition: all var(--duration-medium) var(--ease-out-expo);
+        }
+
+        .selector-shell:hover .slot-icon {
+            background: var(--accent-warm);
+            color: var(--accent-primary);
+            transform: scale(1.1);
+        }
+
+        .slot-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+        }
+
+        .slot-sublabel {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: var(--space-xs);
+        }
+
+        /* Filled Slot */
+        .tool-selected {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .filled .slot-empty {
+            display: none;
+        }
+
+        .filled .tool-selected {
+            display: flex;
+        }
+
+        .selected-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            font-size: 32px;
+            margin-bottom: var(--space-md);
+        }
+
+        .selected-name {
+            font-family: 'Fraunces', serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .selected-category {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .remove-btn {
+            margin-top: var(--space-md);
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-full);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out-expo);
+        }
+
+        .remove-btn:hover {
+            background: var(--bg-warm);
+            color: var(--text-primary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           TOOL PICKER MODAL
+        ═══════════════════════════════════════════════════════════ */
+        .picker-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(26, 26, 24, 0.5);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xl);
+        }
+
+        .picker-overlay.open {
+            display: flex;
+        }
+
+        .picker-modal {
+            background: var(--bg-cream);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lift);
+        }
+
+        .picker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .picker-title {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .picker-close {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all var(--duration-fast) var(--ease-out-expo);
+        }
+
+        .picker-close:hover {
+            background: var(--bg-warm);
+            color: var(--text-primary);
+        }
+
+        .picker-search {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .picker-search input {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-warm);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+            transition: all var(--duration-fast) var(--ease-out-expo);
+        }
+
+        .picker-search input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--accent-warm);
+        }
+
+        .picker-categories {
+            display: flex;
+            gap: var(--space-xs);
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-light);
+            overflow-x: auto;
+        }
+
+        .picker-cat {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-full);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all var(--duration-fast) var(--ease-out-expo);
+        }
+
+        .picker-cat:hover {
+            background: var(--bg-warm);
+        }
+
+        .picker-cat.active {
+            background: var(--text-primary);
+            color: var(--text-inverse);
+            border-color: var(--text-primary);
+        }
+
+        .picker-list {
+            padding: var(--space-md);
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .picker-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+        }
+
+        .picker-item {
+            padding: var(--space-md);
+            background: var(--bg-warm);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out-expo);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .picker-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .picker-item-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            font-size: 24px;
+        }
+
+        .picker-item-info {
+            flex: 1;
+        }
+
+        .picker-item-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .picker-item-cat {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           COMPARISON TABLE
+        ═══════════════════════════════════════════════════════════ */
+        .compare-section {
+            position: relative;
+            z-index: 2;
+            padding: var(--space-2xl) var(--space-xl) var(--space-4xl);
+            max-width: 1400px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .compare-section.visible {
+            display: block;
+        }
+
+        .compare-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .compare-title {
+            font-family: 'Fraunces', serif;
+            font-size: 36px;
+            font-weight: 500;
+        }
+
+        .reset-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-full);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out-expo);
+        }
+
+        .reset-btn:hover {
+            background: var(--bg-warm);
+            color: var(--text-primary);
+        }
+
+        /* Table Shell */
+        .table-shell {
+            padding: 6px;
+            background: var(--bg-warm);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+        }
+
+        .compare-table {
+            background: var(--bg-cream);
+            border-radius: calc(var(--radius-xl) - 6px);
+            overflow: hidden;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 200px repeat(4, 1fr);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-cell {
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+        }
+
+        .table-header {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+        }
+
+        .table-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .table-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            justify-content: center;
+            text-align: center;
+        }
+
+        .table-value .check {
+            color: #4CAF50;
+            font-size: 20px;
+        }
+
+        .table-value .cross {
+            color: #E57373;
+            font-size: 20px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════════════════════════ */
+        footer {
+            position: relative;
+            z-index: 2;
+            padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+            max-width: 1400px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .footer-brand {
+            font-family: 'Fraunces', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer-col a {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out-expo);
+        }
+
+        .footer-col a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .selector-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .picker-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-row {
+                grid-template-columns: 150px repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero,
+            .selector-section,
+            .compare-section {
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+
+            .nav {
+                padding: var(--space-sm) var(--space-md);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .selector-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .table-row {
+                grid-template-columns: 1fr;
+            }
+
+            .table-cell {
+                justify-content: flex-start;
+            }
+
+            .table-header {
+                background: var(--bg-warm);
+            }
+        }
+
+        /* Category Icon Colors */
+        .icon-expose { background: rgba(184, 117, 92, 0.12); color: var(--color-expose); }
+        .icon-foto { background: rgba(123, 158, 135, 0.12); color: var(--color-foto); }
+        .icon-staging { background: rgba(155, 138, 163, 0.12); color: var(--color-staging); }
+        .icon-leads { background: rgba(196, 149, 106, 0.12); color: var(--color-leads); }
+        .icon-video { background: rgba(107, 143, 173, 0.12); color: var(--color-video); }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">KImo</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="tools.html" class="nav-link">Tools</a>
+            <a href="compare.html" class="nav-link active">Vergleichen</a>
+            <a href="tools.html" class="nav-cta">Alle Tools</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-eyebrow">
+            <i class="ph ph-scales"></i>
+            <span>Bis zu 4 Tools vergleichen</span>
+        </div>
+        <h1 class="hero-title">Vergleichen</h1>
+        <p class="hero-subtitle">Wähle deine favorisierten KI-Tools und vergleiche sie direkt miteinander.</p>
+    </section>
+
+    <!-- Selector Grid -->
+    <section class="selector-section">
+        <div class="selector-grid">
+            <div class="selector-shell" data-slot="0">
+                <div class="selector-slot">
+                    <div class="slot-empty">
+                        <div class="slot-icon">
+                            <i class="ph ph-plus"></i>
+                        </div>
+                        <span class="slot-label">Tool wählen</span>
+                    </div>
+                    <div class="tool-selected">
+                        <div class="selected-icon icon-expose">
+                            <i class="ph ph-chat-circle-text"></i>
+                        </div>
+                        <span class="selected-name">ChatGPT</span>
+                        <span class="selected-category">Exposé</span>
+                        <button class="remove-btn">Entfernen</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selector-shell" data-slot="1">
+                <div class="selector-slot">
+                    <div class="slot-empty">
+                        <div class="slot-icon">
+                            <i class="ph ph-plus"></i>
+                        </div>
+                        <span class="slot-label">Tool wählen</span>
+                    </div>
+                    <div class="tool-selected">
+                        <div class="selected-icon"></div>
+                        <span class="selected-name"></span>
+                        <span class="selected-category"></span>
+                        <button class="remove-btn">Entfernen</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selector-shell" data-slot="2">
+                <div class="selector-slot">
+                    <div class="slot-empty">
+                        <div class="slot-icon">
+                            <i class="ph ph-plus"></i>
+                        </div>
+                        <span class="slot-label">Optional</span>
+                        <span class="slot-sublabel">Drittes Tool hinzufügen</span>
+                    </div>
+                    <div class="tool-selected">
+                        <div class="selected-icon"></div>
+                        <span class="selected-name"></span>
+                        <span class="selected-category"></span>
+                        <button class="remove-btn">Entfernen</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selector-shell" data-slot="3">
+                <div class="selector-slot">
+                    <div class="slot-empty">
+                        <div class="slot-icon">
+                            <i class="ph ph-plus"></i>
+                        </div>
+                        <span class="slot-label">Optional</span>
+                        <span class="slot-sublabel">Viertes Tool hinzufügen</span>
+                    </div>
+                    <div class="tool-selected">
+                        <div class="selected-icon"></div>
+                        <span class="selected-name"></span>
+                        <span class="selected-category"></span>
+                        <button class="remove-btn">Entfernen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Picker Modal -->
+    <div class="picker-overlay" id="pickerOverlay">
+        <div class="picker-modal">
+            <div class="picker-header">
+                <h3 class="picker-title">Tool auswählen</h3>
+                <button class="picker-close" id="pickerClose">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <div class="picker-search">
+                <input type="text" id="pickerSearch" placeholder="Tool suchen...">
+            </div>
+            <div class="picker-categories">
+                <button class="picker-cat active" data-cat="all">Alle</button>
+                <button class="picker-cat" data-cat="expose">Exposé</button>
+                <button class="picker-cat" data-cat="foto">Foto</button>
+                <button class="picker-cat" data-cat="staging">Staging</button>
+                <button class="picker-cat" data-cat="leads">Leads</button>
+                <button class="picker-cat" data-cat="video">Video</button>
+            </div>
+            <div class="picker-list">
+                <div class="picker-grid" id="pickerGrid">
+                    <!-- Tools populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Section -->
+    <section class="compare-section" id="compareSection">
+        <div class="compare-header">
+            <h2 class="compare-title">Detaillierter Vergleich</h2>
+            <button class="reset-btn" id="resetBtn">
+                <i class="ph ph-arrow-counter-clockwise"></i>
+                Neu starten
+            </button>
+        </div>
+
+        <div class="table-shell">
+            <div class="compare-table" id="compareTable">
+                <!-- Table rows generated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">KImo</div>
+                <p class="footer-tagline">KI-Tools für moderne Immobilienmakler.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="compare.html">Vergleichen</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kategorien</h4>
+                <ul>
+                    <li><a href="tools.html#expose">Exposé-Tools</a></li>
+                    <li><a href="tools.html#staging">Virtual Staging</a></li>
+                    <li><a href="tools.html#video">Video-Tools</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Rechtliches</h4>
+                <ul>
+                    <li><a href="/impressum.html">Impressum</a></li>
+                    <li><a href="/datenschutz.html">Datenschutz</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy">&copy; 2026 KImo. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Tool Data
+        const tools = [
+            { id: 'chatgpt', name: 'ChatGPT', category: 'expose', icon: 'chat-circle-text', price: '$20/mo', free: true, api: true },
+            { id: 'jasper', name: 'Jasper AI', category: 'expose', icon: 'pen-nib', price: '$49/mo', free: false, api: true },
+            { id: 'copyai', name: 'Copy.ai', category: 'expose', icon: 'article', price: '$49/mo', free: true, api: false },
+            { id: 'writesonic', name: 'Writesonic', category: 'expose', icon: 'text-aa', price: '$16/mo', free: true, api: true },
+            { id: 'rytr', name: 'Rytr', category: 'expose', icon: 'coins', price: '$9/mo', free: true, api: false },
+            { id: 'neuroflash', name: 'Neuroflash', category: 'expose', icon: 'flag', price: '€30/mo', free: true, api: false },
+            { id: 'claude', name: 'Claude', category: 'expose', icon: 'robot', price: '$20/mo', free: true, api: true },
+            { id: 'anyword', name: 'Anyword', category: 'expose', icon: 'chart-line-up', price: '$39/mo', free: false, api: true },
+            { id: 'photoroom', name: 'Photoroom', category: 'foto', icon: 'image', price: '$9.99/mo', free: true, api: true },
+            { id: 'lightroom', name: 'Lightroom AI', category: 'foto', icon: 'camera', price: '$9.99/mo', free: false, api: false },
+            { id: 'topaz', name: 'Topaz Photo AI', category: 'foto', icon: 'arrows-out', price: '$199', free: false, api: false },
+            { id: 'removebg', name: 'Remove.bg', category: 'foto', icon: 'eraser', price: '$9/mo', free: true, api: true },
+            { id: 'luminar', name: 'Luminar AI', category: 'foto', icon: 'magic-wand', price: '$79', free: false, api: false },
+            { id: 'canva', name: 'Canva AI', category: 'foto', icon: 'palette', price: '$12.99/mo', free: true, api: false },
+            { id: 'boxbrownie', name: 'BoxBrownie', category: 'staging', icon: 'couch', price: '$24/img', free: false, api: false },
+            { id: 'vsai', name: 'Virtual Staging AI', category: 'staging', icon: 'lightning', price: '$16/img', free: true, api: true },
+            { id: 'styldod', name: 'Styldod', category: 'staging', icon: 'wallet', price: '$16/img', free: false, api: false },
+            { id: 'rooomy', name: 'Rooomy', category: 'staging', icon: 'cube', price: 'Custom', free: false, api: false },
+            { id: 'applydesign', name: 'Apply Design', category: 'staging', icon: 'paint-roller', price: '$29/mo', free: true, api: false },
+            { id: 'salesforce', name: 'Salesforce Einstein', category: 'leads', icon: 'cloud', price: 'Custom', free: false, api: true },
+            { id: 'hubspot', name: 'HubSpot AI', category: 'leads', icon: 'users-three', price: '$45/mo', free: true, api: true },
+            { id: 'apollo', name: 'Apollo.io', category: 'leads', icon: 'rocket', price: '$49/mo', free: true, api: true },
+            { id: 'linkedin', name: 'LinkedIn Sales Nav', category: 'leads', icon: 'linkedin-logo', price: '$79/mo', free: false, api: false },
+            { id: 'zapier', name: 'Zapier AI', category: 'leads', icon: 'plugs-connected', price: '$19.99/mo', free: true, api: true },
+            { id: 'pipedrive', name: 'Pipedrive', category: 'leads', icon: 'funnel', price: '$14/mo', free: false, api: true },
+            { id: 'instantly', name: 'Instantly.ai', category: 'leads', icon: 'envelope', price: '$37/mo', free: false, api: true },
+            { id: 'matterport', name: 'Matterport', category: 'video', icon: 'cube-focus', price: '$69/mo', free: true, api: true },
+            { id: 'descript', name: 'Descript', category: 'video', icon: 'text-align-left', price: '$12/mo', free: true, api: false },
+            { id: 'runway', name: 'Runway', category: 'video', icon: 'film-strip', price: '$15/mo', free: true, api: true },
+            { id: 'synthesia', name: 'Synthesia', category: 'video', icon: 'user-circle', price: '$22/mo', free: false, api: true },
+            { id: 'heygen', name: 'HeyGen', category: 'video', icon: 'user-focus', price: '$24/mo', free: true, api: true },
+            { id: 'invideo', name: 'InVideo AI', category: 'video', icon: 'video', price: '$25/mo', free: true, api: false },
+            { id: 'capcut', name: 'CapCut AI', category: 'video', icon: 'scissors', price: 'Free', free: true, api: false }
+        ];
+
+        // State
+        let selectedTools = [null, null, null, null];
+        let currentSlot = null;
+
+        // DOM Elements
+        const pickerOverlay = document.getElementById('pickerOverlay');
+        const pickerClose = document.getElementById('pickerClose');
+        const pickerSearch = document.getElementById('pickerSearch');
+        const pickerGrid = document.getElementById('pickerGrid');
+        const pickerCats = document.querySelectorAll('.picker-cat');
+        const selectorShells = document.querySelectorAll('.selector-shell');
+        const compareSection = document.getElementById('compareSection');
+        const compareTable = document.getElementById('compareTable');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Render Picker Grid
+        function renderPicker(filter = 'all', search = '') {
+            const filtered = tools.filter(t => {
+                const matchCat = filter === 'all' || t.category === filter;
+                const matchSearch = t.name.toLowerCase().includes(search.toLowerCase());
+                return matchCat && matchSearch;
+            });
+
+            pickerGrid.innerHTML = filtered.map(t => `
+                <div class="picker-item" data-id="${t.id}">
+                    <div class="picker-item-icon icon-${t.category}">
+                        <i class="ph ph-${t.icon}"></i>
+                    </div>
+                    <div class="picker-item-info">
+                        <div class="picker-item-name">${t.name}</div>
+                        <div class="picker-item-cat">${t.category.charAt(0).toUpperCase() + t.category.slice(1)}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            pickerGrid.querySelectorAll('.picker-item').forEach(item => {
+                item.addEventListener('click', () => selectTool(item.dataset.id));
+            });
+        }
+
+        // Select Tool
+        function selectTool(toolId) {
+            if (currentSlot === null) return;
+
+            const tool = tools.find(t => t.id === toolId);
+            if (!tool) return;
+
+            selectedTools[currentSlot] = tool;
+            updateSlots();
+            closePicker();
+            updateComparison();
+        }
+
+        // Update Slots
+        function updateSlots() {
+            selectorShells.forEach((shell, i) => {
+                const tool = selectedTools[i];
+                if (tool) {
+                    shell.classList.add('filled');
+                    const selected = shell.querySelector('.tool-selected');
+                    selected.querySelector('.selected-icon').className = `selected-icon icon-${tool.category}`;
+                    selected.querySelector('.selected-icon').innerHTML = `<i class="ph ph-${tool.icon}"></i>`;
+                    selected.querySelector('.selected-name').textContent = tool.name;
+                    selected.querySelector('.selected-category').textContent = tool.category.charAt(0).toUpperCase() + tool.category.slice(1);
+                } else {
+                    shell.classList.remove('filled');
+                }
+            });
+        }
+
+        // Update Comparison Table
+        function updateComparison() {
+            const selected = selectedTools.filter(t => t !== null);
+            if (selected.length < 2) {
+                compareSection.classList.remove('visible');
+                return;
+            }
+
+            compareSection.classList.add('visible');
+
+            compareTable.innerHTML = `
+                <div class="table-row">
+                    <div class="table-cell table-header">Feature</div>
+                    ${selected.map(t => `<div class="table-cell table-header">${t.name}</div>`).join('')}
+                </div>
+                <div class="table-row">
+                    <div class="table-cell table-label">Preis</div>
+                    ${selected.map(t => `<div class="table-cell table-value">${t.price}</div>`).join('')}
+                </div>
+                <div class="table-row">
+                    <div class="table-cell table-label">Kostenlos verfügbar</div>
+                    ${selected.map(t => `<div class="table-cell table-value">${t.free ? '<i class="ph ph-check-circle check"></i>' : '<i class="ph ph-x-circle cross"></i>'}</div>`).join('')}
+                </div>
+                <div class="table-row">
+                    <div class="table-cell table-label">API verfügbar</div>
+                    ${selected.map(t => `<div class="table-cell table-value">${t.api ? '<i class="ph ph-check-circle check"></i>' : '<i class="ph ph-x-circle cross"></i>'}</div>`).join('')}
+                </div>
+                <div class="table-row">
+                    <div class="table-cell table-label">Kategorie</div>
+                    ${selected.map(t => `<div class="table-cell table-value">${t.category.charAt(0).toUpperCase() + t.category.slice(1)}</div>`).join('')}
+                </div>
+            `;
+        }
+
+        // Open Picker
+        function openPicker(slot) {
+            currentSlot = slot;
+            pickerOverlay.classList.add('open');
+            renderPicker();
+            pickerSearch.focus();
+        }
+
+        // Close Picker
+        function closePicker() {
+            pickerOverlay.classList.remove('open');
+            currentSlot = null;
+            pickerSearch.value = '';
+        }
+
+        // Reset
+        function reset() {
+            selectedTools = [null, null, null, null];
+            updateSlots();
+            compareSection.classList.remove('visible');
+        }
+
+        // Event Listeners
+        selectorShells.forEach((shell, i) => {
+            shell.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-btn')) {
+                    selectedTools[i] = null;
+                    updateSlots();
+                    updateComparison();
+                } else if (!shell.classList.contains('filled')) {
+                    openPicker(i);
+                }
+            });
+        });
+
+        pickerClose.addEventListener('click', closePicker);
+        pickerOverlay.addEventListener('click', (e) => {
+            if (e.target === pickerOverlay) closePicker();
+        });
+
+        pickerSearch.addEventListener('input', () => {
+            const activeCat = document.querySelector('.picker-cat.active').dataset.cat;
+            renderPicker(activeCat, pickerSearch.value);
+        });
+
+        pickerCats.forEach(cat => {
+            cat.addEventListener('click', () => {
+                pickerCats.forEach(c => c.classList.remove('active'));
+                cat.classList.add('active');
+                renderPicker(cat.dataset.cat, pickerSearch.value);
+            });
+        });
+
+        resetBtn.addEventListener('click', reset);
+
+        // Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePicker();
+        });
+
+        // Initialize
+        renderPicker();
+    </script>
+</body>
+</html>

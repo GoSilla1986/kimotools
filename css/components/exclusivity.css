@@ -1,0 +1,46 @@
+.exclusivity-text{
+    width: 40%;
+}
+
+.exclu-card{
+    width: 22vw;
+}
+
+.exclu-card-img{
+    width: 100%;
+}
+
+.exclu-card-img img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.exclu-card-title{
+    display: flex;
+    align-items: center;
+}
+
+.exclu-card-title .ex-line{
+    width: 5.5vw;
+    height: 1.8px;
+    background: var(--grey);
+    margin-left: 1vw;
+}
+
+.exclusivity-cards-cnt{
+padding-top: 10.41vw;
+}
+
+.exclusivity-img{
+    display: flex;
+    justify-content: center;
+    gap: 14vw;
+}
+
+#ex-card{
+    margin-top: 20vw;
+}
+
+#ex-card2{
+    margin-top: -5vw;
+}

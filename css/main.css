@@ -1,0 +1,1049 @@
+@import url(components/nav.css);
+@import url(components/hero.css);
+@import url(components/f-project.css);
+@import url(components/exclusivity.css);
+@import url(components/case.css);
+@import url(components/footer.css);
+
+:root {
+    --white: #F7F6F1;
+    --black: #161616;
+    --grey: rgba(0, 0, 0, .3);
+    --grey2: #909090;
+}
+
+/* Subtle background patterns */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(22, 22, 22, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(22, 22, 22, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+html,
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--white);
+    color: var(--black);
+}
+
+@font-face {
+    font-family: SFProB;
+    src: url(/font/SFPRODISPLAYBOLD.OTF);
+}
+
+@font-face {
+    font-family: SFProR;
+    src: url(/font/SFPRODISPLAYREGULAR.OTF);
+}
+
+.c-scrollbar {
+    z-index: 9999999;
+}
+
+section {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    padding-right: 5.208vw;
+    padding-left: 5.208vw;
+}
+
+.containerV {
+    padding-top: 5.208vw;
+    padding-bottom: 5.208vw;
+}
+
+/*--- Margins ---*/
+
+.mT-250 {
+    margin-top: 13vw;
+}
+
+.mT-50 {
+    margin-top: 2.6vw;
+}
+
+.mT-30 {
+    margin-top: 1.56vw;
+}
+
+.mT-20 {
+    margin-top: 1.04vw;
+}
+
+.mT-15 {
+    margin-top: 0.78vw;
+}
+
+.mT-10 {
+    margin-top: 0.52vw;
+}
+
+/*--- Fonts ---*/
+.text-grey {
+    color: var(--grey);
+}
+
+.text-grey2 {
+    color: var(--grey2);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+
+.font-128 {
+    font-size: 6.6vw;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.font-96 {
+    font-size: 5vw;
+    font-weight: 700;
+}
+
+.font-64 {
+    font-size: 3.33vw;
+    font-weight: 700;
+}
+
+.font-32 {
+    font-size: 1.6vw;
+    letter-spacing: .5px;
+}
+
+.font-24 {
+    font-size: 1.25vw;
+    letter-spacing: .5px;
+}
+
+.font-22 {
+    font-size: 1.14vw;
+}
+
+.font-20 {
+    font-size: 1.04vw;
+    letter-spacing: .5px;
+}
+
+.font-18 {
+    font-size: 0.93vw;
+    letter-spacing: .5px;
+}
+
+.font-16 {
+    font-size: 0.8vw;
+    letter-spacing: .5px;
+}
+
+/*-------------------------*/
+
+#hr {
+    width: 100%;
+    height: 1.5px;
+    background: var(--black);
+}
+
+.hrMargin {
+    margin: 5.208vw 0;
+}
+
+.hrMarginT {
+    margin-top: 5.208vw;
+}
+
+.hrMarginB {
+    margin-bottom: 5.208vw;
+}
+
+#vHr {
+    width: 2px;
+    height: auto;
+    background: var(--black);
+    margin: 0 5.208vw;
+}
+
+.fullimg {
+    padding: 0 5.208vw;
+}
+
+.fullimg img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.column-2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-2-left,
+.col-2-right {
+    width: 100%;
+    color: var(--black);
+}
+
+.column-2 .project {
+    width: 100%;
+}
+
+.column-2 .project .wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4vw;
+}
+
+.column-2 .project .wrapper .numbering {
+    display: flex;
+    flex-direction: column;
+    gap: 3vw;
+}
+
+.column-2 .project .wrapper .numbering .num-wrapper {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.column-2 .project .wrapper .numbering .num-wrapper:first-child {
+    margin-top: 5.208vw;
+}
+
+.kpi-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    opacity: 0.6;
+    margin-bottom: 1vw;
+}
+
+/*-------------- BUTTON ----------------*/
+
+.button {
+    font-size: 16px;
+    border: 1.5px solid var(--black);
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 10px 25px;
+    border-radius: 50px;
+    color: var(--black);
+    transition: all .3s ease;
+    letter-spacing: .5px;
+}
+
+.button:hover {
+    background: rgb(194, 194, 194);
+    border: 1.5px solid var(--white);
+}
+
+.btngreytext {
+    color: var(--grey);
+    transition: all .3s ease;
+}
+
+.button:hover .btngreytext {
+    color: var(--black);
+}
+
+.button2 {
+    font-size: 16px;
+    border: 1.5px solid var(--white);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 10px 25px;
+    border-radius: 50px;
+    color: var(--black);
+    transition: all .3s ease;
+    letter-spacing: .5px;
+}
+
+.button2:hover {
+    background: rgb(222, 222, 222);
+    border: 1.5px solid var(--black);
+}
+
+.icon {
+    height: 25px;
+    width: 25px;
+    color: var(--black);
+    margin-left: 25px;
+    margin-top: 2px;
+}
+
+.dualbtn {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.56vw;
+}
+
+/*-------------------- HEADER ----------------------*/
+.mainHeader {
+    padding-top: 13vw;
+    padding-bottom: 5.20vw;
+}
+
+.mainHeader>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mainHeader .branding {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5vw;
+}
+
+.mainHeader .branding .logo1 {
+    width: 10.4vw;
+    height: 2.6vw;
+    margin: 0 2.6vw;
+}
+
+.mainHeader .branding .logo2 {
+    width: 7.2vw;
+    height: 2.6vw;
+}
+
+/*---------------- INQUIRE --------------------*/
+.inquire {
+    display: flex;
+}
+
+.inLeft {
+    width: 50%;
+}
+
+.inRight {
+    width: 40%;
+}
+
+/*--------------- LOADER ------------------*/
+.pace {
+    pointer-events: none;
+    user-select: none;
+    z-index: 99999;
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+    border: 0px;
+    height: 2px;
+    overflow: hidden;
+    background: var(--grey2);
+}
+
+.pace .pace-progress {
+    box-sizing: border-box;
+    transform: translate3d(0, 0, 0);
+    max-width: 400px;
+    position: fixed;
+    z-index: 9999999999999999999999;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    height: 100%;
+    width: 100%;
+    background: var(--white);
+}
+
+.pace.pace-inactive {
+    display: none;
+}
+
+#preloader {
+    width: 100%;
+    height: 100vh;
+    background: var(--black);
+    overflow: hidden;
+    position: fixed;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 10;
+}
+
+.loaderLogo {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loaderLogo img {
+    height: 80px;
+    width: auto;
+}
+
+/**------------------ Flip-Text-hover -----------------------**/
+.m-flip {
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+    padding-bottom: 0.1em;
+}
+
+.m-flip_item {
+    display: block;
+    position: relative;
+    top: 0;
+    transition: top 0.2s ease-out 0s;
+    white-space: nowrap;
+    padding-bottom: 0.05em;
+}
+
+/*----------------------- Split Text --------------------------*/
+/*--- Split-Text ScrollTrigger ---*/
+.textt-reveal {
+    overflow: hidden;
+    display: block;
+}
+
+.textt-reveal b {
+    display: inline-block;
+    will-change: transform;
+    transform: translate3d(0, 100%, 0);
+    transition: all 2s cubic-bezier(.4, .0, .0, 1);
+}
+
+.textt-reveal.is-inview b {
+    transform: none;
+}
+
+/*- Parallax-img -*/
+.cnt {
+    overflow: hidden;
+}
+
+.cnt img {
+    width: 100%;
+}
+
+/*----------------------------- RESPONSIVE ---------------------------------------*/
+@media (max-width: 1460px) {
+    .footer {
+        padding-top: 10vw;
+    }
+}
+
+@media (max-width: 868px) {
+    br {
+        display: none;
+    }
+
+    /*-- loader --*/
+    .loaderLogo img {
+        width: 28vw;
+    }
+
+    /*-- spacing --*/
+    .containerV {
+        padding-top: 7vw;
+        padding-bottom: 7vw;
+    }
+
+    .mT-250 {
+        margin-top: 18vw;
+    }
+
+    .mT-50 {
+        margin-top: 4vw;
+    }
+
+    .mT-30 {
+        margin-top: 2.5vw;
+    }
+
+    .mT-20 {
+        margin-top: 2.2vw;
+    }
+
+    .mT-15 {
+        margin-top: 1.5vw;
+    }
+
+    .mT-10 {
+        margin-top: 1vw;
+    }
+
+    /*- hr -*/
+    .hrMargin {
+        margin: 7vw 0;
+    }
+
+    .hrMarginT {
+        margin-top: 7vw;
+    }
+
+    .hrMarginB {
+        margin-bottom: 7vw;
+    }
+
+    .column-2 .project .wrapper .numbering .num-wrapper {
+        margin-top: 7vw;
+    }
+
+    /*-- Fonts --*/
+    .font-128 {
+        font-size: 7.5vw;
+    }
+
+    .font-96 {
+        font-size: 6vw;
+    }
+
+    .font-64 {
+        font-size: 4vw;
+    }
+
+    .font-32 {
+        font-size: 2.8vw;
+    }
+
+    .font-24 {
+        font-size: 2.2vw;
+    }
+
+    .font-22 {
+        font-size: 2vw;
+    }
+
+    .font-20 {
+        font-size: 1.8vw;
+    }
+
+    .font-18 {
+        font-size: 1.6vw;
+    }
+
+    .font-16 {
+        font-size: 1.4vw;
+    }
+
+    /*--- ---*/
+    /*-- Button --*/
+    .button, .button2 {
+        font-size: 14px;
+        padding: 8px 25px;
+    }
+
+    /*-- --*/
+
+    /*-- inquire --*/
+    .inquire {
+        flex-direction: column;
+    }
+
+    .inLeft {
+        width: 100%;
+    }
+
+    .inRight {
+        width: 100%;
+        margin-top: 4vw;
+    }
+
+    /*-- nav --*/
+    .navbar {
+        height: 70px;
+    }
+
+    .vhr {
+        height: 70px;
+    }
+
+    .nav-container {
+        width: 70%;
+        max-width: 600px;
+        padding: 0 3em;
+    }
+
+    .nav a {
+        padding: 0;
+        font-size: 3.5rem;
+    }
+
+    .nav-container #phone {
+        margin-top: 3em;
+    }
+
+    .nav-container #hr {
+        margin: 3em 0;
+    }
+
+    .navbar img {
+        width: 20vw;
+    }
+
+    /*--- ---*/
+    /*--- HEADER ---*/
+    .mainHeader {
+        padding-top: 25vw;
+        padding-bottom: 7vw;
+    }
+
+    .mainHeader>div {
+        align-items: baseline;
+        flex-direction: column;
+        margin-top: 3vw;
+    }
+
+    .mainHeader .branding {
+        display: flex;
+        align-items: center;
+        margin-top: 5vw;
+    }
+
+    .mainHeader .branding .logo1 {
+        width: 22vw;
+        height: 5.2vw;
+        margin: 0 4vw;
+    }
+
+    .mainHeader .branding .logo2 {
+        width: 16vw;
+        height: 5.2vw;
+    }
+
+    /*--- ---*/
+    /*-- Carousel --*/
+    .fprojects .f-text {
+        width: 50%;
+    }
+
+    .swiperrr {
+        width: 50%;
+    }
+
+    /*--- ---*/
+
+    /*-- exclusivity --*/
+    .exclusivity-text {
+        width: 70%;
+    }
+
+    .exclusivity-cards-cnt {
+        padding-top: 15vw;
+    }
+
+    .exclu-card {
+        width: 35vw;
+    }
+
+    .exclusivity-img {
+        gap: 7vw;
+    }
+
+    .exclu-card-title .ex-line {
+        width: 8vw;
+        margin-left: 2vw;
+    }
+
+    /*--- ---*/
+
+    /*-- footer --*/
+    .footer {
+        padding-top: 20vw;
+        padding-bottom: 0;
+    }
+
+    .footer-links ul li {
+        margin-top: 2.5vw;
+    }
+
+    .footer .footer-wrapper .footer-links ul li a {
+        font-size: 1.8vw;
+    }
+
+    .footer .footer-wrapper .footer-links {
+        margin: 7vw 0;
+    }
+
+    .copyrights {
+        margin-top: 5vw;
+    }
+
+    /*--- ---*/
+}
+
+@media (max-width: 670px) {
+
+    /*-- loader --*/
+    .loaderLogo img {
+        width: 45vw;
+    }
+
+    .pace .pace-progress {
+        max-width: 300px;
+    }
+
+    .pace {
+        width: 300px;
+    }
+
+    /*-- spacing --*/
+    .container {
+        padding-right: 2vw;
+        padding-left: 2vw;
+    }
+
+    .fullimg {
+        padding: 0 2vw;
+    }
+
+    .containerV {
+        padding-top: 7vw;
+        padding-bottom: 7vw;
+    }
+
+    .mT-250 {
+        margin-top: 15vw;
+    }
+
+    .mT-50 {
+        margin-top: 8vw;
+    }
+
+    .mT-30 {
+        margin-top: 4vw;
+    }
+
+    .mT-20 {
+        margin-top: 3vw;
+    }
+
+    .mT-15 {
+        margin-top: 2vw;
+    }
+
+    .mT-10 {
+        margin-top: 1.5vw;
+    }
+
+    /*- hr -*/
+    .hrMargin {
+        margin: 15vw 0;
+    }
+
+    .hrMarginT {
+        margin-top: 15vw;
+    }
+
+    .hrMarginB {
+        margin-bottom: 15vw;
+    }
+
+    .column-2 {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .column-2 .project .wrapper .numbering .num-wrapper {
+        margin-top: 10vw;
+    }
+
+    .resM {
+        margin-top: 15vw;
+    }
+
+    .col-2-right {
+        margin-top: 8vw;
+    }
+
+    /*-- Fonts --*/
+    .font-128 {
+        font-size: 12.8vw;
+    }
+
+    .font-96 {
+        font-size: 9.6vw;
+    }
+
+    .font-64 {
+        font-size: 6.4vw;
+    }
+
+    .font-32 {
+        font-size: 4.2vw;
+    }
+
+    .font-24 {
+        font-size: 3.6vw;
+    }
+
+    .font-22 {
+        font-size: 3.4vw;
+    }
+
+    .font-20 {
+        font-size: 3.2vw;
+    }
+
+    .font-18 {
+        font-size: 3vw;
+    }
+
+    .font-16 {
+        font-size: 2.8vw;
+    }
+
+    /*--- ---*/
+    /*-- Button --*/
+    .button, .button2 {
+        font-size: 12px;
+        padding: 5px 25px;
+    }
+
+    .dualbtn {
+        gap: 3vw;
+    }
+
+    /*-- --*/
+
+    /*-- nav --*/
+    .navbar {
+        height: 50px;
+        padding: 0 1vw;
+    }
+
+    .navbar img {
+        width: 30vw;
+    }
+
+    .vhr {
+        height: 50px;
+        margin-right: 3.5vw;
+    }
+
+    .hamburger p {
+        margin-right: 3.5vw;
+        font-size: 14px;
+    }
+
+    .nav-trigger span,
+    .nav-trigger span::before,
+    .nav-trigger span::after {
+        width: 30px;
+    }
+
+    #NR, .DNONE {
+        display: none;
+    }
+
+    .nav-container {
+        padding: 0 1em;
+    }
+
+    .nav a {
+        font-size: 2.5rem;
+    }
+
+    /*--- ---*/
+    /*--- HEADER ---*/
+    .mainHeader {
+        padding-top: 35vw;
+        padding-bottom: 15vw;
+    }
+
+    .mainHeader .branding {
+        margin-top: 5vw;
+    }
+
+    .mainHeader .branding .logo1 {
+        width: 30vw;
+        height: 8vw;
+        margin: 0 5vw;
+    }
+
+    .mainHeader .branding .logo2 {
+        width: 25vw;
+        height: 8vw;
+    }
+
+    /*--- ---*/
+    /*--- Hero ---*/
+    .hero {
+        flex-direction: column;
+        align-items: baseline;
+    }
+
+    .hero-wrapper-text {
+        width: 100%;
+    }
+
+    .hero-wrapper-img {
+        width: 100%;
+        margin: 10vw 0;
+    }
+
+    .hero-wrapper-img .star {
+        width: 20vw;
+        height: 20vw;
+        right: 75%;
+    }
+
+    /*--- ---*/
+    /*--- Carousel ---*/
+    .fprojects {
+        flex-direction: column;
+    }
+
+    .fprojects .f-text {
+        width: 100%;
+        border-right: none;
+    }
+
+    .swiperwrapperF {
+        margin-left: 30px;
+    }
+
+    .swiperrr {
+        width: 100%;
+    }
+
+    /*--- ---*/
+    /*--- exclusivity ---*/
+    .exclusivity-text {
+        width: 80%;
+    }
+
+    .exclusivity-cards-cnt {
+        padding-right: 2vw;
+        padding-left: 2vw;
+        padding-top: 15vw;
+    }
+
+    .exclu-card {
+        width: 100%;
+    }
+
+    .exclusivity-img {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .exclu-card-title .ex-line {
+        width: 35vw;
+        margin-left: 5vw;
+    }
+
+    #ex-card {
+        margin-top: 15vw;
+    }
+
+    #ex-card2 {
+        margin-top: 15vw;
+    }
+
+    /*--- ---*/
+    /*--- case ---*/
+    .case {
+        gap: 0;
+        margin-bottom: 10v;
+        flex-direction: column;
+    }
+
+    #case {
+        width: 100%;
+    }
+
+    .case-text {
+        padding: 10vw 0 15vw 0;
+    }
+
+    /*--- ---*/
+    /*-- footer --*/
+    .footer {
+        padding-top: 20vw;
+        padding-bottom: 5vw;
+    }
+
+    .footer-head {
+        align-items: baseline;
+        flex-direction: column;
+    }
+
+    .footer-head h1 {
+        margin-bottom: 5vw;
+    }
+
+    .footer .footer-wrapper .footer-links {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 5.208vw 0;
+    }
+
+    .footer .footer-wrapper .footer-links ul {
+        width: 40vw;
+        margin: 5vw 0;
+    }
+
+    .footer-links ul li {
+        margin-top: 4vw;
+    }
+
+    .footer .footer-wrapper .footer-links ul li a {
+        font-size: 3vw;
+    }
+
+    .footer .footer-wrapper .footer-links {
+        margin: 7vw 0;
+    }
+
+    .copyrights {
+        margin-top: 10vw;
+        flex-direction: column;
+    }
+
+    .copyrights p {
+        margin: 1vw 0;
+    }
+
+    .footer .line {
+        height: 1.5px;
+    }
+
+    /*--- ---*/
+}

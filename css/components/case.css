@@ -1,0 +1,41 @@
+.case {
+    display: flex;
+    gap: 1.04vw;
+    margin-bottom: 5.2vw;
+}
+
+#case {
+    width: 50%;
+}
+
+.case-img {
+    overflow: hidden;
+}
+
+#case img {
+    width: 100%;
+    transition: all .5s ease;
+    scale: 1.2;
+}
+
+#case:hover img {
+    scale: 1.1;
+}
+
+.case-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5.2vw 0;
+}
+
+.case-line {
+    width: 1.5px;
+    background: var(--black);
+    height: auto;
+}
+
+.case a {
+    color: var(--black);
+}

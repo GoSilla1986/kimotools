@@ -1,0 +1,11 @@
+<!-- AI Tools Hub | Makler Logo SVG -->
+<svg width="200" height="32" viewBox="0 0 200 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- House icon -->
+    <path d="M14 6L6 12V26H10V18H18V26H22V12L14 6Z" fill="#161616"/>
+    <!-- AI Tools Hub Text -->
+    <text x="28" y="21" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" letter-spacing="-0.3px" fill="#161616">AI Tools Hub</text>
+    <!-- Separator -->
+    <line x1="130" y1="8" x2="130" y2="24" stroke="#161616" stroke-opacity="0.25" stroke-width="1.5"/>
+    <!-- Makler Badge -->
+    <text x="140" y="21" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="600" letter-spacing="1px" fill="#161616">MAKLER</text>
+</svg>

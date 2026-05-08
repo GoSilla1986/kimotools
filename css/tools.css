@@ -1,0 +1,154 @@
+/* Tools Revolution Style */
+
+.tools-grid-section {
+    background: var(--white);
+}
+
+.filter-pills {
+    display: flex;
+    gap: 1vw;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-pill {
+    padding: 12px 24px;
+    border: 1.5px solid var(--black);
+    background: transparent;
+    color: var(--black);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.filter-pill:hover {
+    background: rgba(22, 22, 22, 0.05);
+}
+
+.filter-pill.active {
+    background: var(--black);
+    color: var(--white);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.5vw;
+    margin-top: 5.208vw;
+}
+
+.tool-card {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.tool-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(22, 22, 22, 0.05);
+    overflow: hidden;
+    position: relative;
+}
+
+.tool-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+}
+
+.tool-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    padding: 8px 14px;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 8px;
+}
+
+.tool-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    font-size: 13px;
+    padding: 8px 14px;
+    border: 1px solid rgba(22, 22, 22, 0.12);
+    color: var(--black);
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    background: rgba(22, 22, 22, 0.03);
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    background: rgba(22, 22, 22, 0.08);
+    border-color: rgba(22, 22, 22, 0.2);
+}
+
+.tool-card .button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.tool-card .button svg {
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media (max-width: 868px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 5vw;
+    }
+
+    .filter-pills {
+        gap: 2vw;
+    }
+
+    .filter-pill {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 670px) {
+    .tool-card {
+        padding: 5vw;
+    }
+
+    .filter-pills {
+        justify-content: flex-start;
+    }
+}
