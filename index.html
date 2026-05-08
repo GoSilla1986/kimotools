@@ -4,837 +4,871 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KImotools — KI-Tools für Immobilienmakler</title>
-    <meta name="description" content="33 KI-Tools für Immobilienmakler im Vergleich. Exposé-Generatoren, Virtual Staging, Lead-Tools und mehr. Spare Zeit, gewinne mehr Kunden.">
+    <meta name="description" content="33 KI-Tools für Immobilienmakler, kuratiert und bewertet. Exposé-Generatoren, Foto-Optimierung, Virtual Staging, Lead-Generierung und Video-Tools — direkt vergleichbar.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
             --bg: #06060e;
-            --surface: rgba(255,255,255,0.05);
-            --surface-2: rgba(255,255,255,0.09);
-            --border: rgba(255,255,255,0.09);
+            --surface: rgba(255,255,255,0.04);
+            --surface-2: rgba(255,255,255,0.07);
+            --border: rgba(255,255,255,0.08);
+            --border-2: rgba(255,255,255,0.13);
             --text: #f0f0f5;
             --text-secondary: rgba(240,240,245,0.55);
             --text-muted: rgba(240,240,245,0.32);
             --accent: #7c5cfc;
-            --accent-warm: #e8a87c;
+            --accent-glow: rgba(124,92,252,0.18);
+            --ease: cubic-bezier(0.16,1,0.3,1);
         }
 
-        html { scroll-behavior: auto; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: var(--text);
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+        }
+
+        /* ── AMBIENT GLOW (below hero only) ── */
+        .section::before {
+            display: none; /* glow handled per-section if needed */
         }
 
         /* ── NAV ── */
         nav {
             position: fixed;
-            top: 1.5rem;
-            left: 50%;
+            top: 1.5rem; left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
             gap: 2rem;
-            padding: 0.7rem 1.5rem;
-            background: rgba(6,6,14,0.6);
+            padding: 0.7rem 0.7rem 0.7rem 1.5rem;
+            background: rgba(6,6,14,0.7);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--border);
             border-radius: 100px;
             white-space: nowrap;
-            transition: opacity 0.6s ease;
         }
-
-        nav.hidden { opacity: 0; pointer-events: none; }
 
         .nav-logo {
             font-family: 'Instrument Serif', serif;
             font-size: 1.1rem;
             color: var(--text);
             text-decoration: none;
-            letter-spacing: -0.01em;
         }
 
-        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 0.25rem; align-items: center; }
         .nav-links a {
-            font-size: 0.85rem;
+            font-size: 0.83rem;
+            font-weight: 500;
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s ease;
+            padding: 0.4rem 0.875rem;
+            border-radius: 100px;
+            transition: color 200ms var(--ease), background 200ms var(--ease);
         }
-        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav-links a.active { color: var(--text); }
 
         .nav-cta {
-            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.83rem;
             font-weight: 600;
-            color: var(--bg) !important;
-            background: var(--text);
-            padding: 0.45rem 1.2rem;
+            color: #fff;
+            background: var(--accent);
+            padding: 0.5rem 1.1rem;
             border-radius: 100px;
             text-decoration: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 200ms var(--ease), transform 200ms var(--ease);
         }
-        .nav-cta:hover { opacity: 0.85; }
+        .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
-        /* ── CINEMATIC SCROLL STAGE ── */
-        /*
-         * One giant sticky container. Everything happens inside it.
-         * Height = number of "scenes" × 100vh
-         * Scene 0 (0–100vh):   video + opening title
-         * Scene 1 (100–200vh): Die Realität — before image
-         * Scene 2 (200–300vh): Die Veränderung — crossfade
-         * Scene 3 (300–400vh): Das Ergebnis — after image + stats
-         * Scene 4 (400–500vh): Tool-Kategorien — after image + bento cards
-         * Scene 5 (500–600vh): Dein Vorteil / CTA
-         * Total: 600vh
-         */
-        .cinematic {
-            height: 600vh;
+        /* ── HERO ── */
+        .hero {
             position: relative;
-        }
-
-        .cinematic-sticky {
-            position: sticky;
-            top: 0;
-            height: 100vh;
+            z-index: 2;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 6rem;
             overflow: hidden;
         }
 
-        /* ── BACKGROUND LAYERS ── */
-        .bg-video {
+        /* Video background */
+        .hero-video {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            will-change: opacity;
+            z-index: 0;
         }
 
-        .bg-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            will-change: opacity;
-        }
-
-        /* Persistent dark vignette — always present */
-        .bg-vignette {
+        /* Dark overlay so text pops */
+        .hero-overlay {
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse 70% 80% at 50% 50%, transparent 30%, rgba(6,6,14,0.55) 100%),
-                linear-gradient(to bottom, rgba(6,6,14,0.5) 0%, rgba(6,6,14,0.1) 35%, rgba(6,6,14,0.1) 65%, rgba(6,6,14,0.7) 100%);
-            pointer-events: none;
-            z-index: 3;
+                linear-gradient(to bottom, rgba(6,6,14,0.55) 0%, rgba(6,6,14,0.45) 50%, rgba(6,6,14,0.75) 100%);
+            z-index: 1;
         }
 
-        /* ── SCENE PANELS ── */
-        .scene {
-            position: absolute;
-            inset: 0;
-            display: flex;
+        .hero > :not(.hero-video):not(.hero-overlay) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            z-index: 10;
-            pointer-events: none;
-            will-change: opacity, transform;
-            /* isolation creates a new stacking context so backdrop-filter
-               on children composites against the canvas below */
-            isolation: isolate;
-        }
-
-        .scene-inner {
-            text-align: center;
-            padding: 2rem;
-            max-width: 780px;
-            pointer-events: auto;
-        }
-
-        /* scene alignment variants */
-        .scene.left  { justify-content: flex-start; }
-        .scene.right { justify-content: flex-end; }
-        .scene.left  .scene-inner,
-        .scene.right .scene-inner { text-align: left; max-width: 560px; margin: 0 4rem; }
-
-        .scene-eyebrow {
-            display: inline-block;
+            gap: 0.5rem;
             font-size: 0.72rem;
             font-weight: 600;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             color: #fff;
             background: var(--accent);
             padding: 0.35rem 1rem;
             border-radius: 100px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.7s var(--ease) 0.2s forwards;
         }
 
-        .scene-title {
+        .hero-title {
             font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.4rem, 6vw, 5rem);
-            line-height: 1.06;
-            letter-spacing: -0.025em;
-            margin-bottom: 1.25rem;
-            /* Subtle text shadow for legibility over bright backgrounds */
-            text-shadow: 0 2px 24px rgba(6,6,14,0.55);
+            font-size: clamp(3.2rem, 8vw, 6.5rem);
+            font-weight: 400;
+            line-height: 1.04;
+            letter-spacing: -0.03em;
+            max-width: 860px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 40px rgba(0,0,0,0.4);
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.9s var(--ease) 0.35s forwards;
         }
 
-        .scene-title em { font-style: italic; color: rgba(240,240,245,0.52); }
-
-        /* Glass pill wrapping body text for contrast on bright frames */
-        .scene-glass {
-            display: inline-block;
-            background: rgba(6,6,14,0.45);
-            backdrop-filter: blur(20px) saturate(1.4);
-            -webkit-backdrop-filter: blur(20px) saturate(1.4);
-            border: 1px solid rgba(255,255,255,0.14);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-            border-radius: 1rem;
-            padding: 1rem 1.4rem;
-            margin-top: 0.25rem;
-            /* must be positioned for backdrop-filter to apply */
-            position: relative;
-            z-index: 1;
+        .hero-title em {
+            font-style: italic;
+            color: rgba(240,240,245,0.65);
         }
 
-        .scene.left  .scene-glass,
-        .scene.right .scene-glass { display: block; }
-
-        .scene-body {
-            font-size: 1.05rem;
-            color: rgba(240,240,245,0.92);
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
             line-height: 1.75;
-            max-width: 500px;
-            margin: 0 auto;
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.8s var(--ease) 0.5s forwards;
         }
 
-        .scene.left  .scene-body,
-        .scene.right .scene-body { margin: 0; }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.8s var(--ease) 0.65s forwards;
+        }
 
-        /* ── SCENE 0: CINEMATIC INTRO ── */
-        #scene0 { align-items: flex-end; padding-bottom: 12vh; }
-        #scene0 .scene-inner { text-align: center; max-width: 820px; margin: 0 auto; }
-        #scene0 .scene-title { font-size: clamp(3rem, 8vw, 6.5rem); }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        .scene0-scroll {
-            position: absolute;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
+        .btn-primary {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+        }
+        .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+
+        .btn-secondary {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-2);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: color 200ms var(--ease), background 200ms var(--ease), transform 200ms var(--ease);
+        }
+        .btn-secondary:hover { color: var(--text); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+        /* ── STAT ROW ── */
+        .stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.8s var(--ease) 0.8s forwards;
+        }
+
+        .stat {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            z-index: 11;
+            gap: 0.2rem;
         }
 
-        .scroll-line {
-            width: 1px;
-            height: 36px;
-            background: linear-gradient(to bottom, rgba(240,240,245,0.4), transparent);
-            animation: scrollPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes scrollPulse {
-            0%, 100% { opacity: 0.4; transform: scaleY(1); }
-            50%       { opacity: 1;   transform: scaleY(1.15); }
-        }
-
-        /* ── STATS ROW (in scene 3) ── */
-        .stats-row {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1.25rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-pill {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 100px;
-            padding: 0.5rem 1.1rem;
-            display: flex;
-            align-items: baseline;
-            gap: 0.4rem;
-        }
-
-        .stat-pill strong {
+        .stat-num {
             font-family: 'Instrument Serif', serif;
-            font-size: 1.5rem;
+            font-size: 2rem;
+            letter-spacing: -0.02em;
             line-height: 1;
         }
 
-        .stat-pill span {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-        }
-
-        /* ── BENTO CARDS (in scene 4) ── */
-        #scene4 { align-items: center; }
-        #scene4 .scene-inner {
-            max-width: 1100px;
-            width: 100%;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .scene4-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2rem, 4vw, 3.2rem);
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: 2.5rem;
-        }
-        .scene4-title em { font-style: italic; color: rgba(240,240,245,0.5); }
-
-        .bento {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 0.75rem;
-        }
-
-        .bento-card {
-            background: rgba(6,6,14,0.62);
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 1.25rem;
-            padding: 1.5rem;
-            text-decoration: none;
-            color: var(--text);
-            transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
-            text-align: left;
-        }
-
-        .bento-card:hover {
-            background: rgba(6,6,14,0.8);
-            border-color: rgba(255,255,255,0.18);
-            transform: translateY(-3px);
-        }
-
-        .bento-card:nth-child(1) { grid-column: span 4; }
-        .bento-card:nth-child(2) { grid-column: span 2; }
-        .bento-card:nth-child(3) { grid-column: span 2; }
-        .bento-card:nth-child(4) { grid-column: span 2; }
-        .bento-card:nth-child(5) { grid-column: span 2; }
-        .bento-card:nth-child(6) { grid-column: span 4; }
-
-        .bento-icon { font-size: 1.6rem; margin-bottom: 0.75rem; display: block; }
-        .bento-count { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
-        .bento-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.35rem; letter-spacing: -0.01em; }
-        .bento-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.55; }
-        .bento-arrow { display: inline-block; margin-top: 0.85rem; font-size: 0.8rem; color: var(--text-muted); transition: color 0.3s ease, transform 0.3s ease; }
-        .bento-card:hover .bento-arrow { color: var(--text); transform: translateX(4px); }
-
-        /* ── CTA SCENE (scene 5) ── */
-        #scene5 .scene-inner { max-width: 640px; }
-
-        .cta-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2.5rem;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--text);
-            color: var(--bg);
-            font-size: 0.9rem;
-            font-weight: 700;
-            padding: 0.9rem 1.85rem;
-            border-radius: 100px;
-            text-decoration: none;
-            transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease;
-        }
-        .btn-primary:hover { transform: scale(1.04); box-shadow: 0 8px 40px rgba(240,240,245,0.18); }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(6,6,14,0.5);
-            color: var(--text);
-            font-size: 0.9rem;
+        .stat-label {
+            font-size: 0.75rem;
             font-weight: 500;
-            padding: 0.9rem 1.85rem;
-            border-radius: 100px;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(12px);
-            text-decoration: none;
-            transition: background 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
-        }
-        .btn-secondary:hover { background: rgba(6,6,14,0.75); transform: scale(1.02); }
-
-        /* ── PROGRESS DOTS ── */
-        .progress-dots {
-            position: fixed;
-            right: 2.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 900;
-            display: flex;
-            flex-direction: column;
-            gap: 0.55rem;
-            mix-blend-mode: normal;
+            color: rgba(240,240,245,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
-        .pdot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.25);
-            transition: background 0.4s ease, height 0.4s cubic-bezier(0.16,1,0.3,1), border-radius 0.4s ease;
-            cursor: pointer;
+        .stat-divider {
+            width: 1px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            align-self: center;
         }
 
-        .pdot.active {
-            background: rgba(255,255,255,0.85);
-            height: 20px;
-            border-radius: 3px;
-        }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* ── AFTER CONTENT (normal scroll) ── */
-        .after-cinematic {
+        /* ── SECTION SHARED ── */
+        .section {
             position: relative;
-            z-index: 10;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
         }
 
-        .footer-wrap { border-top: 1px solid var(--border); background: var(--bg); }
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
 
-        footer {
-            padding: 3rem 2rem;
+        .section-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 480px;
+        }
+
+        /* ── CATEGORIES GRID ── */
+        .categories-header {
             display: flex;
             justify-content: space-between;
+            align-items: flex-end;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .cat-card {
+            padding: 3px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 300ms var(--ease), transform 300ms var(--ease);
+        }
+        .cat-card:hover { border-color: var(--border-2); transform: translateY(-3px); }
+
+        .cat-inner {
+            background: rgba(255,255,255,0.02);
+            border-radius: calc(1.25rem - 3px);
+            padding: 1.75rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cat-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 0.875rem;
+            display: flex;
             align-items: center;
-            max-width: 1100px;
-            margin: 0 auto;
-            font-size: 0.85rem;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .cat-icon-wrap.c-expose  { background: rgba(124,92,252,0.12); }
+        .cat-icon-wrap.c-foto    { background: rgba(245,158,11,0.12); }
+        .cat-icon-wrap.c-staging { background: rgba(16,185,129,0.12); }
+        .cat-icon-wrap.c-leads   { background: rgba(239,68,68,0.12); }
+        .cat-icon-wrap.c-auto    { background: rgba(59,130,246,0.12); }
+        .cat-icon-wrap.c-video   { background: rgba(236,72,153,0.12); }
+
+        .cat-icon-wrap.c-expose  i { color: #a78bfa; }
+        .cat-icon-wrap.c-foto    i { color: #fbbf24; }
+        .cat-icon-wrap.c-staging i { color: #34d399; }
+        .cat-icon-wrap.c-leads   i { color: #f87171; }
+        .cat-icon-wrap.c-auto    i { color: #60a5fa; }
+        .cat-icon-wrap.c-video   i { color: #f472b6; }
+
+        .cat-name {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .cat-desc {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            flex: 1;
+        }
+
+        .cat-count {
+            font-size: 0.75rem;
+            font-weight: 600;
             color: var(--text-muted);
         }
 
-        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; }
+        /* ── HOW IT WORKS ── */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 3rem;
+        }
+
+        .step-shell {
+            padding: 3px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+        }
+
+        .step-inner {
+            background: rgba(255,255,255,0.02);
+            border-radius: calc(1.25rem - 3px);
+            padding: 2rem 1.75rem;
+        }
+
+        .step-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.5rem;
+            color: rgba(124,92,252,0.25);
+            line-height: 1;
+            margin-bottom: 1.25rem;
+        }
+
+        .step-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ── TOP PICKS ── */
+        .picks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        .pick-shell {
+            padding: 3px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: border-color 300ms var(--ease), transform 300ms var(--ease);
+        }
+        .pick-shell:hover { border-color: var(--border-2); transform: translateY(-3px); }
+
+        .pick-inner {
+            background: rgba(255,255,255,0.02);
+            border-radius: calc(1.25rem - 3px);
+            padding: 1.5rem 1.75rem;
+        }
+
+        .pick-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.875rem;
+        }
+
+        .pick-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 0.75rem;
+            background: var(--surface-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-size: 1.2rem;
+        }
+
+        .pick-logo img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+        }
+
+        .pick-badge {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-glow);
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+        }
+
+        .pick-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .pick-desc {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .pick-meta {
+            margin-top: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pick-price {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .pick-arrow {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            transition: background 200ms var(--ease), color 200ms var(--ease);
+        }
+        .pick-shell:hover .pick-arrow { background: var(--accent); color: #fff; }
+
+        /* ── COMPARE CTA ── */
+        .compare-teaser {
+            position: relative;
+            z-index: 2;
+            padding: 3px;
+            background: linear-gradient(135deg, rgba(124,92,252,0.3), rgba(124,92,252,0.05) 60%);
+            border-radius: 1.75rem;
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+        }
+
+        .compare-inner {
+            background: #0d0d1c;
+            border-radius: calc(1.75rem - 3px);
+            padding: 3.5rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .compare-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.875rem;
+        }
+
+        .compare-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 440px;
+        }
+
+        /* ── FOOTER ── */
+        .footer-wrap { position: relative; z-index: 2; }
+
+        footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.83rem;
+            color: var(--text-muted);
+        }
+
+        footer a { color: var(--text-muted); text-decoration: none; transition: color 200ms var(--ease); }
         footer a:hover { color: var(--text); }
         .footer-links { display: flex; gap: 1.5rem; }
 
+        /* ── REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
         /* ── RESPONSIVE ── */
-        @media (max-width: 768px) {
-            nav { padding: 0.6rem 1.1rem; gap: 1rem; }
+        @media (max-width: 900px) {
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: 1fr; }
+            .picks-grid { grid-template-columns: repeat(2, 1fr); }
+            .compare-inner { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 640px) {
+            nav { padding: 0.6rem 0.7rem 0.6rem 1.1rem; gap: 1rem; }
             .nav-links { display: none; }
-            .bento { grid-template-columns: 1fr; }
-            .bento-card:nth-child(n) { grid-column: span 1; }
-            .progress-dots { display: none; }
-            .scene.left .scene-inner,
-            .scene.right .scene-inner { margin: 0 1.5rem; }
+            .hero { padding: 7rem 1.5rem 4rem; }
+            .stats { gap: 1.5rem; }
+            .stat-divider { display: none; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .picks-grid { grid-template-columns: 1fr; }
+            .compare-inner { padding: 2rem; }
+            .section { padding: 3.5rem 1.5rem; }
             footer { flex-direction: column; gap: 1rem; text-align: center; }
-            .stats-row { gap: 0.75rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            .reveal { opacity: 1; transform: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAV -->
-    <nav id="mainNav">
+    <nav>
         <a href="index.html" class="nav-logo">KImotools</a>
         <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
             <a href="tools.html">Alle Tools</a>
             <a href="compare.html">Vergleichen</a>
         </div>
-        <a href="tools.html" class="nav-cta">Tools entdecken</a>
+        <a href="compare.html" class="nav-cta">Vergleichen <i class="ph ph-arrow-right"></i></a>
     </nav>
 
-    <!-- PROGRESS DOTS -->
-    <div class="progress-dots" id="progressDots">
-        <div class="pdot active" data-scene="0"></div>
-        <div class="pdot" data-scene="1"></div>
-        <div class="pdot" data-scene="2"></div>
-        <div class="pdot" data-scene="3"></div>
-        <div class="pdot" data-scene="4"></div>
-        <div class="pdot" data-scene="5"></div>
-    </div>
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="images/hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
 
-    <!-- CINEMATIC SCROLL CONTAINER -->
-    <div class="cinematic" id="cinematic">
-        <div class="cinematic-sticky" id="cinematicSticky">
+        <span class="hero-eyebrow"><i class="ph ph-sparkle"></i> 33 Tools · 6 Kategorien · 2026</span>
+        <h1 class="hero-title">KI-Tools für<br><em>Immobilienmakler</em></h1>
+        <p class="hero-subtitle">Kuratiert, bewertet und direkt vergleichbar — damit du sofort das richtige Tool für deinen Workflow findest.</p>
+        <div class="hero-actions">
+            <a href="tools.html" class="btn-primary">
+                <i class="ph ph-squares-four"></i> Alle 33 Tools
+            </a>
+            <a href="compare.html" class="btn-secondary">
+                <i class="ph ph-scales"></i> Vergleichen
+            </a>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-num">33</span>
+                <span class="stat-label">Tools bewertet</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">6</span>
+                <span class="stat-label">Kategorien</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">2026</span>
+                <span class="stat-label">Aktuell</span>
+            </div>
+        </div>
+    </section>
 
-            <!-- BG LAYER 0: Canvas frame-scrubber (smoother than video currentTime) -->
-            <canvas id="bgCanvas" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"></canvas>
-            <!-- Video kept as fallback / hidden -->
-            <video id="bgVideo" class="bg-video" muted playsinline preload="auto" style="opacity:0;pointer-events:none;position:absolute;"></video>
-
-            <!-- BG LAYER 1: Before (construction) -->
-            <img id="bgBefore" class="bg-img" src="images/hero-before.jpg" alt="Baustelle" style="opacity:0;">
-
-            <!-- BG LAYER 2: After (finished building) -->
-            <img id="bgAfter" class="bg-img" src="images/hero-after.jpg" alt="Fertiges Gebäude" style="opacity:0;">
-
-            <!-- Persistent vignette -->
-            <div class="bg-vignette"></div>
-
-            <!-- ═══ SCENE 0: OPENING — video plays ═══ -->
-            <div class="scene" id="scene0">
-                <div class="scene-inner">
-                    <span class="scene-eyebrow">33 KI-Tools bewertet · 2026</span>
-                    <h1 class="scene-title">
-                        Immobilien verkaufen<br>
-                        <em>mit der Kraft von KI</em>
-                    </h1>
-                    <div class="scene-glass">
-                        <p class="scene-body">
-                            Die besten KI-Tools für Makler — kuratiert, bewertet und direkt vergleichbar.
-                        </p>
+    <!-- ── CATEGORIES ── -->
+    <section class="section">
+        <div class="categories-header">
+            <div>
+                <p class="section-eyebrow reveal">Übersicht</p>
+                <h2 class="section-title reveal" style="transition-delay: 0.08s">Nach Anwendungsfall<br>filtern</h2>
+            </div>
+            <p class="section-desc reveal" style="transition-delay: 0.16s">Jede Kategorie enthält speziell für Makler ausgewählte Tools — mit Preisen, Stärken und konkreten Best Practices.</p>
+        </div>
+        <div class="categories-grid">
+            <a href="tools.html" data-cat="expose" class="cat-card reveal">
+                <div class="cat-inner">
+                    <div class="cat-icon-wrap c-expose"><i class="ph ph-pencil-line"></i></div>
+                    <div>
+                        <div class="cat-name">Exposé & Text</div>
+                        <p class="cat-desc">KI-Assistenten für professionelle Objektbeschreibungen, E-Mails und Marketing-Texte.</p>
                     </div>
+                    <div class="cat-count">8 Tools</div>
                 </div>
-                <!-- Scroll nudge -->
-                <div class="scene0-scroll">
-                    <div class="scroll-line"></div>
-                    Scroll
+            </a>
+            <a href="tools.html" data-cat="foto" class="cat-card reveal" style="transition-delay: 0.07s">
+                <div class="cat-inner">
+                    <div class="cat-icon-wrap c-foto"><i class="ph ph-camera"></i></div>
+                    <div>
+                        <div class="cat-name">Foto-Optimierung</div>
+                        <p class="cat-desc">Hintergrundentfernung, Upscaling und KI-Bildoptimierung für Profi-Immobilienfotos.</p>
+                    </div>
+                    <div class="cat-count">6 Tools</div>
+                </div>
+            </a>
+            <a href="tools.html" data-cat="staging" class="cat-card reveal" style="transition-delay: 0.14s">
+                <div class="cat-inner">
+                    <div class="cat-icon-wrap c-staging"><i class="ph ph-couch"></i></div>
+                    <div>
+                        <div class="cat-name">Virtual Staging</div>
+                        <p class="cat-desc">Leere Räume in Sekunden mit virtuellen Möbeln ausstatten — bis zu 90 % günstiger als echtes Staging.</p>
+                    </div>
+                    <div class="cat-count">5 Tools</div>
+                </div>
+            </a>
+            <a href="tools.html" data-cat="leads" class="cat-card reveal" style="transition-delay: 0.21s">
+                <div class="cat-inner">
+                    <div class="cat-icon-wrap c-leads"><i class="ph ph-funnel"></i></div>
+                    <div>
+                        <div class="cat-name">Lead-Generierung</div>
+                        <p class="cat-desc">CRM, E-Mail-Automation und KI-Lead-Scoring für systematische Käufer- und Verkäufer-Akquise.</p>
+                    </div>
+                    <div class="cat-count">5 Tools</div>
+                </div>
+            </a>
+            <a href="tools.html" data-cat="automation" class="cat-card reveal" style="transition-delay: 0.28s">
+                <div class="cat-inner">
+                    <div class="cat-icon-wrap c-auto"><i class="ph ph-lightning"></i></div>
+                    <div>
+                        <div class="cat-name">Automation</div>
+                        <p class="cat-desc">Workflows, Terminplanung und Chatbots, die repetitive Aufgaben automatisch erledigen.</p>
+                    </div>
+                    <div class="cat-count">4 Tools</div>
+                </div>
+            </a>
+            <a href="tools.html" data-cat="video" class="cat-card reveal" style="transition-delay: 0.35s">
+                <div class="cat-inner">
+                    <div class="cat-icon-wrap c-video"><i class="ph ph-film-strip"></i></div>
+                    <div>
+                        <div class="cat-name">Video</div>
+                        <p class="cat-desc">3D-Touren, KI-Avatar-Videos und Text-to-Video für die moderne Objektvermarktung.</p>
+                    </div>
+                    <div class="cat-count">6 Tools</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ── -->
+    <section class="section" style="padding-top: 0;">
+        <div style="max-width: 520px; margin-bottom: 0;">
+            <p class="section-eyebrow reveal">So funktioniert's</p>
+            <h2 class="section-title reveal" style="transition-delay: 0.08s">In drei Schritten<br>zum richtigen Tool</h2>
+        </div>
+        <div class="steps-grid">
+            <div class="step-shell reveal" style="transition-delay: 0.04s">
+                <div class="step-inner">
+                    <div class="step-num">01</div>
+                    <div class="step-title">Kategorie wählen</div>
+                    <p class="step-desc">Filtere nach deinem Anwendungsfall — ob Exposé schreiben, Fotos optimieren oder Leads generieren.</p>
                 </div>
             </div>
-
-            <!-- ═══ SCENE 1: DIE REALITÄT — before image ═══ -->
-            <div class="scene left" id="scene1" style="opacity:0;">
-                <div class="scene-inner">
-                    <span class="scene-eyebrow">Die Realität</span>
-                    <h2 class="scene-title">
-                        Immobilien vermarkten<br>
-                        <em>kostet enorm viel Zeit</em>
-                    </h2>
-                    <div class="scene-glass">
-                        <p class="scene-body">
-                            Exposés schreiben, Fotos bearbeiten, Leads qualifizieren — Makler verbringen bis zu 60% ihrer Zeit mit Aufgaben, die KI in Minuten erledigt.
-                        </p>
-                    </div>
+            <div class="step-shell reveal" style="transition-delay: 0.12s">
+                <div class="step-inner">
+                    <div class="step-num">02</div>
+                    <div class="step-title">Tools vergleichen</div>
+                    <p class="step-desc">Wähle bis zu 3 Tools und vergleiche Stärken, Preise und Einsatzmöglichkeiten nebeneinander.</p>
                 </div>
             </div>
-
-            <!-- ═══ SCENE 2: DIE VERÄNDERUNG — crossfade ═══ -->
-            <div class="scene right" id="scene2" style="opacity:0;">
-                <div class="scene-inner">
-                    <span class="scene-eyebrow">Die Veränderung</span>
-                    <h2 class="scene-title">
-                        KI verändert<br>
-                        <em>die Spielregeln</em>
-                    </h2>
-                    <div class="scene-glass">
-                        <p class="scene-body">
-                            Von der Baustelle zum Traumobjekt. Was früher Wochen dauerte, geht heute in Stunden. Virtual Staging, KI-Exposés, automatisierte Kommunikation.
-                        </p>
-                    </div>
+            <div class="step-shell reveal" style="transition-delay: 0.2s">
+                <div class="step-inner">
+                    <div class="step-num">03</div>
+                    <div class="step-title">Best Practices anwenden</div>
+                    <p class="step-desc">Jedes Tool kommt mit 4 konkreten Tipps speziell für Immobilienmakler — direkt umsetzbar.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- ═══ SCENE 3: DAS ERGEBNIS — after image + stats ═══ -->
-            <div class="scene left" id="scene3" style="opacity:0;">
-                <div class="scene-inner">
-                    <span class="scene-eyebrow">Das Ergebnis</span>
-                    <h2 class="scene-title">
-                        Mehr Abschlüsse,<br>
-                        <em>weniger Aufwand</em>
-                    </h2>
-                    <div class="scene-glass">
-                        <p class="scene-body">
-                            Makler die KI einsetzen, vermarkten Objekte durchschnittlich schneller — und gewinnen die Zeit zurück für das, was wirklich zählt.
-                        </p>
-                        <div class="stats-row">
-                            <div class="stat-pill"><strong>33</strong><span>Tools bewertet</span></div>
-                            <div class="stat-pill"><strong>∅ 4h</strong><span>Zeitersparnis / Woche</span></div>
-                            <div class="stat-pill"><strong>40%</strong><span>schnellere Vermarktung</span></div>
-                        </div>
-                    </div>
-                </div>
+    <!-- ── TOP PICKS ── -->
+    <section class="section" style="padding-top: 2rem;">
+        <div class="categories-header">
+            <div>
+                <p class="section-eyebrow reveal">Empfehlungen</p>
+                <h2 class="section-title reveal" style="transition-delay: 0.08s">Top-Picks<br><em>für den Einstieg</em></h2>
             </div>
+            <a href="tools.html" class="btn-secondary reveal" style="white-space: nowrap; transition-delay: 0.12s">
+                Alle 33 Tools <i class="ph ph-arrow-right"></i>
+            </a>
+        </div>
+        <div class="picks-grid" id="picksGrid">
+            <!-- populated by JS -->
+        </div>
+    </section>
 
-            <!-- ═══ SCENE 4: TOOL-KATEGORIEN — bento grid ═══ -->
-            <div class="scene" id="scene4" style="opacity:0;">
-                <div class="scene-inner">
-                    <h2 class="scene4-title">Das <em>richtige Tool</em> für jeden Schritt</h2>
-                    <div class="bento">
-                        <a href="tools.html#texterstellung" class="bento-card">
-                            <span class="bento-icon">✍️</span>
-                            <div class="bento-count">8 Tools</div>
-                            <div class="bento-title">Texterstellung & Exposés</div>
-                            <div class="bento-desc">KI-Assistenten die professionelle Exposés, E-Mails und Marketing-Texte in Sekunden erstellen — auf Deutsch, DSGVO-konform.</div>
-                            <span class="bento-arrow">Alle Tools →</span>
-                        </a>
-                        <a href="tools.html#fotos" class="bento-card">
-                            <span class="bento-icon">📸</span>
-                            <div class="bento-count">6 Tools</div>
-                            <div class="bento-title">Foto-Optimierung</div>
-                            <div class="bento-desc">Automatische Bildbearbeitung in Sekunden.</div>
-                            <span class="bento-arrow">Alle Tools →</span>
-                        </a>
-                        <a href="tools.html#staging" class="bento-card">
-                            <span class="bento-icon">🛋️</span>
-                            <div class="bento-count">5 Tools</div>
-                            <div class="bento-title">Virtual Staging</div>
-                            <div class="bento-desc">Leere Räume virtuell möblieren — in Minuten.</div>
-                            <span class="bento-arrow">Alle Tools →</span>
-                        </a>
-                        <a href="tools.html#crm" class="bento-card">
-                            <span class="bento-icon">🎯</span>
-                            <div class="bento-count">5 Tools</div>
-                            <div class="bento-title">CRM & Leads</div>
-                            <div class="bento-desc">KI-gestützte Lead-Qualifizierung und Kundenkommunikation.</div>
-                            <span class="bento-arrow">Alle Tools →</span>
-                        </a>
-                        <a href="tools.html#automation" class="bento-card">
-                            <span class="bento-icon">⚡</span>
-                            <div class="bento-count">4 Tools</div>
-                            <div class="bento-title">Automation</div>
-                            <div class="bento-desc">Workflows automatisieren, Follow-ups auf Autopilot.</div>
-                            <span class="bento-arrow">Alle Tools →</span>
-                        </a>
-                        <a href="tools.html#video" class="bento-card">
-                            <span class="bento-icon">🎬</span>
-                            <div class="bento-count">5 Tools</div>
-                            <div class="bento-title">Video & Präsentation</div>
-                            <div class="bento-desc">Professionelle Immobilienvideos ohne Equipment oder Schnittkenntnisse.</div>
-                            <span class="bento-arrow">Alle Tools →</span>
-                        </a>
-                    </div>
+    <!-- ── COMPARE CTA ── -->
+    <div class="section" style="padding-top: 0; padding-bottom: 5rem;">
+        <div class="compare-teaser reveal">
+            <div class="compare-inner">
+                <div>
+                    <h2 class="compare-title">Zwei Tools direkt<br>gegenüberstellen</h2>
+                    <p class="compare-desc">Unser Vergleichstool zeigt Stärken, Schwächen und Preise von bis zu 3 Tools nebeneinander — damit du die richtige Wahl triffst.</p>
                 </div>
+                <a href="compare.html" class="btn-primary" style="white-space: nowrap; flex-shrink: 0;">
+                    <i class="ph ph-scales"></i> Jetzt vergleichen
+                </a>
             </div>
-
-            <!-- ═══ SCENE 5: CTA ═══ -->
-            <div class="scene" id="scene5" style="opacity:0;">
-                <div class="scene-inner">
-                    <span class="scene-eyebrow">Dein Vorteil</span>
-                    <h2 class="scene-title">
-                        33 Tools,<br>
-                        <em>ehrlich bewertet</em>
-                    </h2>
-                    <div class="scene-glass">
-                        <p class="scene-body">
-                            Kein Marketing-Sprech. Nur Tools die wirklich funktionieren — kuratiert, getestet, mit klaren Empfehlungen für jeden Makler.
-                        </p>
-                    </div>
-                    <div class="cta-actions">
-                        <a href="tools.html" class="btn-primary">Alle Tools entdecken →</a>
-                        <a href="compare.html" class="btn-secondary">Vergleichen</a>
-                    </div>
-                </div>
-            </div>
-
-        </div><!-- /cinematic-sticky -->
-    </div><!-- /cinematic -->
-
-    <!-- FOOTER (normal scroll after cinematic ends) -->
-    <div class="after-cinematic">
-        <div class="footer-wrap">
-            <footer>
-                <span>© 2026 KImotools</span>
-                <div class="footer-links">
-                    <a href="#">Impressum</a>
-                    <a href="#">Datenschutz</a>
-                    <a href="mailto:kontakt@kimotools.de">Kontakt</a>
-                </div>
-            </footer>
         </div>
     </div>
 
+    <div class="footer-wrap">
+        <footer>
+            <span>© 2026 KImotools</span>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="mailto:kontakt@kimotools.de">Kontakt</a>
+            </div>
+        </footer>
+    </div>
+
     <script>
-    (() => {
-        'use strict';
+        // ── TOP PICKS ────────────────────────────────────────────────────
+        const picks = [
+            { name: 'ChatGPT',            domain: 'chat.openai.com',       badge: 'Beliebt',    desc: 'Der Standard für KI-Exposés. Flexibel, mächtig, kostenloser Plan verfügbar.',       price: '$20/Monat'      },
+            { name: 'Photoroom',          domain: 'photoroom.com',          badge: 'Top Foto',   desc: 'Professionelle Immobilienfotos in Sekunden — Hintergrund weg, Qualität rauf.',       price: '$9.99/Monat'    },
+            { name: 'Virtual Staging AI', domain: 'virtualstagingai.app',   badge: 'Staging',    desc: 'Leere Räume in 30 Sekunden möblieren. Günstig, schnell, überzeugend.',              price: '$29/5 Renders'  },
+            { name: 'HubSpot AI',         domain: 'hubspot.com',            badge: 'Kostenlos',  desc: 'Komplettes CRM mit KI-Lead-Scoring. Kostenloser Plan für Solo-Makler.',             price: 'Kostenlos'      },
+            { name: 'Zapier AI',          domain: 'zapier.com',             badge: 'Automation', desc: '6.000+ App-Verbindungen. Automatisiere deinen gesamten Lead-Prozess.',              price: '$19.99/Monat'   },
+            { name: 'Matterport',         domain: 'matterport.com',         badge: 'Top Video',  desc: 'Der Marktführer für 3D-Touren. Mehr Anfragen, qualifiziertere Käufer.',             price: '$69/Monat'      }
+        ];
 
-        const TOTAL_FRAMES = 121;
-        const TOTAL_SCENES = 6;
-        const VIDEO_END    = 0.55; // progress at which canvas fades to after-image
+        const picksGrid = document.getElementById('picksGrid');
 
-        const cinematic = document.getElementById('cinematic');
-        const canvas    = document.getElementById('bgCanvas');
-        const ctx       = canvas.getContext('2d');
-        const bgAfter   = document.getElementById('bgAfter');
-        const bgBefore  = document.getElementById('bgBefore');
-        const scenes    = [0,1,2,3,4,5].map(i => document.getElementById('scene' + i));
-        const pdots     = document.querySelectorAll('.pdot');
-        const mainNav   = document.getElementById('mainNav');
+        picks.forEach((pick, i) => {
+            const el = document.createElement('a');
+            el.href = 'tools.html';
+            el.className = 'pick-shell reveal';
+            el.style.transitionDelay = `${i * 0.07}s`;
+            el.innerHTML = `
+                <div class="pick-inner">
+                    <div class="pick-header">
+                        <div class="pick-logo" id="pLogo${i}">
+                            <i class="ph ph-globe" style="font-size:16px;color:var(--text-muted)"></i>
+                        </div>
+                        <span class="pick-badge">${pick.badge}</span>
+                    </div>
+                    <div class="pick-name">${pick.name}</div>
+                    <p class="pick-desc">${pick.desc}</p>
+                    <div class="pick-meta">
+                        <span class="pick-price">${pick.price}</span>
+                        <div class="pick-arrow"><i class="ph ph-arrow-right"></i></div>
+                    </div>
+                </div>`;
+            picksGrid.appendChild(el);
 
-        // ── Resize canvas to fill viewport ──
-        function resizeCanvas() {
-            canvas.width  = window.innerWidth;
-            canvas.height = window.innerHeight;
-            drawFrame(currentFrameIndex);
-        }
-        window.addEventListener('resize', resizeCanvas);
+            const wrap = el.querySelector(`#pLogo${i}`);
+            const img = document.createElement('img');
+            img.src = `https://www.google.com/s2/favicons?sz=64&domain=${pick.domain}`;
+            img.alt = pick.name;
+            img.style.cssText = 'width:26px;height:26px;object-fit:contain;';
+            img.onerror = () => img.remove();
+            img.onload  = () => { const ph = wrap.querySelector('i'); if (ph) ph.remove(); wrap.appendChild(img); };
+        });
 
-        // ── Preload all frames ──
-        const frames = [];
-        let loadedCount = 0;
-        let allLoaded   = false;
-        let currentFrameIndex = 0;
-
-        // Show loading progress on canvas
-        function drawLoadingBar(pct) {
-            ctx.fillStyle = '#06060e';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            const barW = canvas.width * 0.3;
-            const barX = (canvas.width - barW) / 2;
-            const barY = canvas.height / 2;
-            ctx.fillStyle = 'rgba(255,255,255,0.08)';
-            ctx.beginPath();
-            ctx.roundRect(barX, barY, barW, 2, 1);
-            ctx.fill();
-            ctx.fillStyle = 'rgba(255,255,255,0.5)';
-            ctx.beginPath();
-            ctx.roundRect(barX, barY, barW * pct, 2, 1);
-            ctx.fill();
-        }
-
-        function drawFrame(index) {
-            const img = frames[index];
-            if (!img || !img.complete) return;
-            const cw = canvas.width;
-            const ch = canvas.height;
-            const iw = img.naturalWidth;
-            const ih = img.naturalHeight;
-            // object-fit: cover
-            const scale = Math.max(cw / iw, ch / ih);
-            const sw = iw * scale;
-            const sh = ih * scale;
-            const sx = (cw - sw) / 2;
-            const sy = (ch - sh) / 2;
-            ctx.drawImage(img, sx, sy, sw, sh);
-        }
-
-        // Initial canvas size
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-        drawLoadingBar(0);
-
-        for (let i = 1; i <= TOTAL_FRAMES; i++) {
-            const img = new Image();
-            const idx = i - 1;
-            img.onload = () => {
-                loadedCount++;
-                if (loadedCount <= 20) {
-                    // Draw first frames immediately as they load
-                    if (idx === 0) drawFrame(0);
-                    drawLoadingBar(loadedCount / TOTAL_FRAMES);
-                }
-                if (loadedCount === TOTAL_FRAMES) {
-                    allLoaded = true;
-                    drawFrame(currentFrameIndex);
-                }
-            };
-            img.src = `frames/f${String(i).padStart(4,'0')}.jpg`;
-            frames.push(img);
-        }
-
-        // ── Easing ──
-        function easeQuart(t) { return t < 0.5 ? 8*t*t*t*t : 1 - 8*(--t)*t*t*t; }
-        function easeOut3(t)  { return 1 - Math.pow(1-t, 3); }
-        function clamp(v,lo,hi) { return v<lo?lo:v>hi?hi:v; }
-        function norm(v,a,b)    { return clamp((v-a)/(b-a),0,1); }
-
-        // ── Scene opacity ──
-        function sceneOpacity(progress, i, noFadeOut) {
-            const step   = 1 / TOTAL_SCENES;
-            const start  = i * step;
-            const fadeIn = step * 0.25;
-            const fadeOut= step * 0.25;
-            if (progress < start) return 0;
-            const local = progress - start;
-            if (local > step && !noFadeOut) return 0;
-            if (local < fadeIn) return easeOut3(norm(local, 0, fadeIn));
-            if (!noFadeOut && local > step - fadeOut) return easeOut3(norm(step - local, 0, fadeOut));
-            return 1;
-        }
-
-        function sceneTranslate(progress, i) {
-            const step = 1 / TOTAL_SCENES;
-            const rel  = clamp((progress - i * step) / step, 0, 1);
-            return (0.5 - rel) * 36;
-        }
-
-        // ── Main update loop ──
-        let ticking = false;
-        let lastProgress = -1;
-
-        function update() {
-            const scrollY  = window.scrollY;
-            const top      = cinematic.offsetTop;
-            const height   = cinematic.offsetHeight - window.innerHeight;
-            const progress = clamp((scrollY - top) / height, 0, 1);
-
-            // Skip if nothing changed
-            if (Math.abs(progress - lastProgress) < 0.0002) { ticking = false; return; }
-            lastProgress = progress;
-
-            // ── Canvas frame ──
-            // Video covers progress 0 → VIDEO_END
-            const videoProgress = clamp(progress / VIDEO_END, 0, 1);
-            const frameIndex    = Math.min(TOTAL_FRAMES - 1, Math.round(videoProgress * (TOTAL_FRAMES - 1)));
-            if (frameIndex !== currentFrameIndex) {
-                currentFrameIndex = frameIndex;
-                if (allLoaded || frames[frameIndex]?.complete) drawFrame(frameIndex);
-            }
-
-            // Canvas opacity: fades out as after-image fades in
-            const canvasOpacity = 1 - easeQuart(norm(progress, VIDEO_END * 0.65, VIDEO_END));
-            canvas.style.opacity = clamp(canvasOpacity, 0, 1);
-
-            // After image
-            bgAfter.style.opacity = easeQuart(norm(progress, VIDEO_END * 0.6, VIDEO_END));
-            bgBefore.style.opacity = 0;
-
-            // ── Scene panels ──
-            for (let i = 0; i < 5; i++) {
-                scenes[i].style.opacity   = sceneOpacity(progress, i, false);
-                scenes[i].style.transform = `translateY(${sceneTranslate(progress, i)}px)`;
-            }
-            scenes[5].style.opacity   = sceneOpacity(progress, 5, true);
-            scenes[5].style.transform = `translateY(${sceneTranslate(progress, 5)}px)`;
-
-            // ── Dots ──
-            const active = Math.min(5, Math.floor(progress * TOTAL_SCENES));
-            pdots.forEach((d,i) => d.classList.toggle('active', i === active));
-
-            // ── Nav ──
-            mainNav.classList.toggle('hidden', progress > 0.08 && progress < 0.88);
-
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) { requestAnimationFrame(update); ticking = true; }
-        }, { passive: true });
-
-        // Dot click
-        pdots.forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                const top    = cinematic.offsetTop;
-                const height = cinematic.offsetHeight - window.innerHeight;
-                window.scrollTo({ top: top + (i / TOTAL_SCENES) * height + 10, behavior: 'smooth' });
+        // ── CATEGORY CARDS → pass filter via sessionStorage ──────────────
+        document.querySelectorAll('.cat-card[data-cat]').forEach(card => {
+            card.addEventListener('click', e => {
+                e.preventDefault();
+                sessionStorage.setItem('toolsFilter', card.dataset.cat);
+                window.location.href = 'tools.html';
             });
         });
 
-        resizeCanvas();
-        update();
-    })();
+        // ── SCROLL REVEAL ────────────────────────────────────────────────
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (!entry.isIntersecting) return;
+                setTimeout(() => entry.target.classList.add('visible'), i * 50);
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.06 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

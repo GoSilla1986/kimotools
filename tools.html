@@ -3,1191 +3,1592 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alle KI-Tools für Makler — KImo</title>
+    <title>Alle KI-Tools für Makler — KImotools</title>
     <meta name="description" content="33 KI-Tools für Immobilienmakler: Exposé-Generatoren, Foto-Optimierung, Virtual Staging, Lead-Generierung und Video-Tools im Überblick.">
-
-    <!-- Premium Fonts: Fraunces (Serif) + Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Phosphor Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
     <style>
-        /* ═══════════════════════════════════════════════════════════
-           DESIGN SYSTEM: Editorial Luxury (Real Estate Vibe)
-        ═══════════════════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            /* Warm Cream & Sage Tones */
-            --bg-cream: #FDFBF7;
-            --bg-warm: #F5F2EB;
-            --bg-sage: #E8EDE6;
-            --bg-deep: #1A1A18;
-
-            /* Text Hierarchy */
-            --text-primary: #1A1A18;
-            --text-secondary: #4A4A45;
-            --text-tertiary: #8A8A82;
-            --text-inverse: #FDFBF7;
-
-            /* Category Colors */
-            --color-expose: #B8755C;     /* Terracotta */
-            --color-foto: #7B9E87;       /* Sage Green */
-            --color-staging: #9B8AA3;    /* Dusty Lavender */
-            --color-leads: #C4956A;      /* Warm Gold */
-            --color-video: #6B8FAD;      /* Steel Blue */
-
-            /* Accent */
-            --accent-primary: #B8755C;
-            --accent-warm: rgba(184, 117, 92, 0.1);
-
-            /* Borders */
-            --border-light: rgba(26, 26, 24, 0.08);
-            --border-medium: rgba(26, 26, 24, 0.15);
-
-            /* Shadows */
-            --shadow-soft: 0 4px 24px rgba(26, 26, 24, 0.06);
-            --shadow-medium: 0 8px 40px rgba(26, 26, 24, 0.08);
-            --shadow-lift: 0 16px 48px rgba(26, 26, 24, 0.12);
-
-            /* Motion */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --duration-fast: 200ms;
-            --duration-medium: 500ms;
-            --duration-slow: 800ms;
-
-            /* Spacing */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-2xl: 4rem;
-            --space-3xl: 6rem;
-            --space-4xl: 8rem;
-
-            /* Radii */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --radius-xl: 28px;
-            --radius-full: 9999px;
+            --bg: #06060e;
+            --surface: rgba(255,255,255,0.04);
+            --surface-2: rgba(255,255,255,0.07);
+            --border: rgba(255,255,255,0.08);
+            --border-2: rgba(255,255,255,0.13);
+            --text: #f0f0f5;
+            --text-secondary: rgba(240,240,245,0.55);
+            --text-muted: rgba(240,240,245,0.32);
+            --accent: #7c5cfc;
+            --ease: cubic-bezier(0.16,1,0.3,1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-cream);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Film Grain */
-        .grain {
+        /* ── NAV ── */
+        nav {
             position: fixed;
-            inset: 0;
-            z-index: 1;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            pointer-events: none;
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           NAVIGATION
-        ═══════════════════════════════════════════════════════════ */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: var(--space-md) var(--space-xl);
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: rgba(253, 251, 247, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
+            gap: 2rem;
+            padding: 0.7rem 1.5rem;
+            background: rgba(6,6,14,0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            white-space: nowrap;
         }
 
         .nav-logo {
-            font-family: 'Fraunces', serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            color: var(--text);
             text-decoration: none;
-            letter-spacing: -0.02em;
         }
 
-        .nav-links {
-            display: flex;
-            gap: var(--space-lg);
-            align-items: center;
-        }
-
-        .nav-link {
-            font-size: 14px;
-            font-weight: 500;
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a {
+            font-size: 0.85rem;
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color var(--duration-fast) var(--ease-out-expo);
+            transition: color 0.3s ease;
         }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--text-primary);
-        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
         .nav-cta {
-            padding: 0.6rem 1.2rem;
-            background: var(--text-primary);
-            color: var(--text-inverse);
-            font-size: 13px;
+            font-size: 0.85rem;
             font-weight: 600;
+            color: var(--bg) !important;
+            background: var(--text);
+            padding: 0.45rem 1.2rem;
+            border-radius: 100px;
             text-decoration: none;
-            border-radius: var(--radius-sm);
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            transition: opacity 0.3s ease;
         }
+        .nav-cta:hover { opacity: 0.85; }
 
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           HERO: Page Header
-        ═══════════════════════════════════════════════════════════ */
-        .hero {
-            position: relative;
-            z-index: 2;
-            padding: calc(80px + var(--space-3xl)) var(--space-xl) var(--space-2xl);
-            max-width: 1400px;
+        /* ── PAGE HEADER ── */
+        .page-header {
+            padding: 9rem 2rem 4rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-xs);
-            padding: 0.5rem 1rem;
-            background: var(--accent-warm);
-            border-radius: var(--radius-full);
-            font-size: 11px;
+        .page-eyebrow {
+            display: inline-block;
+            font-size: 0.72rem;
             font-weight: 600;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent-primary);
-            margin-bottom: var(--space-md);
+            color: #fff;
+            background: var(--accent);
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.7s var(--ease) 0.1s forwards;
+        }
 
+        .page-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            line-height: 1.06;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp 800ms var(--ease-out-expo) 200ms forwards;
+            animation: fadeUp 0.8s var(--ease) 0.25s forwards;
         }
 
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .page-title em { font-style: italic; color: var(--text-secondary); }
 
-        .hero-title {
-            font-family: 'Fraunces', serif;
-            font-size: clamp(48px, 8vw, 80px);
-            font-weight: 500;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
-            margin-bottom: var(--space-md);
-
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1000ms var(--ease-out-expo) 400ms forwards;
-        }
-
-        .hero-subtitle {
-            font-size: 18px;
+        .page-subtitle {
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            max-width: 600px;
-
+            line-height: 1.7;
+            max-width: 520px;
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1000ms var(--ease-out-expo) 600ms forwards;
+            transform: translateY(16px);
+            animation: fadeUp 0.8s var(--ease) 0.4s forwards;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           FILTER PILLS
-        ═══════════════════════════════════════════════════════════ */
-        .filter-section {
-            position: relative;
-            z-index: 2;
-            padding: 0 var(--space-xl) var(--space-xl);
-            max-width: 1400px;
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* ── FILTER ── */
+        .filter-bar {
+            padding: 0 2rem 3rem;
+            max-width: 1200px;
             margin: 0 auto;
-        }
-
-        .filter-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-xs);
+            gap: 0.5rem;
         }
 
         .filter-pill {
-            padding: 0.75rem 1.5rem;
+            padding: 0.55rem 1.2rem;
             background: transparent;
-            border: 1px solid var(--border-medium);
-            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            border-radius: 100px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 0.82rem;
             font-weight: 500;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: all var(--duration-medium) var(--ease-out-expo);
+            transition: all 0.3s var(--ease);
         }
 
         .filter-pill:hover {
-            background: var(--bg-warm);
-            color: var(--text-primary);
+            border-color: var(--border-2);
+            color: var(--text);
         }
 
         .filter-pill.active {
-            background: var(--text-primary);
-            color: var(--text-inverse);
-            border-color: var(--text-primary);
+            background: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+            font-weight: 600;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           TOOLS GRID
-        ═══════════════════════════════════════════════════════════ */
-        .tools-section {
-            position: relative;
-            z-index: 2;
-            padding: var(--space-2xl) var(--space-xl) var(--space-4xl);
-            max-width: 1400px;
+        /* ── TOOLS GRID ── */
+        .tools-wrap {
+            padding: 0 2rem 8rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-md);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 200ms var(--ease), transform 200ms var(--ease);
         }
 
-        /* Double-Bezel Card Shell */
+        .tools-grid.switching {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 150ms ease-in, transform 150ms ease-in;
+        }
+
+        /* Double-bezel card */
         .tool-shell {
-            padding: 5px;
-            background: var(--bg-warm);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            transition: all var(--duration-medium) var(--ease-out-expo);
+            background: var(--bg);
+            padding: 1px;
+            transition: background 0.35s var(--ease);
         }
 
-        .tool-shell:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lift);
-            border-color: var(--border-medium);
-        }
+        .tool-shell:hover { background: rgba(124,92,252,0.06); }
 
-        /* Card Inner */
         .tool-card {
-            padding: var(--space-lg);
-            background: var(--bg-cream);
-            border-radius: calc(var(--radius-lg) - 5px);
+            padding: 1.75rem;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            height: 100%;
         }
 
         .tool-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: var(--space-md);
+            margin-bottom: 1rem;
         }
 
         .tool-icon {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: var(--radius-md);
-            font-size: 28px;
-            transition: transform var(--duration-medium) var(--ease-out-expo);
+            border-radius: 0.75rem;
+            font-size: 22px;
+            overflow: hidden;
+            transition: transform 0.35s var(--ease);
         }
 
-        .tool-shell:hover .tool-icon {
-            transform: scale(1.1) rotate(5deg);
+        .tool-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            border-radius: 6px;
         }
 
-        /* Category-specific icon colors */
-        .tool-icon.icon-expose {
-            background: rgba(184, 117, 92, 0.12);
-            color: var(--color-expose);
-        }
-        .tool-icon.icon-foto {
-            background: rgba(123, 158, 135, 0.12);
-            color: var(--color-foto);
-        }
-        .tool-icon.icon-staging {
-            background: rgba(155, 138, 163, 0.12);
-            color: var(--color-staging);
-        }
-        .tool-icon.icon-leads {
-            background: rgba(196, 149, 106, 0.12);
-            color: var(--color-leads);
-        }
-        .tool-icon.icon-video {
-            background: rgba(107, 143, 173, 0.12);
-            color: var(--color-video);
-        }
+        .tool-shell:hover .tool-icon { transform: scale(1.08) rotate(4deg); }
+
+        .icon-expose  { background: rgba(124,92,252,0.12);  color: #9b7fff; }
+        .icon-foto    { background: rgba(80,180,140,0.12);   color: #5ecfa0; }
+        .icon-staging { background: rgba(230,160,80,0.12);   color: #f0a840; }
+        .icon-leads   { background: rgba(80,160,220,0.12);   color: #5ab0f0; }
+        .icon-video   { background: rgba(220,80,120,0.12);   color: #f06090; }
+        .icon-automation { background: rgba(180,120,60,0.12); color: #d49040; }
 
         .tool-badge {
-            padding: 0.35rem 0.75rem;
-            background: var(--accent-warm);
-            border-radius: var(--radius-full);
-            font-size: 10px;
+            font-size: 0.68rem;
             font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--accent-primary);
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(124,92,252,0.12);
+            border: 1px solid rgba(124,92,252,0.2);
+            padding: 0.25rem 0.6rem;
+            border-radius: 100px;
         }
 
         .tool-name {
-            font-family: 'Fraunces', serif;
-            font-size: 22px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.4rem;
         }
 
         .tool-desc {
-            font-size: 14px;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            line-height: 1.7;
+            line-height: 1.65;
             flex-grow: 1;
         }
 
         .tool-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-xs);
-            margin-top: var(--space-md);
+            gap: 0.4rem;
+            margin-top: 1.25rem;
         }
 
         .tag {
-            padding: 0.35rem 0.75rem;
-            background: var(--bg-warm);
-            border-radius: var(--radius-full);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.25rem 0.65rem;
+            border-radius: 100px;
+        }
+
+        /* ── DRAWER ── */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            background: rgba(6,6,14,0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 300ms var(--ease);
+        }
+
+        .drawer-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            z-index: 501;
+            width: min(520px, 92vw);
+            background: #0a0a16;
+            border-left: 1px solid rgba(255,255,255,0.09);
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 400ms var(--ease);
+            overflow: hidden;
+        }
+
+        .drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 1.75rem 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            flex-shrink: 0;
+        }
+
+        .drawer-logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .drawer-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .drawer-logo img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        .drawer-tool-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .drawer-tool-cat {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .drawer-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 200ms var(--ease);
+            flex-shrink: 0;
+        }
+
+        .drawer-close:hover {
+            background: rgba(255,255,255,0.07);
+            color: var(--text);
+        }
+
+        .drawer-body {
+            overflow-y: auto;
+            flex: 1;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.1) transparent;
+        }
+
+        .drawer-desc {
+            font-size: 15px;
+            color: rgba(240,240,245,0.8);
+            line-height: 1.8;
+        }
+
+        .drawer-block {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1.375rem 1.5rem;
+        }
+
+        .drawer-block-title {
             font-size: 11px;
-            font-weight: 600;
-            color: var(--text-tertiary);
+            font-weight: 700;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: rgba(240,240,245,0.5);
+            margin-bottom: 1.125rem;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           FOOTER
-        ═══════════════════════════════════════════════════════════ */
-        footer {
-            position: relative;
-            z-index: 2;
-            padding: var(--space-3xl) var(--space-xl) var(--space-xl);
-            max-width: 1400px;
-            margin: 0 auto;
-            border-top: 1px solid var(--border-light);
+        /* Pros / Cons — single column list */
+        .pro-list, .con-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
         }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr repeat(3, 1fr);
-            gap: var(--space-xl);
-            margin-bottom: var(--space-3xl);
+        .pro-list + .con-list {
+            margin-top: 0.875rem;
+            padding-top: 0.875rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
         }
 
-        .footer-brand {
-            font-family: 'Fraunces', serif;
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-sm);
-        }
-
-        .footer-tagline {
+        .pro-item, .con-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.625rem;
             font-size: 14px;
-            color: var(--text-tertiary);
-            max-width: 280px;
+            line-height: 1.5;
         }
 
-        .footer-col h4 {
+        .pro-item { color: rgba(240,240,245,0.85); }
+        .con-item { color: rgba(240,240,245,0.55); }
+
+        .pro-item i { color: #34d399; flex-shrink: 0; margin-top: 2px; font-size: 16px; }
+        .con-item i { color: rgba(240,240,245,0.3); flex-shrink: 0; margin-top: 2px; font-size: 16px; }
+
+        /* Best practices */
+        .practice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .practice-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .practice-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(124,92,252,0.18);
+            color: #a78bfa;
             font-size: 12px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
-            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
         }
 
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col li {
-            margin-bottom: var(--space-xs);
-        }
-
-        .footer-col a {
+        .practice-text {
             font-size: 14px;
-            color: var(--text-tertiary);
+            color: rgba(240,240,245,0.75);
+            line-height: 1.65;
+        }
+
+        .practice-text strong {
+            color: rgba(240,240,245,0.92);
+            font-weight: 600;
+        }
+
+        /* Meta pills */
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .meta-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.85rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .meta-pill i { font-size: 14px; }
+
+        .meta-pill.free { border-color: rgba(52,211,153,0.3); color: #34d399; background: rgba(52,211,153,0.06); }
+        .meta-pill.paid { border-color: rgba(251,146,60,0.3); color: #fb923c; background: rgba(251,146,60,0.06); }
+
+        .drawer-footer {
+            padding: 1.25rem 1.75rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            flex-shrink: 0;
+        }
+
+        .drawer-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--accent);
+            color: #fff;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
             text-decoration: none;
-            transition: color var(--duration-fast) var(--ease-out-expo);
+            border-radius: 0.875rem;
+            transition: opacity 200ms var(--ease), transform 200ms var(--ease);
         }
 
-        .footer-col a:hover {
-            color: var(--text-primary);
+        .drawer-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+        /* Make cards clickable */
+        .tool-shell { cursor: pointer; }
+
+        footer {
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: var(--space-xl);
-            border-top: 1px solid var(--border-light);
-        }
+        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; }
+        footer a:hover { color: var(--text); }
+        .footer-links { display: flex; gap: 1.5rem; }
 
-        .footer-copy {
-            font-size: 13px;
-            color: var(--text-tertiary);
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           RESPONSIVE
-        ═══════════════════════════════════════════════════════════ */
-        @media (max-width: 1024px) {
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero,
-            .filter-section,
-            .tools-section {
-                padding-left: var(--space-md);
-                padding-right: var(--space-md);
-            }
-
-            .nav {
-                padding: var(--space-sm) var(--space-md);
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        /* Scroll Reveal */
+        /* ── REVEAL ── */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all var(--duration-slow) var(--ease-out-expo);
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
         }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .tools-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
-        .reveal[data-delay="1"] { transition-delay: 50ms; }
-        .reveal[data-delay="2"] { transition-delay: 100ms; }
-        .reveal[data-delay="3"] { transition-delay: 150ms; }
-
-        /* Reduced motion */
+        @media (max-width: 768px) {
+            nav { padding: 0.6rem 1.1rem; gap: 1rem; }
+            .nav-links { display: none; }
+            .tools-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 1rem; text-align: center; }
+        }
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-            .reveal {
-                opacity: 1;
-                transform: none;
-            }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            .reveal { opacity: 1; transform: none; }
         }
     </style>
 </head>
 <body>
-    <div class="grain"></div>
 
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="index.html" class="nav-logo">KImo</a>
+    <nav>
+        <a href="index.html" class="nav-logo">KImotools</a>
         <div class="nav-links">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="tools.html" class="nav-link active">Tools</a>
-            <a href="compare.html" class="nav-link">Vergleichen</a>
-            <a href="compare.html" class="nav-cta">Tool finden</a>
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">Alle Tools</a>
+            <a href="compare.html">Vergleichen</a>
         </div>
+        <a href="compare.html" class="nav-cta">Vergleichen →</a>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-eyebrow">
-            <i class="ph ph-sparkle"></i>
-            <span>33 Tools im Vergleich</span>
-        </div>
-        <h1 class="hero-title">Alle KI-Tools</h1>
-        <p class="hero-subtitle">Die besten KI-Tools für Immobilienmakler — von Exposé-Generatoren bis Virtual Staging.</p>
-    </section>
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <span class="page-eyebrow">33 Tools bewertet · 2026</span>
+        <h1 class="page-title">Alle KI-Tools<br><em>für Makler</em></h1>
+        <p class="page-subtitle">Kuratiert, bewertet und direkt vergleichbar — von Exposé-Generatoren bis Virtual Staging.</p>
+    </header>
 
-    <!-- Filter -->
-    <section class="filter-section">
-        <div class="filter-pills">
-            <button class="filter-pill active" data-category="all">Alle</button>
-            <button class="filter-pill" data-category="expose">Exposé</button>
-            <button class="filter-pill" data-category="foto">Foto</button>
-            <button class="filter-pill" data-category="staging">Staging</button>
-            <button class="filter-pill" data-category="leads">Leads</button>
-            <button class="filter-pill" data-category="video">Video</button>
-        </div>
-    </section>
+    <!-- FILTER -->
+    <div class="filter-bar">
+        <button class="filter-pill active" data-category="all">Alle</button>
+        <button class="filter-pill" data-category="expose">✍️ Exposé</button>
+        <button class="filter-pill" data-category="foto">📸 Foto</button>
+        <button class="filter-pill" data-category="staging">🛋️ Staging</button>
+        <button class="filter-pill" data-category="leads">🎯 Leads</button>
+        <button class="filter-pill" data-category="automation">⚡ Automation</button>
+        <button class="filter-pill" data-category="video">🎬 Video</button>
+    </div>
 
-    <!-- Tools Grid -->
-    <section class="tools-section">
+    <!-- TOOLS GRID -->
+    <main class="tools-wrap">
         <div class="tools-grid">
-            <!-- EXPOSÉ TOOLS -->
-            <div class="tool-shell reveal" data-delay="1" data-category="expose">
-                <article class="tool-card">
+
+            <!-- EXPOSÉ -->
+            <div class="tool-shell reveal" data-category="expose">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-expose">
-                            <i class="ph ph-chat-circle-text"></i>
-                        </div>
+                        <div class="tool-icon icon-expose"><i class="ph ph-chat-circle-text"></i></div>
                         <span class="tool-badge">Beliebt</span>
                     </div>
-                    <h3 class="tool-name">ChatGPT</h3>
-                    <p class="tool-desc">Der bekannteste KI-Textgenerator. Perfekt für Exposés, E-Mails und Content.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Exposé</span>
-                        <span class="tag">Text</span>
-                    </div>
-                </article>
+                    <div class="tool-name">ChatGPT</div>
+                    <p class="tool-desc">Der bekannteste KI-Textgenerator. Perfekt für Exposés, E-Mails und Marketing-Content.</p>
+                    <div class="tool-tags"><span class="tag">Exposé</span><span class="tag">Text</span><span class="tag">$20/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="expose">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="expose">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-expose">
-                            <i class="ph ph-pen-nib"></i>
-                        </div>
+                        <div class="tool-icon icon-expose"><i class="ph ph-pen-nib"></i></div>
                     </div>
-                    <h3 class="tool-name">Jasper AI</h3>
+                    <div class="tool-name">Jasper AI</div>
                     <p class="tool-desc">Spezialisiert auf Marketing-Texte. Über 50 Templates für Immobilien.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Exposé</span>
-                        <span class="tag">Marketing</span>
-                    </div>
-                </article>
+                    <div class="tool-tags"><span class="tag">Exposé</span><span class="tag">Marketing</span><span class="tag">$49/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="3" data-category="expose">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="expose">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-expose">
-                            <i class="ph ph-article"></i>
-                        </div>
+                        <div class="tool-icon icon-expose"><i class="ph ph-article"></i></div>
                     </div>
-                    <h3 class="tool-name">Copy.ai</h3>
+                    <div class="tool-name">Copy.ai</div>
                     <p class="tool-desc">Schnelle Texterstellung mit KI. Ideal für Social Media und Anzeigen.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Exposé</span>
-                        <span class="tag">Social</span>
-                    </div>
-                </article>
+                    <div class="tool-tags"><span class="tag">Exposé</span><span class="tag">Social</span><span class="tag">$49/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="1" data-category="expose">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="expose">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-expose">
-                            <i class="ph ph-text-aa"></i>
-                        </div>
+                        <div class="tool-icon icon-expose"><i class="ph ph-text-aa"></i></div>
                     </div>
-                    <h3 class="tool-name">Writesonic</h3>
-                    <p class="tool-desc">SEO-optimierte Exposés auf Knopfdruck. Mehrsprachig.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Exposé</span>
-                        <span class="tag">SEO</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Writesonic</div>
+                    <p class="tool-desc">SEO-optimierte Exposés auf Knopfdruck. Mehrsprachig und DSGVO-konform.</p>
+                    <div class="tool-tags"><span class="tag">Exposé</span><span class="tag">SEO</span><span class="tag">$16/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="expose">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="expose">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-expose">
-                            <i class="ph ph-coins"></i>
-                        </div>
+                        <div class="tool-icon icon-expose"><i class="ph ph-flag"></i></div>
                     </div>
-                    <h3 class="tool-name">Rytr</h3>
-                    <p class="tool-desc">Günstiger KI-Schreibassistent. Gutes Preis-Leistungs-Verhältnis.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Exposé</span>
-                        <span class="tag">Budget</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Neuroflash</div>
+                    <p class="tool-desc">Deutsche KI für Marketing-Texte. DSGVO-konform, Hosting in Deutschland.</p>
+                    <div class="tool-tags"><span class="tag">Exposé</span><span class="tag">DSGVO</span><span class="tag">€30/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="3" data-category="expose">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="expose">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-expose">
-                            <i class="ph ph-flag"></i>
-                        </div>
+                        <div class="tool-icon icon-expose"><i class="ph ph-robot"></i></div>
                     </div>
-                    <h3 class="tool-name">Neuroflash</h3>
-                    <p class="tool-desc">Deutsche KI für Marketing-Texte. DSGVO-konform.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Exposé</span>
-                        <span class="tag">DSGVO</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Claude</div>
+                    <p class="tool-desc">Anthropics KI-Assistent. Besonders gut für lange, nuancierte Texte und Analysen.</p>
+                    <div class="tool-tags"><span class="tag">Exposé</span><span class="tag">Lang-Form</span><span class="tag">$20/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="1" data-category="expose">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="expose">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-expose">
-                            <i class="ph ph-robot"></i>
-                        </div>
+                        <div class="tool-icon icon-expose"><i class="ph ph-coins"></i></div>
                     </div>
-                    <h3 class="tool-name">Claude</h3>
-                    <p class="tool-desc">Anthropics KI-Assistent. Besonders gut für lange Texte.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Exposé</span>
-                        <span class="tag">Lang-Form</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Rytr</div>
+                    <p class="tool-desc">Günstiger KI-Schreibassistent mit gutem Preis-Leistungs-Verhältnis.</p>
+                    <div class="tool-tags"><span class="tag">Exposé</span><span class="tag">Budget</span><span class="tag">$9/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="expose">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="expose">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-expose">
-                            <i class="ph ph-chart-line-up"></i>
-                        </div>
+                        <div class="tool-icon icon-expose"><i class="ph ph-chart-line-up"></i></div>
                     </div>
-                    <h3 class="tool-name">Anyword</h3>
-                    <p class="tool-desc">KI-Copywriting mit Performance-Vorhersage.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Exposé</span>
-                        <span class="tag">Analytics</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Anyword</div>
+                    <p class="tool-desc">KI-Copywriting mit Performance-Vorhersage für maximale Conversion.</p>
+                    <div class="tool-tags"><span class="tag">Exposé</span><span class="tag">Analytics</span><span class="tag">$39/mo</span></div>
+                </div>
             </div>
 
-            <!-- FOTO TOOLS -->
-            <div class="tool-shell reveal" data-delay="1" data-category="foto">
-                <article class="tool-card">
+            <!-- FOTO -->
+            <div class="tool-shell reveal" data-category="foto">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-foto">
-                            <i class="ph ph-image"></i>
-                        </div>
+                        <div class="tool-icon icon-foto"><i class="ph ph-image"></i></div>
                         <span class="tool-badge">Top</span>
                     </div>
-                    <h3 class="tool-name">Photoroom</h3>
+                    <div class="tool-name">Photoroom</div>
                     <p class="tool-desc">Automatische Hintergrundentfernung und Foto-Optimierung in Sekunden.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Foto</span>
-                        <span class="tag">Bearbeitung</span>
-                    </div>
-                </article>
+                    <div class="tool-tags"><span class="tag">Foto</span><span class="tag">Bearbeitung</span><span class="tag">$9.99/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="foto">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="foto">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-foto">
-                            <i class="ph ph-camera"></i>
-                        </div>
+                        <div class="tool-icon icon-foto"><i class="ph ph-camera"></i></div>
                     </div>
-                    <h3 class="tool-name">Lightroom AI</h3>
+                    <div class="tool-name">Lightroom AI</div>
                     <p class="tool-desc">Adobe's KI-gestützte Foto-Bearbeitung. Profi-Qualität garantiert.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Foto</span>
-                        <span class="tag">Profi</span>
-                    </div>
-                </article>
+                    <div class="tool-tags"><span class="tag">Foto</span><span class="tag">Profi</span><span class="tag">$9.99/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="3" data-category="foto">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="foto">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-foto">
-                            <i class="ph ph-arrows-out"></i>
-                        </div>
+                        <div class="tool-icon icon-foto"><i class="ph ph-arrows-out"></i></div>
                     </div>
-                    <h3 class="tool-name">Topaz Photo AI</h3>
+                    <div class="tool-name">Topaz Photo AI</div>
                     <p class="tool-desc">Upscaling und Rauschentfernung auf höchstem Niveau.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Foto</span>
-                        <span class="tag">Upscale</span>
-                    </div>
-                </article>
+                    <div class="tool-tags"><span class="tag">Foto</span><span class="tag">Upscale</span><span class="tag">$199 einmalig</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="1" data-category="foto">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="foto">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-foto">
-                            <i class="ph ph-eraser"></i>
-                        </div>
+                        <div class="tool-icon icon-foto"><i class="ph ph-eraser"></i></div>
                     </div>
-                    <h3 class="tool-name">Remove.bg</h3>
-                    <p class="tool-desc">Hintergrund entfernen in 5 Sekunden. Einfach und schnell.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Foto</span>
-                        <span class="tag">Background</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Remove.bg</div>
+                    <p class="tool-desc">Hintergrund entfernen in 5 Sekunden. Einfach, schnell, präzise.</p>
+                    <div class="tool-tags"><span class="tag">Foto</span><span class="tag">Background</span><span class="tag">$9/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="foto">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="foto">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-foto">
-                            <i class="ph ph-magic-wand"></i>
-                        </div>
+                        <div class="tool-icon icon-foto"><i class="ph ph-magic-wand"></i></div>
                     </div>
-                    <h3 class="tool-name">Luminar AI</h3>
-                    <p class="tool-desc">Intelligente Foto-Bearbeitung mit einem Klick.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Foto</span>
-                        <span class="tag">Auto</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Luminar AI</div>
+                    <p class="tool-desc">Intelligente Foto-Bearbeitung mit einem Klick. Ideal für Außenaufnahmen.</p>
+                    <div class="tool-tags"><span class="tag">Foto</span><span class="tag">Auto</span><span class="tag">$79 einmalig</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="3" data-category="foto">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="foto">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-foto">
-                            <i class="ph ph-palette"></i>
-                        </div>
+                        <div class="tool-icon icon-foto"><i class="ph ph-palette"></i></div>
                     </div>
-                    <h3 class="tool-name">Canva AI</h3>
-                    <p class="tool-desc">Design und Foto-Bearbeitung in einem Tool.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Foto</span>
-                        <span class="tag">Design</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Canva AI</div>
+                    <p class="tool-desc">Design und Foto-Bearbeitung in einem Tool. Für Social Media geeignet.</p>
+                    <div class="tool-tags"><span class="tag">Foto</span><span class="tag">Design</span><span class="tag">$12.99/mo</span></div>
+                </div>
             </div>
 
-            <!-- STAGING TOOLS -->
-            <div class="tool-shell reveal" data-delay="1" data-category="staging">
-                <article class="tool-card">
+            <!-- STAGING -->
+            <div class="tool-shell reveal" data-category="staging">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-staging">
-                            <i class="ph ph-couch"></i>
-                        </div>
+                        <div class="tool-icon icon-staging"><i class="ph ph-couch"></i></div>
                         <span class="tool-badge">Beliebt</span>
                     </div>
-                    <h3 class="tool-name">BoxBrownie</h3>
+                    <div class="tool-name">BoxBrownie</div>
                     <p class="tool-desc">Professionelles Virtual Staging. Möbliere leere Räume in wenigen Stunden.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Staging</span>
-                        <span class="tag">Design</span>
-                    </div>
-                </article>
+                    <div class="tool-tags"><span class="tag">Staging</span><span class="tag">Design</span><span class="tag">$24/Bild</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="staging">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="staging">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-staging">
-                            <i class="ph ph-lightning"></i>
-                        </div>
+                        <div class="tool-icon icon-staging"><i class="ph ph-lightning"></i></div>
                     </div>
-                    <h3 class="tool-name">Virtual Staging AI</h3>
-                    <p class="tool-desc">KI-basiertes Staging in unter 10 Sekunden.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Staging</span>
-                        <span class="tag">KI</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Virtual Staging AI</div>
+                    <p class="tool-desc">KI-basiertes Staging in unter 10 Sekunden. Mehrere Stile wählbar.</p>
+                    <div class="tool-tags"><span class="tag">Staging</span><span class="tag">KI</span><span class="tag">$16/Bild</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="3" data-category="staging">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="staging">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-staging">
-                            <i class="ph ph-wallet"></i>
-                        </div>
+                        <div class="tool-icon icon-staging"><i class="ph ph-wallet"></i></div>
                     </div>
-                    <h3 class="tool-name">Styldod</h3>
+                    <div class="tool-name">Styldod</div>
                     <p class="tool-desc">Budget-freundliches Virtual Staging ab €16 pro Foto.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Staging</span>
-                        <span class="tag">Budget</span>
-                    </div>
-                </article>
+                    <div class="tool-tags"><span class="tag">Staging</span><span class="tag">Budget</span><span class="tag">$16/Bild</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="1" data-category="staging">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="staging">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-staging">
-                            <i class="ph ph-cube"></i>
-                        </div>
+                        <div class="tool-icon icon-staging"><i class="ph ph-cube"></i></div>
                     </div>
-                    <h3 class="tool-name">Rooomy</h3>
+                    <div class="tool-name">Rooomy</div>
                     <p class="tool-desc">3D Staging und Rendering für Premium-Objekte.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Staging</span>
-                        <span class="tag">3D</span>
-                    </div>
-                </article>
+                    <div class="tool-tags"><span class="tag">Staging</span><span class="tag">3D</span><span class="tag">Auf Anfrage</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="staging">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="staging">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-staging">
-                            <i class="ph ph-paint-roller"></i>
-                        </div>
+                        <div class="tool-icon icon-staging"><i class="ph ph-paint-roller"></i></div>
                     </div>
-                    <h3 class="tool-name">Apply Design</h3>
-                    <p class="tool-desc">KI-gestütztes Redesign für Renovierungsprojekte.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Staging</span>
-                        <span class="tag">Redesign</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Apply Design</div>
+                    <p class="tool-desc">KI-gestütztes Redesign für Renovierungsprojekte und Umgestaltungen.</p>
+                    <div class="tool-tags"><span class="tag">Staging</span><span class="tag">Redesign</span><span class="tag">$29/mo</span></div>
+                </div>
             </div>
 
-            <!-- LEADS TOOLS -->
-            <div class="tool-shell reveal" data-delay="1" data-category="leads">
-                <article class="tool-card">
+            <!-- LEADS -->
+            <div class="tool-shell reveal" data-category="leads">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-leads">
-                            <i class="ph ph-cloud"></i>
-                        </div>
-                    </div>
-                    <h3 class="tool-name">Salesforce Einstein</h3>
-                    <p class="tool-desc">KI-CRM für professionelle Lead-Verwaltung.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Leads</span>
-                        <span class="tag">CRM</span>
-                    </div>
-                </article>
-            </div>
-
-            <div class="tool-shell reveal" data-delay="2" data-category="leads">
-                <article class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon icon-leads">
-                            <i class="ph ph-users-three"></i>
-                        </div>
-                    </div>
-                    <h3 class="tool-name">HubSpot AI</h3>
-                    <p class="tool-desc">Marketing-Automation mit KI-Lead-Scoring.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Leads</span>
-                        <span class="tag">Marketing</span>
-                    </div>
-                </article>
-            </div>
-
-            <div class="tool-shell reveal" data-delay="3" data-category="leads">
-                <article class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon icon-leads">
-                            <i class="ph ph-rocket"></i>
-                        </div>
-                    </div>
-                    <h3 class="tool-name">Apollo.io</h3>
-                    <p class="tool-desc">B2B Datenbank für Kontakte und Lead-Generierung.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Leads</span>
-                        <span class="tag">B2B</span>
-                    </div>
-                </article>
-            </div>
-
-            <div class="tool-shell reveal" data-delay="1" data-category="leads">
-                <article class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon icon-leads">
-                            <i class="ph ph-linkedin-logo"></i>
-                        </div>
-                    </div>
-                    <h3 class="tool-name">LinkedIn Sales Navigator</h3>
-                    <p class="tool-desc">Premium-Tool für B2B Lead-Generierung.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Leads</span>
-                        <span class="tag">Social</span>
-                    </div>
-                </article>
-            </div>
-
-            <div class="tool-shell reveal" data-delay="2" data-category="leads">
-                <article class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon icon-leads">
-                            <i class="ph ph-plugs-connected"></i>
-                        </div>
-                    </div>
-                    <h3 class="tool-name">Zapier AI</h3>
-                    <p class="tool-desc">Automatisiere deine Lead-Prozesse mit 5000+ Apps.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Leads</span>
-                        <span class="tag">Automation</span>
-                    </div>
-                </article>
-            </div>
-
-            <div class="tool-shell reveal" data-delay="3" data-category="leads">
-                <article class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon icon-leads">
-                            <i class="ph ph-funnel"></i>
-                        </div>
-                    </div>
-                    <h3 class="tool-name">Pipedrive</h3>
-                    <p class="tool-desc">Einfaches CRM mit KI-gestützten Verkaufsprognosen.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Leads</span>
-                        <span class="tag">Sales</span>
-                    </div>
-                </article>
-            </div>
-
-            <div class="tool-shell reveal" data-delay="1" data-category="leads">
-                <article class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon icon-leads">
-                            <i class="ph ph-envelope"></i>
-                        </div>
-                    </div>
-                    <h3 class="tool-name">Instantly.ai</h3>
-                    <p class="tool-desc">Automatisierte Cold-Email-Kampagnen mit KI.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Leads</span>
-                        <span class="tag">Email</span>
-                    </div>
-                </article>
-            </div>
-
-            <!-- VIDEO TOOLS -->
-            <div class="tool-shell reveal" data-delay="1" data-category="video">
-                <article class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon icon-video">
-                            <i class="ph ph-cube-focus"></i>
-                        </div>
+                        <div class="tool-icon icon-leads"><i class="ph ph-users-three"></i></div>
                         <span class="tool-badge">Top</span>
                     </div>
-                    <h3 class="tool-name">Matterport</h3>
-                    <p class="tool-desc">3D-Rundgänge auf Profi-Niveau. Marktführer.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Video</span>
-                        <span class="tag">3D</span>
-                    </div>
-                </article>
+                    <div class="tool-name">HubSpot AI</div>
+                    <p class="tool-desc">Marketing-Automation mit KI-Lead-Scoring und CRM in einem.</p>
+                    <div class="tool-tags"><span class="tag">Leads</span><span class="tag">CRM</span><span class="tag">$45/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="video">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="leads">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-video">
-                            <i class="ph ph-text-align-left"></i>
-                        </div>
+                        <div class="tool-icon icon-leads"><i class="ph ph-rocket"></i></div>
                     </div>
-                    <h3 class="tool-name">Descript</h3>
-                    <p class="tool-desc">Video-Bearbeitung durch Text-Editing. Innovativ.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Video</span>
-                        <span class="tag">Editing</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Apollo.io</div>
+                    <p class="tool-desc">B2B Datenbank für Kontakte und KI-gestützte Lead-Generierung.</p>
+                    <div class="tool-tags"><span class="tag">Leads</span><span class="tag">B2B</span><span class="tag">$49/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="3" data-category="video">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="leads">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-video">
-                            <i class="ph ph-film-strip"></i>
-                        </div>
+                        <div class="tool-icon icon-leads"><i class="ph ph-funnel"></i></div>
                     </div>
-                    <h3 class="tool-name">Runway</h3>
-                    <p class="tool-desc">KI-Video-Generierung und -Bearbeitung.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Video</span>
-                        <span class="tag">KI-Gen</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Pipedrive</div>
+                    <p class="tool-desc">Einfaches CRM mit KI-gestützten Verkaufsprognosen für Makler.</p>
+                    <div class="tool-tags"><span class="tag">Leads</span><span class="tag">Sales</span><span class="tag">$14/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="1" data-category="video">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="leads">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-video">
-                            <i class="ph ph-user-circle"></i>
-                        </div>
+                        <div class="tool-icon icon-leads"><i class="ph ph-envelope"></i></div>
                     </div>
-                    <h3 class="tool-name">Synthesia</h3>
-                    <p class="tool-desc">KI-Avatar-Videos ohne Kamera oder Studio.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Video</span>
-                        <span class="tag">Avatar</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Instantly.ai</div>
+                    <p class="tool-desc">Automatisierte Cold-Email-Kampagnen mit KI-Personalisierung.</p>
+                    <div class="tool-tags"><span class="tag">Leads</span><span class="tag">Email</span><span class="tag">$37/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="2" data-category="video">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="leads">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-video">
-                            <i class="ph ph-user-focus"></i>
-                        </div>
+                        <div class="tool-icon icon-leads"><i class="ph ph-cloud"></i></div>
                     </div>
-                    <h3 class="tool-name">HeyGen</h3>
-                    <p class="tool-desc">Personalisierte KI-Videos in Minuten erstellen.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Video</span>
-                        <span class="tag">Personal</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Salesforce Einstein</div>
+                    <p class="tool-desc">Enterprise KI-CRM für professionelle Lead-Verwaltung und Prognosen.</p>
+                    <div class="tool-tags"><span class="tag">Leads</span><span class="tag">Enterprise</span><span class="tag">Auf Anfrage</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="3" data-category="video">
-                <article class="tool-card">
+            <!-- AUTOMATION -->
+            <div class="tool-shell reveal" data-category="automation">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-video">
-                            <i class="ph ph-video"></i>
-                        </div>
+                        <div class="tool-icon icon-automation"><i class="ph ph-plugs-connected"></i></div>
+                        <span class="tool-badge">Top</span>
                     </div>
-                    <h3 class="tool-name">InVideo AI</h3>
-                    <p class="tool-desc">Video aus Text generieren. Einfach und schnell.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Video</span>
-                        <span class="tag">Text-to-Video</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Zapier AI</div>
+                    <p class="tool-desc">Automatisiere deine Lead-Prozesse mit 5000+ Apps und KI-gesteuerten Workflows.</p>
+                    <div class="tool-tags"><span class="tag">Automation</span><span class="tag">No-Code</span><span class="tag">$19.99/mo</span></div>
+                </div>
             </div>
 
-            <div class="tool-shell reveal" data-delay="1" data-category="video">
-                <article class="tool-card">
+            <div class="tool-shell reveal" data-category="automation">
+                <div class="tool-card">
                     <div class="tool-header">
-                        <div class="tool-icon icon-video">
-                            <i class="ph ph-scissors"></i>
-                        </div>
+                        <div class="tool-icon icon-automation"><i class="ph ph-flow-arrow"></i></div>
                     </div>
-                    <h3 class="tool-name">CapCut AI</h3>
-                    <p class="tool-desc">TikTok's Video-Editor mit KI-Features.</p>
-                    <div class="tool-tags">
-                        <span class="tag">Video</span>
-                        <span class="tag">Social</span>
-                    </div>
-                </article>
+                    <div class="tool-name">Make (Integromat)</div>
+                    <p class="tool-desc">Visuelle Workflow-Automation. Mächtiger als Zapier, günstiger im Preis.</p>
+                    <div class="tool-tags"><span class="tag">Automation</span><span class="tag">Workflows</span><span class="tag">$9/mo</span></div>
+                </div>
             </div>
+
+            <div class="tool-shell reveal" data-category="automation">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon icon-automation"><i class="ph ph-calendar-check"></i></div>
+                    </div>
+                    <div class="tool-name">Calendly AI</div>
+                    <p class="tool-desc">Automatische Terminplanung für Besichtigungen ohne E-Mail-Ping-Pong.</p>
+                    <div class="tool-tags"><span class="tag">Automation</span><span class="tag">Termine</span><span class="tag">$8/mo</span></div>
+                </div>
+            </div>
+
+            <div class="tool-shell reveal" data-category="automation">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon icon-automation"><i class="ph ph-chat-teardrop-dots"></i></div>
+                    </div>
+                    <div class="tool-name">Tidio</div>
+                    <p class="tool-desc">KI-Chatbot für deine Website — beantwortet Anfragen rund um die Uhr.</p>
+                    <div class="tool-tags"><span class="tag">Automation</span><span class="tag">Chatbot</span><span class="tag">$29/mo</span></div>
+                </div>
+            </div>
+
+            <!-- VIDEO -->
+            <div class="tool-shell reveal" data-category="video">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon icon-video"><i class="ph ph-cube-focus"></i></div>
+                        <span class="tool-badge">Top</span>
+                    </div>
+                    <div class="tool-name">Matterport</div>
+                    <p class="tool-desc">3D-Rundgänge auf Profi-Niveau. Marktführer für virtuelle Touren.</p>
+                    <div class="tool-tags"><span class="tag">Video</span><span class="tag">3D</span><span class="tag">$69/mo</span></div>
+                </div>
+            </div>
+
+            <div class="tool-shell reveal" data-category="video">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon icon-video"><i class="ph ph-user-circle"></i></div>
+                    </div>
+                    <div class="tool-name">Synthesia</div>
+                    <p class="tool-desc">KI-Avatar-Videos ohne Kamera oder Studio. Perfekt für Objekt-Präsentationen.</p>
+                    <div class="tool-tags"><span class="tag">Video</span><span class="tag">Avatar</span><span class="tag">$22/mo</span></div>
+                </div>
+            </div>
+
+            <div class="tool-shell reveal" data-category="video">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon icon-video"><i class="ph ph-user-focus"></i></div>
+                    </div>
+                    <div class="tool-name">HeyGen</div>
+                    <p class="tool-desc">Personalisierte KI-Videos in Minuten. Hohe Qualität, einfache Bedienung.</p>
+                    <div class="tool-tags"><span class="tag">Video</span><span class="tag">Personal</span><span class="tag">$24/mo</span></div>
+                </div>
+            </div>
+
+            <div class="tool-shell reveal" data-category="video">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon icon-video"><i class="ph ph-film-strip"></i></div>
+                    </div>
+                    <div class="tool-name">Runway</div>
+                    <p class="tool-desc">KI-Video-Generierung und -Bearbeitung. State-of-the-art Qualität.</p>
+                    <div class="tool-tags"><span class="tag">Video</span><span class="tag">KI-Gen</span><span class="tag">$15/mo</span></div>
+                </div>
+            </div>
+
+            <div class="tool-shell reveal" data-category="video">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon icon-video"><i class="ph ph-video"></i></div>
+                    </div>
+                    <div class="tool-name">InVideo AI</div>
+                    <p class="tool-desc">Video aus Text generieren. Einfach und schnell für Social Media.</p>
+                    <div class="tool-tags"><span class="tag">Video</span><span class="tag">Text-to-Video</span><span class="tag">$25/mo</span></div>
+                </div>
+            </div>
+
+            <div class="tool-shell reveal" data-category="video">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon icon-video"><i class="ph ph-scissors"></i></div>
+                    </div>
+                    <div class="tool-name">CapCut AI</div>
+                    <p class="tool-desc">TikTok's Video-Editor mit starken KI-Features. Kostenlos nutzbar.</p>
+                    <div class="tool-tags"><span class="tag">Video</span><span class="tag">Social</span><span class="tag">Kostenlos</span></div>
+                </div>
+            </div>
+
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div>
-                <div class="footer-brand">KImo</div>
-                <p class="footer-tagline">KI-Tools für moderne Immobilienmakler.</p>
+    <div class="footer-wrap">
+        <footer>
+            <span>© 2026 KImotools</span>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="mailto:kontakt@kimotools.de">Kontakt</a>
             </div>
-            <div class="footer-col">
-                <h4>Navigation</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="tools.html">Tools</a></li>
-                    <li><a href="compare.html">Vergleichen</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Kategorien</h4>
-                <ul>
-                    <li><a href="#" data-filter="expose">Exposé-Tools</a></li>
-                    <li><a href="#" data-filter="staging">Virtual Staging</a></li>
-                    <li><a href="#" data-filter="video">Video-Tools</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Rechtliches</h4>
-                <ul>
-                    <li><a href="/impressum.html">Impressum</a></li>
-                    <li><a href="/datenschutz.html">Datenschutz</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p class="footer-copy">&copy; 2026 KImo. Alle Rechte vorbehalten.</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
-    <!-- Scripts -->
+    <!-- TOOL DETAIL DRAWER -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Tool Details">
+        <div class="drawer-header">
+            <div class="drawer-logo-wrap">
+                <div class="drawer-logo" id="drawerLogo"></div>
+                <div>
+                    <div class="drawer-tool-name" id="drawerName"></div>
+                    <div class="drawer-tool-cat" id="drawerCat"></div>
+                </div>
+            </div>
+            <button class="drawer-close" id="drawerClose" aria-label="Schließen">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+
+        <div class="drawer-body" id="drawerBody">
+            <!-- populated by JS -->
+        </div>
+
+        <div class="drawer-footer">
+            <a href="#" target="_blank" rel="noopener" class="drawer-cta" id="drawerCta">
+                <i class="ph ph-arrow-square-out"></i>
+                Tool öffnen
+            </a>
+        </div>
+    </aside>
+
     <script>
-        // Scroll Reveal
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
+        function logo(domain) {
+            return `https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
+        }
 
-            document.querySelectorAll('.reveal').forEach(el => {
-                observer.observe(el);
-            });
+        // Map tool name → domain for logo lookup
+        const toolLogos = {
+            'ChatGPT':            logo('chat.openai.com'),
+            'Jasper AI':          logo('jasper.ai'),
+            'Copy.ai':            logo('copy.ai'),
+            'Writesonic':         logo('writesonic.com'),
+            'Neuroflash':         logo('neuroflash.com'),
+            'Claude':             logo('claude.ai'),
+            'Rytr':               logo('rytr.me'),
+            'Anyword':            logo('anyword.com'),
+            'Photoroom':          logo('photoroom.com'),
+            'Lightroom AI':       logo('lightroom.adobe.com'),
+            'Topaz Photo AI':     logo('topazlabs.com'),
+            'Remove.bg':          logo('remove.bg'),
+            'Luminar AI':         logo('skylum.com'),
+            'Canva AI':           logo('canva.com'),
+            'BoxBrownie':         logo('boxbrownie.com'),
+            'Virtual Staging AI': logo('virtualstagingai.app'),
+            'Styldod':            logo('styldod.com'),
+            'Rooomy':             logo('rooomy.com'),
+            'Apply Design':       logo('applydesign.io'),
+            'HubSpot AI':         logo('hubspot.com'),
+            'Apollo.io':          logo('apollo.io'),
+            'Pipedrive':          logo('pipedrive.com'),
+            'Instantly.ai':       logo('instantly.ai'),
+            'Salesforce Einstein': logo('salesforce.com'),
+            'Zapier AI':          logo('zapier.com'),
+            'Make (Integromat)':  logo('make.com'),
+            'Calendly AI':        logo('calendly.com'),
+            'Tidio':              logo('tidio.com'),
+            'Matterport':         logo('matterport.com'),
+            'Synthesia':          logo('synthesia.io'),
+            'HeyGen':             logo('heygen.com'),
+            'Runway':             logo('runwayml.com'),
+            'InVideo AI':         logo('invideo.io'),
+            'CapCut AI':          logo('capcut.com'),
+        };
 
-            // Filter functionality
-            const filterPills = document.querySelectorAll('.filter-pill');
-            const toolCards = document.querySelectorAll('.tool-shell');
+        // Inject logos into tool icons
+        document.querySelectorAll('.tool-card').forEach(card => {
+            const nameEl = card.querySelector('.tool-name');
+            const iconEl = card.querySelector('.tool-icon');
+            if (!nameEl || !iconEl) return;
+            const name = nameEl.textContent.trim();
+            const src = toolLogos[name];
+            if (!src) return;
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = name;
+            img.onerror = () => img.remove(); // keep phosphor icon as fallback
+            iconEl.prepend(img);
+            // hide the phosphor icon once logo loads
+            img.onload = () => {
+                const ph = iconEl.querySelector('i');
+                if (ph) ph.style.display = 'none';
+            };
+        });
 
-            filterPills.forEach(pill => {
-                pill.addEventListener('click', () => {
-                    const category = pill.dataset.category;
+        // ── TOOL DETAIL DRAWER ──────────────────────────────────────────
+        const toolData = {
+            'ChatGPT': {
+                cat: 'Exposé & Text',
+                desc: 'ChatGPT von OpenAI ist der weltweit bekannteste KI-Assistent und der De-facto-Standard für KI-gestütztes Schreiben. Mit GPT-4o versteht er Kontext und Nuancen außergewöhnlich gut — ideal für Immobilienexposés, E-Mail-Serien, FAQ-Seiten und Content-Strategie.',
+                pros: ['Beste Textqualität am Markt', 'Riesige Prompt-Community', 'Multimodal (Bilder, PDFs)', 'GPT-4o kostenlos nutzbar'],
+                cons: ['Kein Immobilien-Fokus', 'Kein Langzeitgedächtnis', 'Datenschutz bei freier Version'],
+                practices: ['Nutze Custom Instructions: Hinterlege dein Maklerprofil, Zielgruppe und Stilrichtlinien dauerhaft.', 'Prompt-Bibliothek anlegen: Speichere bewährte Exposé-Prompts als Vorlage für jeden Objekttyp.', 'Iterativ arbeiten: Generiere einen Rohtext, dann bitte gezielt um Überarbeitung (kürzer, emotionaler, SEO-optimiert).', 'Bilder hochladen: Lade Objektfotos hoch und lass ChatGPT die Beschreibung direkt aus dem Bild ableiten.'],
+                url: 'https://chat.openai.com',
+                price: '$20/Monat (Plus)',
+                free: true
+            },
+            'Jasper AI': {
+                cat: 'Exposé & Marketing',
+                desc: 'Jasper ist eine KI-Plattform speziell für Marketing-Teams. Mit über 50 vorgefertigten Templates, darunter auch Immobilien-spezifische Vorlagen, ermöglicht Jasper die schnelle Erstellung von Exposétexten, Anzeigen, Social Media Posts und E-Mail-Kampagnen mit konsistentem Markenstil.',
+                pros: ['50+ Marketing-Templates', 'Team-Funktionen & Brand Voice', 'SEO-Modus mit SurferSEO', 'Kampagnen-Workflow'],
+                cons: ['Deutlich teurer als ChatGPT', 'Lernkurve für volle Nutzung', 'Weniger flexibel bei Freitext'],
+                practices: ['Brand Voice einrichten: Trainiere Jasper auf deinen Schreibstil mit 3–5 Beispieltexten.', 'Campaigns nutzen: Erstelle eine Kampagne für ein Objekt und generiere alle Textvarianten (Exposé, Social, E-Mail) in einem Workflow.', 'SEO-Modus aktivieren: Für Webseiten-Content den SurferSEO-Modus nutzen und Ziel-Keywords hinterlegen.', 'Templates anpassen: Bestehende Templates mit Immobilien-spezifischen Anweisungen als Custom-Templates speichern.'],
+                url: 'https://jasper.ai',
+                price: '$49/Monat',
+                free: false
+            },
+            'Copy.ai': {
+                cat: 'Exposé & Social Media',
+                desc: 'Copy.ai bietet einen fokussierten KI-Schreibworkflow für Marketing-Content. Besonders stark für Social-Media-Texte, kurze Anzeigentexte und schnelle Content-Variationen. Das Workflows-Feature ermöglicht vollautomatische Content-Pipelines.',
+                pros: ['Schnelle Texterstellung', 'Guter Workflow-Builder', 'Viele Social-Media-Templates', 'Kostenlose Basis-Version'],
+                cons: ['Qualität unter ChatGPT', 'Begrenzte Anpassbarkeit', 'Workflows erfordern Einarbeitung'],
+                practices: ['Infopage-Workflow: Erstelle einen Workflow "Objekt → Social Post × 5 Plattformen" für automatischen Multi-Channel-Content.', '10x Content: Lass Copy.ai 10 Variationen eines Anzeigentexts generieren und wähle die beste aus.', 'Templates anpassen: Konfiguriere Marke und Tonalität im Brand Voice-Bereich vor jeder Session.', 'A/B-Testing: Nutze mehrere Variationen für Immoscout-Anzeigen und tracke die Performance.'],
+                url: 'https://copy.ai',
+                price: '$49/Monat',
+                free: true
+            },
+            'Writesonic': {
+                cat: 'Exposé & SEO',
+                desc: 'Writesonic ist auf SEO-optimierten Content spezialisiert und hostet Server in der EU — ein Vorteil für DSGVO-Compliance. Besonders nützlich für Makler mit eigener Website: automatische Erstellung von Objektbeschreibungen, Blog-Artikeln und Landingpages.',
+                pros: ['EU-Server (DSGVO-freundlich)', 'Eingebauter SEO-Checker', 'Günstigster Profi-Plan', 'Mehrsprachig (DE inklusive)'],
+                cons: ['Interface weniger modern', 'Qualität schwankend', 'Support langsamer'],
+                practices: ['Landingpage-Generator: Erstelle für jede Objektkategorie (Einfamilienhäuser, Eigentumswohnungen) eine eigene SEO-optimierte Angebotsseite.', 'Keyword-Integration: Nutze den SEO-Modus und hinterlege lokale Keywords wie "Haus kaufen [Stadt]".', 'Bulk-Generierung: Erstelle 20 Objektbeschreibungen in einem Durchgang mit der CSV-Import-Funktion.', 'Mehrsprachig: Erstelle Exposés direkt in Englisch für internationale Käufer.'],
+                url: 'https://writesonic.com',
+                price: '$16/Monat',
+                free: true
+            },
+            'Neuroflash': {
+                cat: 'Exposé & DSGVO',
+                desc: 'Neuroflash ist eine deutsche KI-Plattform mit Hosting ausschließlich in Deutschland — die DSGVO-konforme Wahl für Makler, die keine US-Anbieter nutzen wollen oder dürfen. Spezialisiert auf deutschen Marketing-Content mit kulturellem Kontext.',
+                pros: ['100% DSGVO-konform', 'Hosting in Deutschland', 'Deutschsprachige KI-Qualität', 'Immobilien-Templates vorhanden'],
+                cons: ['Teurer als US-Alternativen', 'Kleinere Feature-Palette', 'Keine englischen Texte'],
+                practices: ['Datenschutz dokumentieren: Neuroflash eignet sich für AVV (Auftragsverarbeitungsvertrag) ohne komplizierte Drittland-Klauseln.', 'Exposé-Templates nutzen: Die vorgefertigten Immobilien-Vorlagen direkt mit eigenen Daten befüllen.', 'Tone of Voice: Deutsche Immobilienkäufer bevorzugen sachlichen Stil — Neuroflash kennt diesen Markt.', 'Team-Account: Ein Account für alle Mitarbeiter — spart Kosten und sichert konsistente Markensprache.'],
+                url: 'https://neuroflash.com',
+                price: '€30/Monat',
+                free: true
+            },
+            'Claude': {
+                cat: 'Exposé & Analyse',
+                desc: 'Claude von Anthropic ist bekannt für außergewöhnliche Fähigkeiten bei langen, nuancierten Texten und analytischen Aufgaben. Für Makler besonders wertvoll bei komplexen Gutachten, rechtlichen Zusammenfassungen, Marktanalysen und Texten, die subtile Überzeugungskraft erfordern.',
+                pros: ['Überlegend bei Langform-Texten', 'Sehr präziser Schreibstil', 'Riesiges Kontextfenster', 'Datenschutz-bewusster Ansatz'],
+                cons: ['Weniger Marketing-Templates', 'Teurer als ChatGPT', 'Keine Bildgenerierung'],
+                practices: ['Marktberichte: Lade Marktdaten als PDF hoch und lass Claude eine Käufer-gerechte Zusammenfassung erstellen.', 'Vertragstexte prüfen: Nutze Claude zur Erstprüfung von Kaufverträgen auf ungewöhnliche Klauseln.', 'Personalisierte Anschreiben: Claude generiert auf Basis von Exposé + Käuferprofil perfekt personalisierte Anschreiben.', 'Objekt-Storytelling: Bitte Claude, eine emotionale Geschichte rund um das Objekt zu erzählen, nicht nur Fakten aufzulisten.'],
+                url: 'https://claude.ai',
+                price: '$20/Monat (Pro)',
+                free: true
+            },
+            'Rytr': {
+                cat: 'Exposé & Budget',
+                desc: 'Rytr ist die günstigste KI-Schreiblösung mit einem dauerhaft kostenlosen Plan. Für Makler, die erste Schritte mit KI-Content gehen wollen oder gelegentlich Texthilfe benötigen, ohne ein Abo abschließen zu müssen.',
+                pros: ['Kostenlos nutzbar (10k Zeichen/Mo)', 'Sehr günstiger Unlimited-Plan', '40+ Sprachen', 'Chrome Extension'],
+                cons: ['Geringere Textqualität', 'Wenige erweiterte Features', 'Kein Workflow-Builder'],
+                practices: ['Schnelle Drafts: Für kurze Social-Media-Posts und Schlagzeilen ideal — danach manuell verfeinern.', 'Mehrsprachige Kurzexposés: Titel und Highlights in 5 Sprachen für internationale Portale generieren.', 'Chrome-Extension: Direkt in ImmoScout-Anzeigenformulare schreiben ohne Tab-Wechsel.', 'Einsteiger-Tool: Perfekt zum Ausprobieren von KI-Texten, bevor man in teurere Tools investiert.'],
+                url: 'https://rytr.me',
+                price: '$9/Monat',
+                free: true
+            },
+            'Anyword': {
+                cat: 'Exposé & Analytics',
+                desc: 'Anyword kombiniert KI-Texterstellung mit Performance-Vorhersage. Das System berechnet für jeden generierten Text einen "Predictive Performance Score" und zeigt an, welche Variante voraussichtlich die höchste Engagement-Rate erzielt.',
+                pros: ['Performance-Score je Text', 'A/B-Textvarianten', 'Conversion-Optimierung', 'Datengetriebene Entscheidungen'],
+                cons: ['Teuer für Solo-Makler', 'Score-Kalibrierung dauert', 'Lernkurve'],
+                practices: ['Anzeigentexte testen: Erstelle 5 Varianten eines ImmoScout-Textes und wähle den mit höchstem Score.', 'Zielgruppen definieren: Hinterlege Käuferprofil (Alter, Einkommen, Lebenssituation) für präzisere Score-Berechnung.', 'Headline-Optimierung: Teste verschiedene Exposé-Überschriften auf Aufmerksamkeitswert.', 'Langzeit-Tracking: Tracke, ob Anyword-Empfehlungen sich in echten Anfragen widerspiegeln.'],
+                url: 'https://anyword.com',
+                price: '$39/Monat',
+                free: false
+            },
+            'Photoroom': {
+                cat: 'Foto-Bearbeitung',
+                desc: 'Photoroom ist der schnellste Weg zu professionellen Immobilienfotos. KI entfernt Hintergründe, optimiert Beleuchtung und ersetzt störende Elemente in Sekunden. Besonders nützlich für Außenaufnahmen mit unruhigen Hintergründen oder Innenfotos mit Unordnung.',
+                pros: ['Blitzschnelle Hintergrundentfernung', 'Automatische Foto-Verbesserung', 'Batch-Verarbeitung', 'Mobile App verfügbar'],
+                cons: ['Begrenzte Kontrolle bei Innenräumen', 'Credit-System kann teuer werden', 'Kein 3D-Rendering'],
+                practices: ['Außenaufnahmen: Ersetze graue Himmel durch strahlendes Wetter — erhöht Klickrate messbar.', 'Hintergrund-Cleanup: Entferne parkende Autos, Mülltonnen oder Baugerüste per KI aus Außenfotos.', 'Batch-Optimierung: Lade 30 Fotos auf einmal hoch und erhalte alle in Profi-Qualität.', 'Virtuelle Schilder: Füge digitale "Zu verkaufen"-Schilder ohne Fotoshooting in Bilder ein.'],
+                url: 'https://photoroom.com',
+                price: '$9.99/Monat',
+                free: true
+            },
+            'Lightroom AI': {
+                cat: 'Foto-Bearbeitung',
+                desc: 'Adobe Lightroom mit KI-Features ist der professionelle Standard für Immobilienfotografie. Automatische Motiverkennung, KI-Masken für präzise Belichtungskorrekturen und Denoise-Funktion auf Profi-Niveau. Für Makler, die höchste Bildqualität anstreben.',
+                pros: ['Profi-Qualität ohne Expertise', 'KI-Masken für präzise Korrekturen', 'Presets für konsistenten Stil', 'Cloud-Sync & Mobile App'],
+                cons: ['Adobe-Abo erforderlich', 'Steilere Lernkurve', 'Teuer ohne Creative Cloud'],
+                practices: ['KI-Masken nutzen: Trenne Himmel von Gebäude automatisch für getrennte Belichtungskorrektur.', 'Objekt-Preset erstellen: Einmalig perfekte Einstellungen für deinen Gebäudetyp speichern und auf alle Fotos anwenden.', 'Denoise: Schlechte Lichtsituationen (Keller, Abendaufnahmen) mit 1 Klick retten.', 'Batch-Export: 100 Fotos in optimaler Web-Qualität für ImmoScout und Maklerhomepage in einem Durchgang exportieren.'],
+                url: 'https://lightroom.adobe.com',
+                price: '$9.99/Monat',
+                free: false
+            },
+            'Topaz Photo AI': {
+                cat: 'Foto-Upscaling',
+                desc: 'Topaz Photo AI ist der unangefochtene Marktführer für KI-gestütztes Upscaling und Rauschentfernung. Einmal bezahlt, keine monatlichen Kosten. Ideal für ältere Fotos in niedriger Auflösung und verwackelte Aufnahmen aus schlechten Lichtsituationen.',
+                pros: ['Einmalzahlung, kein Abo', 'Beste Upscaling-Qualität', 'Batch-Verarbeitung', 'Offline-Software'],
+                cons: ['Hohe Einmalkosten', 'Nur Foto-Verbesserung', 'Hohe Systemanforderungen'],
+                practices: ['Ältere Archiv-Fotos: Bestehende Objekte mit alten Fotos in 4× Auflösung hochskalieren.', 'Innenaufnahmen schärfen: Kameraunschärfe durch Bewegung bei schlechtem Licht automatisch korrigieren.', 'Batch-Workflow: Alle Fotos eines Objekts in einem Durchgang verarbeiten (Autopilot-Modus).', 'Drohnenfotos: Komprimierte Drohnenbilder auf Druckqualität aufwerten.'],
+                url: 'https://topazlabs.com/topaz-photo-ai',
+                price: '$199 einmalig',
+                free: false
+            },
+            'Remove.bg': {
+                cat: 'Foto-Hintergrund',
+                desc: 'Remove.bg ist das bekannteste und einfachste Tool zum Hintergrundentfernen. Per Drag & Drop, API oder Bulk-Upload werden in 5 Sekunden Hintergründe entfernt. Kostenlos für Vorschau, günstig für Fullsize-Exporte.',
+                pros: ['Blitzschnell & einfach', 'Gute Batch-Funktion', 'API für Automatisierung', 'Integriert in Canva & Photoshop'],
+                cons: ['Nur Hintergrundentfernung', 'Vollbild nur kostenpflichtig', 'Bei komplexen Objekten ungenau'],
+                practices: ['Portfolio-Massenexport: Alle Außenfotos auf einmal für weißen/transparenten Hintergrund vorbereiten.', 'Canva-Integration: Direkt in Canva über "Background Remover" nutzen, ohne Tool-Wechsel.', 'API-Automatisierung: Im CRM-System automatisch jedes neue Foto beim Upload bereinigen.', 'Exposé-Grafiken: Einzelne Objekte (Möbel, Accessoires) für Staging-Visualisierungen freistellen.'],
+                url: 'https://remove.bg',
+                price: '$9/Monat',
+                free: true
+            },
+            'Luminar AI': {
+                cat: 'Foto-Bearbeitung',
+                desc: 'Luminar AI von Skylum ist speziell für atmosphärische Verbesserungen optimiert. Automatischer Himmelsaustausch, Beleuchtungsverbesserung und KI-gestützte Nachbearbeitung machen aus durchschnittlichen Außenaufnahmen beeindruckende Bilder.',
+                pros: ['Automatischer Himmelsaustausch', 'Dramatischer Wow-Effekt', 'Einfache Bedienung', 'Einmalzahlung möglich'],
+                cons: ['Weniger für Innenräume geeignet', 'Kann übertrieben wirken', 'Lightroom-Qualität nicht erreicht'],
+                practices: ['Golden Hour Effect: Verwandle mittelmäßige Außenaufnahmen durch KI-Sonnenuntergang in emotionale Bilder.', 'Himmelsaustausch: Mit dem Sky AI-Feature graue Bewölkung durch dramatische Wolkenformationen ersetzen.', 'Atmosfäre justieren: Dunst und Nebelstimmung für besondere Objekte gezielt einsetzen.', 'Realismus wahren: Dezente Einstellungen wählen — übertriebene Effekte wirken unserös und können als Täuschung eingestuft werden.'],
+                url: 'https://skylum.com/luminar',
+                price: '$9.95/Monat',
+                free: false
+            },
+            'Canva AI': {
+                cat: 'Design & Foto',
+                desc: 'Canva mit KI-Features ist das beliebteste Design-Tool für Nicht-Designer. Magic Design, Text-to-Image und Background Remover ermöglichen professionelle Exposé-Layouts, Social-Media-Grafiken und Marketing-Materialien ohne Designkenntnisse.',
+                pros: ['Komplette Design-Plattform', 'Tausende Immobilien-Templates', 'KI-Bildgenerierung inklusive', 'Team-Kollaboration'],
+                cons: ['Nicht auf Fotos spezialisiert', 'Weniger Fotoqualität als Lightroom', 'Brand Kit kostenpflichtig'],
+                practices: ['Exposé-Template: Einmalig ein professionelles Exposé-Template erstellen und für jedes Objekt anpassen.', 'Social Media Kit: Alle Plattformen (Instagram, Facebook, WhatsApp) aus einem Design in den richtigen Maßen exportieren.', 'Präsentationen: Professionelle Pitch-Decks für Eigentümer-Akquise direkt in Canva.', 'KI-Bildgenerierung: Stimmungsbilder für Traumwohnung-Visualisierungen erstellen ohne Fotoshooting.'],
+                url: 'https://canva.com',
+                price: '$15/Monat (Pro)',
+                free: true
+            },
+            'BoxBrownie': {
+                cat: 'Foto-Profi-Service',
+                desc: 'BoxBrownie ist ein professioneller Foto-Editing-Service mit KI-Unterstützung für Immobilienprofis. Menschliche Experten in Kombination mit KI liefern konsistente, makellose Ergebnisse bei Hintergrundentfernung, Bildoptimierung und virtuellem Staging.',
+                pros: ['Menschliche Qualitätskontrolle', 'Konsistente Ergebnisse', 'Schnelle Lieferung (24h)', 'Profi-Virtual-Staging'],
+                cons: ['Pro-Service = höhere Kosten', 'Keine Echtzeit-Bearbeitung', 'Kein Self-Service'],
+                practices: ['Hochwertige Objekte: Bei Premiumimmobilien BoxBrownie statt Self-Service nutzen für garantierte Profi-Qualität.', 'Bulk-Bestellungen: Alle Fotos eines Objekts auf einmal bestellen — günstiger und konsistenter.', 'Virtual Staging: BoxBrownie bietet überzeugendes virtuelles Staging zu fairen Preisen.', 'Turnaround planen: 24–48h Lieferzeit in die Vermarktungs-Timeline einplanen.'],
+                url: 'https://boxbrownie.com',
+                price: 'Ab $1.60/Foto',
+                free: false
+            },
+            'Virtual Staging AI': {
+                cat: 'Virtual Staging',
+                desc: 'Virtual Staging AI ist ein KI-Tool, das leere Räume in wenigen Sekunden mit virtuellen Möbeln ausstattet. Mit verschiedenen Design-Stilen und automatischer Raumanalyse werden Leerverkäufe besonders attraktiv dargestellt.',
+                pros: ['30 Sekunden pro Raum', 'Viele Design-Stile', 'Faire Einzelbild-Preise', 'Sehr realistische Ergebnisse'],
+                cons: ['Nur für leere Räume ideal', 'Qualität variiert', 'Keine Grundriss-Funktionen'],
+                practices: ['Leere Wohnungen: Leerstehendes Objekt vor dem Insertieren mit virtuellen Möbeln ausstatten.', 'Stil-Variationen: 3 verschiedene Stil-Vorschläge (Modern, Skandinavisch, Klassisch) für unterschiedliche Zielgruppen erstellen.', 'Vorher/Nachher-Bilder: Beide Versionen zeigen — erhöht Vertrauen und zeigt Potenzial.', 'ROI-Kalkulation: Virtuelles Staging für €15/Raum vs. echtes Staging für €100+/Raum.'],
+                url: 'https://virtualstagingai.app',
+                price: '$29/5 Renders',
+                free: false
+            },
+            'Styldod': {
+                cat: 'Virtual Staging',
+                desc: 'Styldod bietet professionelles virtuelles Staging mit KI, das von Immobilienexperten entwickelt wurde. Mehr als nur Möbel hinzufügen: Styldod berücksichtigt Lichtverhältnisse, Perspektive und Proportionen für maximale Realismus.',
+                pros: ['Sehr realistische Ergebnisse', 'Breite Style-Auswahl', 'Schnelle Lieferung', 'Auch Rendering-Service'],
+                cons: ['Teurer als reine Self-Service-Tools', 'Kein echtes Self-Service', 'Kommunikation per Upload'],
+                practices: ['Premiumobjekte: Für hochpreisige Immobilien den Full-Service von Styldod nutzen für garantierte Top-Qualität.', 'Lifestyle-Staging: Nicht nur Möbel, sondern komplette Wohnatmosphäre mit Accessoires, Kunst und Dekoration.', 'Virtuelle Renovierung: Alte Küchen oder Bäder virtuell modernisieren, um Potenzial zu zeigen.', 'Vergleichs-Sets: Aktueller Zustand vs. virtuell renovierter Zustand als überzeugendes Argument.'],
+                url: 'https://styldod.com',
+                price: '$16/Render',
+                free: false
+            },
+            'Rooomy': {
+                cat: 'Virtual Staging',
+                desc: 'Rooomy ist eine cloudbasierte Virtual-Staging-Plattform, die sich auf Integration mit Immobilienportalen spezialisiert. Nahtlose Anbindung an MLS-Systeme und direkte Integration in Immobilien-Websites.',
+                pros: ['Portal-Integrationen', 'Echtzeit-Vorschau', 'API für Entwickler', 'Skalierbar für Agenturen'],
+                cons: ['Komplex für Einzelmakler', 'Enterprise-Fokus', 'Preise auf Anfrage'],
+                practices: ['CRM-Integration: Mit bestehenden Maklersoftware-Systemen via API verbinden für automatisches Staging.', 'Portfolio-Visualisierung: Große Bestände systematisch mit virtuellem Staging aufwerten.', 'Website-Integration: Interaktives Staging direkt auf der Objektseite der Makler-Website einbinden.', 'Kundenpräsentationen: Staging-Varianten live im Kundengespräch in Echtzeit wechseln.'],
+                url: 'https://rooomy.com',
+                price: 'Auf Anfrage',
+                free: false
+            },
+            'Apply Design': {
+                cat: 'Virtual Staging',
+                desc: 'Apply Design ist ein junges Virtual-Staging-Tool mit besonders intuitivem Interface. Per einfachem Upload und Stil-Auswahl werden Renders in Minuten geliefert — ideal für Makler, die schnell und unkompliziert Staging-Bilder benötigen.',
+                pros: ['Sehr einfache Bedienung', 'Schnelle Lieferung', 'Günstige Einstiegspreise', 'Verschiedene Stile'],
+                cons: ['Weniger Kontrollmöglichkeiten', 'Kleines Feature-Set', 'Noch in der Entwicklung'],
+                practices: ['Quick Wins: Für kleinere Objekte und schnelle Vermarktung die günstige Option.', 'Test-Renders: Verschiedene Einrichtungsstile ausprobieren bevor echtes Staging geplant wird.', 'Social Media: Staging-Bilder für Instagram und Facebook Posts nutzen.', 'Budget-Staging: Als Alternative zu teurem Profi-Staging für mittleres Marktsegment.'],
+                url: 'https://applydesign.io',
+                price: 'Ab $7/Render',
+                free: false
+            },
+            'HubSpot AI': {
+                cat: 'Leads & CRM',
+                desc: 'HubSpot CRM mit KI-Features ist die umfassendste Lead-Management-Lösung. Von Lead-Scoring über automatische E-Mail-Sequenzen bis zur KI-gestützten Conversion-Optimierung bietet HubSpot alles für systematische Maklerkunden-Betreuung.',
+                pros: ['Komplettes CRM-System', 'KI-Lead-Scoring', 'E-Mail-Sequenzen', 'Kostenloses Basis-CRM'],
+                cons: ['Teuer für volle Features', 'Hohe Einarbeitungszeit', 'Für Solo-Makler oft oversized'],
+                practices: ['Kostenloses CRM starten: Das Basis-CRM von HubSpot ist gratis und für die meisten Makler ausreichend.', 'Lead-Scoring: KI bewertet automatisch, welche Interessenten kaufbereit sind — fokussiere dich auf die Top 20%.', 'E-Mail-Sequenzen: Automatische Follow-up-Serie nach Erstkontakt — 5 E-Mails über 3 Wochen.', 'Deals-Pipeline: Jeden Interessenten als Deal tracken mit Stufe (Erstgespräch → Besichtigung → Angebot → Abschluss).'],
+                url: 'https://hubspot.com',
+                price: '$45/Monat (Starter)',
+                free: true
+            },
+            'Apollo.io': {
+                cat: 'Leads & Akquise',
+                desc: 'Apollo.io ist eine leistungsstarke B2B-Lead-Generierungsplattform. Für Gewerbeimmobilien-Makler und Investor-Akquise ein unschätzbar wertvolles Tool: Direkte Kontaktdaten, KI-gestützte Prospect-Qualifizierung und automatische Outreach-Kampagnen.',
+                pros: ['Riesige B2B-Kontaktdatenbank', 'E-Mail-Sequenzen inklusive', 'KI-Lead-Qualifizierung', 'LinkedIn-Integration'],
+                cons: ['Vor allem B2B-fokussiert', 'Datenschutz in EU beachten', 'Günstig nur mit Jahreszahlung'],
+                practices: ['Investoren-Akquise: Kontakte nach Unternehmensgröße und Immobilien-Investments filtern.', 'Gewerbe-Prospecting: Unternehmen identifizieren, die Büroflächen suchen oder expandieren.', 'E-Mail-Sequenzen: 5-teilige Outreach-Kampagne für Eigentümer-Akquise automatisieren.', 'LinkedIn-Sync: Apollo mit LinkedIn Sales Navigator kombinieren für maximale Reichweite.'],
+                url: 'https://apollo.io',
+                price: '$49/Monat',
+                free: true
+            },
+            'Pipedrive': {
+                cat: 'Leads & CRM',
+                desc: 'Pipedrive ist ein CRM, das speziell für Vertriebsprofis entwickelt wurde und sich auch für Immobilienmakler hervorragend eignet. Klarer Pipeline-Überblick, KI-Sales-Assistent und automatische Lead-Bewertung in einer intuitiven Oberfläche.',
+                pros: ['Sehr intuitives Interface', 'KI-Sales-Assistent', 'Klare Pipeline-Visualisierung', 'Günstiger als HubSpot'],
+                cons: ['Weniger Marketing-Features', 'E-Mail-Marketing begrenzt', 'Keine kostenlose Version'],
+                practices: ['Pipeline einrichten: Stufen an den Makler-Prozess anpassen (Exposé → Besichtigung → Angebot → Notariat → Abschluss).', 'KI-Assistent aktivieren: Lässt sich jeden Deal analysieren und schlägt nächste Aktionen vor.', 'Aktivitäten verlinken: Jeden Anruf, jede E-Mail und Besichtigung direkt im Deal dokumentieren.', 'Lead-Quelle tracken: Erfassen woher jeder Lead kommt (ImmoScout, Empfehlung, Web) für Marketing-Optimierung.'],
+                url: 'https://pipedrive.com',
+                price: '$14.90/Monat',
+                free: false
+            },
+            'Instantly.ai': {
+                cat: 'Leads & E-Mail',
+                desc: 'Instantly.ai ist ein spezialisiertes Tool für kalte E-Mail-Kampagnen mit KI-Optimierung. Maximale Zustellraten durch Inbox-Warming, KI-personalisierte E-Mails und automatisches Follow-up — besonders effektiv für Eigentümer-Akquise.',
+                pros: ['Sehr hohe Zustellraten', 'Unbegrenzte E-Mail-Accounts', 'KI-Personalisierung', 'Inbox-Warming automatisch'],
+                cons: ['Nur für Cold Outreach', 'Datenschutz-Risiken bei unsachgemäßer Nutzung', 'Lernkurve für Setup'],
+                practices: ['Inbox-Warming: Mindestens 2 Wochen neue E-Mail-Domains aufwärmen vor dem ersten Versand.', 'Personalisierung: KI erste Zeile jeder E-Mail individualisieren lassen basierend auf LinkedIn-Profil.', 'DSGVO-Compliance: In Deutschland nur bei berechtigtem Interesse für B2B-Kontakte — AGB sorgfältig prüfen.', 'Segmentierung: Verschiedene Kampagnen für verschiedene Objekt-Typen (Eigentumswohnungen, Häuser, Gewerbeobjekte).'],
+                url: 'https://instantly.ai',
+                price: '$37/Monat',
+                free: false
+            },
+            'Salesforce Einstein': {
+                cat: 'Leads & Enterprise CRM',
+                desc: 'Salesforce Einstein ist die KI-Schicht des weltgrößten CRM-Systems. Für größere Immobilienbüros und Ketten bietet Einstein predictive Analytics, automatische Lead-Priorisierung und KI-gestützte Verkaufsempfehlungen auf Enterprise-Niveau.',
+                pros: ['Marktführer Enterprise CRM', 'Sehr mächtige KI-Analytics', 'Unbegrenzte Skalierbarkeit', 'Umfangreiches Ökosystem'],
+                cons: ['Sehr teuer', 'Komplex zu implementieren', 'Braucht Salesforce-Basis'],
+                practices: ['Lead-Scoring nutzen: Einstein berechnet automatisch Kaufwahrscheinlichkeit für jeden Kontakt.', 'Opportunity Insights: KI analysiert, welche Deals kurz vor dem Abschluss stehen oder zu kippen drohen.', 'Activity Capture: Alle E-Mails und Kalendereinträge automatisch mit CRM synchronisieren.', 'Einstein Copilot: Natürlichsprachliche Abfragen an die CRM-Datenbank für sofortige Insights.'],
+                url: 'https://salesforce.com/products/einstein',
+                price: 'Ab $25/Nutzer/Mo',
+                free: false
+            },
+            'Zapier AI': {
+                cat: 'Automation',
+                desc: 'Zapier verbindet über 6.000 Apps ohne Programmierung und automatisiert Workflows mit KI-Unterstützung. Für Makler: Automatischer Lead-Import aus ImmoScout ins CRM, Exposé-Versand bei neuen Objekten oder Follow-up-E-Mails nach Besichtigungen.',
+                pros: ['6.000+ App-Integrationen', 'KI-gestützter Zap-Builder', 'Keine Programmierkenntnisse', 'Gut dokumentiert'],
+                cons: ['Teurer bei vielen Zaps', 'Performance bei Massen-Ops', 'Komplex bei mehrstufigen Workflows'],
+                practices: ['Lead-Pipeline automatisieren: ImmoScout-Anfrage → automatisch CRM-Kontakt + Willkommens-E-Mail.', 'Exposé-Versand: Neues Objekt in CRM → automatisch Exposé-PDF an alle passenden Käufer-Kontakte.', 'Termin-Reminder: Kalender-Eintrag → automatische SMS/E-Mail-Erinnerung 24h vorher.', 'Reporting: Wöchentlich automatischen Lead-Bericht aus CRM per E-Mail an Teamleiter.'],
+                url: 'https://zapier.com',
+                price: '$19.99/Monat',
+                free: true
+            },
+            'Make (Integromat)': {
+                cat: 'Automation',
+                desc: 'Make (ehemals Integromat) ist die mächtigere und günstigere Alternative zu Zapier für komplexe Automations-Workflows. Mit visuellem Workflow-Builder und über 1.500 Integrationen ideal für Makler mit spezifischen Prozessanforderungen.',
+                pros: ['Günstiger als Zapier', 'Mehr Kontrolle & Flexibilität', 'Besseres Fehler-Handling', 'Sehr gute Datenmanipulation'],
+                cons: ['Steilere Lernkurve als Zapier', 'Weniger Integrationen (1.500 vs 6.000)', 'Interface komplexer'],
+                practices: ['Immobilien-Workflow: Neues Objekt eingeben → automatisch Fotos optimieren, Exposé generieren, Portale befüllen.', 'Lead-Routing: Je nach Objekt-Typ automatisch verschiedenen Maklern im Team zuweisen.', 'Fehler-Handling: Im Gegensatz zu Zapier lassen sich bei Make Fehler-Szenarien elegant abfangen.', 'Daten-Transformation: Daten aus verschiedenen Quellen zusammenführen und bereinigen vor CRM-Import.'],
+                url: 'https://make.com',
+                price: '$9/Monat',
+                free: true
+            },
+            'Calendly AI': {
+                cat: 'Automation & Termine',
+                desc: 'Calendly macht Terminplanung radikal einfach. Interessenten buchen direkt in deinen Kalender, ohne E-Mail-Hin-und-Her. KI-Features optimieren die Buchungsseite und senden automatische Erinnerungen. Spart durchschnittlich 5 Stunden pro Woche.',
+                pros: ['Dramatische Zeitersparnis', 'Automatische Erinnerungen', 'CRM-Integrationen', 'Professionelles Erscheinungsbild'],
+                cons: ['Kostenlose Version sehr begrenzt', 'Nur Terminplanung', 'Ohne CRM-Integration isoliert'],
+                practices: ['Besichtigungs-Link erstellen: Einen dedizierten Buchungs-Link für Besichtigungstermine in alle Exposés einbinden.', 'Screening-Fragen: Vor der Buchung Fragen zu Budget, Zeitraum und Finanzierungsstatus stellen.', 'Buffer-Zeiten: Zwischen Terminen automatisch 15 Min Puffer einplanen für Fahrzeit.', 'Team-Routing: Bei mehreren Maklern automatisch zum ersten verfügbaren Kollegen weiterleiten.'],
+                url: 'https://calendly.com',
+                price: '$8/Monat',
+                free: true
+            },
+            'Tidio': {
+                cat: 'Automation & Chatbot',
+                desc: 'Tidio ist ein KI-Chatbot für Websites, der Interessenten rund um die Uhr betreut. Beantwortet häufige Fragen zu Objekten, qualifiziert Leads und leitet diese direkt ans Maklerbüro weiter — auch wenn der Makler nicht erreichbar ist.',
+                pros: ['24/7 Lead-Qualifizierung', 'KI lernt aus Gesprächen', 'E-Commerce + Lead-Capture', 'Einfache Integration'],
+                cons: ['Begrenzte Komplexität der KI', 'Teuer bei hohem Traffic', 'Setup braucht Zeit'],
+                practices: ['FAQ-Bot: Häufige Fragen zu Besichtigungen, Preisen und Finanzierung automatisch beantworten.', 'Lead-Capture: Bot fragt proaktiv nach Kontaktdaten und Suchkriterien.', 'Objekt-Empfehlung: Basierend auf Nutzereingaben passende Objekte vorschlagen und verlinken.', 'Übergabe-Logic: Bei komplexen Anfragen oder Kaufinteresse sofort an echten Makler übergeben.'],
+                url: 'https://tidio.com',
+                price: '$29/Monat',
+                free: true
+            },
+            'Matterport': {
+                cat: 'Video & 3D',
+                desc: 'Matterport ist der absolute Marktführer für professionelle 3D-Touren und Grundrissvisualisierungen. Immobilienkäufer können Objekte virtuell begehen, Maße nehmen und Grundrisse in 3D erkunden. Nachweislich mehr Anfragen und qualifiziertere Käufer.',
+                pros: ['Marktführer für 3D-Touren', 'KI-generierte Grundrisse', 'Professioneller Eindruck', 'Long-form Lead-Qualifizierung'],
+                cons: ['Spezielle Kamera erforderlich', 'Hohe Anfangsinvestition', 'Upload dauert lange'],
+                practices: ['Top-Objekte priorisieren: 3D-Touren lohnen sich ab €400k+ Objekten deutlich mehr als darunter.', 'Grundrisse automatisch: Matterport erstellt automatisch Grundrisse aus dem 3D-Scan — kein Architekt nötig.', 'Integration in ImmoScout: 3D-Tour-Link erhöht nachweislich Klickrate und Besichtigungsanfragen.', 'Remote-Besichtigungen: Interessenten aus anderen Städten oder Ausland vollständig remote bedienen.'],
+                url: 'https://matterport.com',
+                price: '$69/Monat',
+                free: false
+            },
+            'Synthesia': {
+                cat: 'Video & KI-Avatar',
+                desc: 'Synthesia erstellt professionelle KI-Avatar-Videos aus Text — ohne Kamera, Mikrofon oder Studio. Für Makler ideal: Objekt-Präsentationsvideos, Markt-Updates, Onboarding-Videos für neue Mitarbeiter oder persönliche Videobotschaften an Interessenten.',
+                pros: ['Kein Equipment nötig', 'Professionelle Qualität', '60+ Sprachen', 'Schnelle Produktion'],
+                cons: ['KI-Avatare erkennbar', 'Teuer für gelegentlichen Einsatz', 'Keine Echtzeit-Videos'],
+                practices: ['Willkommens-Video: Persönliches Vorstellungsvideo für Exposé und Website erstellen.', 'Objekt-Walkthrough: Aus Fotos und Text eine virtuelle Tour mit Avatar-Kommentar generieren.', 'Markt-Updates: Wöchentliche Marktnachrichten für Social Media ohne Videodreh produzieren.', 'Mehrsprachig: Dasselbe Video automatisch in 5 Sprachen für internationale Käufer.'],
+                url: 'https://synthesia.io',
+                price: '$22/Monat',
+                free: false
+            },
+            'HeyGen': {
+                cat: 'Video & KI-Avatar',
+                desc: 'HeyGen ist Synthesias direkter Konkurrent mit besonders hoher Videoqualität und einfacher Bedienung. Die Avatar-Technologie ist realistischer und das Interface besonders intuitiv — für Makler, die regelmäßig Videos produzieren wollen.',
+                pros: ['Höchste Avatar-Qualität', 'Video Translation (Multi-Sprache)', 'Einfachstes Interface', 'Interaktiver Avatar möglich'],
+                cons: ['Teurer als Synthesia', 'Begrenzte Videolänge im Basis-Plan', 'Wartezeit bei Generierung'],
+                practices: ['Eigenmarketing: Professionelles Vorstellungsvideo für Makler-Website mit eigenem KI-Klon erstellen.', 'Video Translation: Existierende Videos automatisch in Englisch, Französisch, Arabisch übersetzen.', 'Personalisierte Videos: Mit APIs individuelle Videos mit Käufernamen für jeden Lead generieren.', 'Objekt-Highlights: 60-Sekunden-Video der Top-5-Merkmale jedes Objekts für Social Media.'],
+                url: 'https://heygen.com',
+                price: '$24/Monat',
+                free: true
+            },
+            'Runway': {
+                cat: 'Video & KI-Generierung',
+                desc: 'Runway ist das State-of-the-Art KI-Video-Tool für professionelle Video-Content-Produktion. Text-to-Video, Video-Bearbeitung, Hintergrundentfernung und KI-Effekte auf Hollywood-Niveau. Für Makler, die Immobilien-Content auf höchstem kreativen Niveau produzieren wollen.',
+                pros: ['Beste Video-KI-Qualität', 'Text-to-Video Funktion', 'Professionelle Effekte', 'Kreativ grenzenlos'],
+                cons: ['Teuer für gelegentlichen Einsatz', 'Hohe Lernkurve', 'Render-Zeit bei langen Videos'],
+                practices: ['Neighborhood-Videos: Stimmungsvolle Videos der Umgebung und Infrastruktur aus Text generieren.', 'Dreamlike Visualisierungen: Renovierungspotenzial von Objekten als atmosphärisches Video darstellen.', 'Hintergrundentfernung: Immobilienfotos für virtuelle Video-Walkthroughs freistellen.', 'Instagram Reels: Kurze, hochwertige Property-Clips für Social Media in Minuten erstellen.'],
+                url: 'https://runwayml.com',
+                price: '$15/Monat',
+                free: true
+            },
+            'InVideo AI': {
+                cat: 'Video & Text-to-Video',
+                desc: 'InVideo AI erstellt fertige Videos aus Text-Beschreibungen — ideal für Social-Media-Content ohne Videokenntnisse. Automatische Szenen-Auswahl, KI-generierter Kommentar und Musik machen die Objektvermarktung auf YouTube und Instagram besonders einfach.',
+                pros: ['Einfachste Bedienung', 'Direktes Social-Media-Format', 'KI schreibt Kommentar', 'Gutes Preis-Leistungs-Verhältnis'],
+                cons: ['Weniger Kontrolle', 'Stock-Video-Qualität erkennbar', 'Keine Custom-Footage'],
+                practices: ['Property Highlight Reels: Aus Objekt-Beschreibung automatisch einen 60-Sek Instagram Reel generieren.', 'Wohnlage-Videos: Stadtviertel und Infrastruktur (Schulen, Restaurants, Parks) als Video vorstellen.', 'Marktberichte: Monatliche Immobilienmarkt-Updates als YouTube-Video ohne Kamera produzieren.', 'Testimonials: Kundenstimmen und Erfolgsstories als animiertes Video für Website und Social.'],
+                url: 'https://invideo.io',
+                price: '$25/Monat',
+                free: true
+            },
+            'CapCut AI': {
+                cat: 'Video & Social Media',
+                desc: 'CapCut ist TikToks offizieller Video-Editor mit starken KI-Features — und vollständig kostenlos nutzbar. Automatische Untertitel, Script-Generator, KI-Effekte und trendige Templates machen CapCut zur ersten Wahl für Makler, die auf TikTok, Instagram und YouTube aktiv sind.',
+                pros: ['Vollständig kostenlos', 'Automatische Untertitel', 'TikTok-optimiert', 'Huge Template-Bibliothek'],
+                cons: ['ByteDance/TikTok-Datenschutz', 'Nicht für Premiumproduktionen', 'Häufige UI-Änderungen'],
+                practices: ['Automatische Untertitel: Alle Videos mit KI-generierten Untertiteln versehen — erhöht Reichweite um 30%+.', 'TikTok-Vorlagen: Trendige Immobilien-Templates direkt nutzen für maximale organische Reichweite.', 'Script-Generator: Aus Exposé-Text automatisch TikTok-Script erstellen lassen.', 'Datenschutz beachten: CapCut für öffentlichen Content, keine sensiblen Kundendaten hochladen.'],
+                url: 'https://capcut.com',
+                price: 'Kostenlos',
+                free: true
+            }
+        };
 
-                    // Update active state
-                    filterPills.forEach(p => p.classList.remove('active'));
-                    pill.classList.add('active');
+        // ── DRAWER LOGIC ──────────────────────────────────────────────────
+        const overlay    = document.getElementById('drawerOverlay');
+        const drawer     = document.getElementById('drawer');
+        const drawerClose = document.getElementById('drawerClose');
+        const drawerLogoEl = document.getElementById('drawerLogo');
+        const drawerNameEl = document.getElementById('drawerName');
+        const drawerCatEl  = document.getElementById('drawerCat');
+        const drawerBody   = document.getElementById('drawerBody');
+        const drawerCta    = document.getElementById('drawerCta');
 
-                    // Filter cards
-                    toolCards.forEach(card => {
-                        if (category === 'all' || card.dataset.category === category) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
+        function openDrawer(toolName) {
+            const data = toolData[toolName];
+            if (!data) return;
+
+            // Header
+            drawerNameEl.textContent = toolName;
+            drawerCatEl.textContent  = data.cat;
+
+            // Logo
+            drawerLogoEl.innerHTML = '';
+            const src = toolLogos[toolName];
+            if (src) {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = toolName;
+                img.style.cssText = 'width:36px;height:36px;object-fit:contain;border-radius:6px;';
+                img.onerror = () => { img.remove(); drawerLogoEl.innerHTML = '<i class="ph ph-globe" style="font-size:24px;color:var(--text-secondary)"></i>'; };
+                drawerLogoEl.appendChild(img);
+            } else {
+                drawerLogoEl.innerHTML = '<i class="ph ph-globe" style="font-size:24px;color:var(--text-secondary)"></i>';
+            }
+
+            // Meta pills
+            const freeHtml = data.free
+                ? `<span class="meta-pill free"><i class="ph ph-check-circle"></i> Kostenloser Plan</span>`
+                : `<span class="meta-pill paid"><i class="ph ph-lock-simple"></i> Nur kostenpflichtig</span>`;
+
+            // Body content
+            drawerBody.innerHTML = `
+                <div class="meta-row">
+                    <span class="meta-pill"><i class="ph ph-tag"></i> ${data.price}</span>
+                    ${freeHtml}
+                </div>
+
+                <p class="drawer-desc">${data.desc}</p>
+
+                <div class="drawer-block">
+                    <div class="drawer-block-title">Stärken &amp; Schwächen</div>
+                    <div class="pro-list">
+                        ${data.pros.map(p => `<div class="pro-item"><i class="ph ph-check-circle-fill"></i><span>${p}</span></div>`).join('')}
+                    </div>
+                    <div class="con-list">
+                        ${data.cons.map(c => `<div class="con-item"><i class="ph ph-x-circle-fill"></i><span>${c}</span></div>`).join('')}
+                    </div>
+                </div>
+
+                <div class="drawer-block">
+                    <div class="drawer-block-title">Best Practices für Makler</div>
+                    <div class="practice-list">
+                        ${data.practices.map((p, i) => {
+                            const colonIdx = p.indexOf(':');
+                            const label = colonIdx > -1 ? `<strong>${p.slice(0, colonIdx + 1)}</strong>${p.slice(colonIdx + 1)}` : p;
+                            return `
+                            <div class="practice-item">
+                                <div class="practice-num">${i + 1}</div>
+                                <div class="practice-text">${label}</div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+
+            // CTA
+            drawerCta.href = data.url;
+
+            // Open
+            overlay.classList.add('open');
+            drawer.classList.add('open');
+            document.body.style.overflow = 'hidden';
+
+            // Focus management
+            drawer.querySelector('.drawer-close').focus();
+        }
+
+        function closeDrawer() {
+            overlay.classList.remove('open');
+            drawer.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Click on card
+        document.querySelectorAll('.tool-shell').forEach(shell => {
+            shell.addEventListener('click', () => {
+                const name = shell.querySelector('.tool-name')?.textContent.trim();
+                if (name && toolData[name]) openDrawer(name);
             });
         });
+
+        // Close drawer
+        drawerClose.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+        });
+
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (!entry.isIntersecting) return;
+                setTimeout(() => entry.target.classList.add('visible'), i * 40);
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.05 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Filter with animation
+        const pills = document.querySelectorAll('.filter-pill');
+        const grid  = document.querySelector('.tools-grid');
+        const cards = document.querySelectorAll('.tool-shell');
+
+        function applyFilter(cat) {
+            pills.forEach(p => p.classList.toggle('active', p.dataset.category === cat));
+            grid.classList.add('switching');
+            setTimeout(() => {
+                cards.forEach(card => {
+                    card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
+                });
+                grid.getBoundingClientRect();
+                grid.classList.remove('switching');
+            }, 150);
+        }
+
+        pills.forEach(pill => {
+            pill.addEventListener('click', () => applyFilter(pill.dataset.category));
+        });
+
+        // Apply filter passed from index.html via sessionStorage
+        const savedFilter = sessionStorage.getItem('toolsFilter');
+        if (savedFilter) {
+            sessionStorage.removeItem('toolsFilter');
+            applyFilter(savedFilter);
+        }
     </script>
 </body>
 </html>

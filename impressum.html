@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum — KImotools</title>
+    <meta name="robots" content="noindex">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #06060e;
+            --surface: #0e0e1a;
+            --border: rgba(255,255,255,0.07);
+            --border-hover: rgba(255,255,255,0.14);
+            --text: #f0f0f5;
+            --text-secondary: rgba(240,240,245,0.55);
+            --text-tertiary: rgba(240,240,245,0.32);
+            --accent: #7c5cfc;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 60vh;
+            background: radial-gradient(ellipse at center, rgba(124,92,252,0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── NAV ─── */
+        .nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 0.6rem 0.6rem 0.6rem 1.5rem;
+            background: rgba(14,14,26,0.75);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .nav-logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 20px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+
+        .nav-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.4rem 0.9rem;
+            border-radius: 100px;
+            transition: color 200ms var(--ease-out), background 200ms var(--ease-out);
+        }
+
+        .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.1rem;
+            background: var(--accent);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+        }
+
+        .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+        /* ─── CONTENT ─── */
+        .page {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: calc(6rem + 60px) 2rem 6rem;
+        }
+
+        .page-eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #fff;
+            background: var(--accent);
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.7s var(--ease-out) 0.1s forwards;
+        }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        .page-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.4rem, 5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.08;
+            letter-spacing: -0.025em;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s var(--ease-out) 0.25s forwards;
+        }
+
+        /* Double-bezel content block */
+        .legal-shell {
+            padding: 3px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s var(--ease-out) 0.4s forwards;
+        }
+
+        .legal-shell:nth-child(3) { animation-delay: 0.45s; }
+        .legal-shell:nth-child(4) { animation-delay: 0.5s; }
+        .legal-shell:nth-child(5) { animation-delay: 0.55s; }
+        .legal-shell:nth-child(6) { animation-delay: 0.6s; }
+
+        .legal-inner {
+            background: rgba(255,255,255,0.02);
+            border-radius: calc(1.5rem - 3px);
+            padding: 2rem 2.5rem;
+        }
+
+        .legal-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 1.25rem;
+        }
+
+        .legal-inner p,
+        .legal-inner address {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-style: normal;
+            line-height: 1.8;
+        }
+
+        .legal-inner strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .legal-inner a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 200ms var(--ease-out);
+        }
+
+        .legal-inner a:hover { opacity: 0.75; }
+
+        .legal-inner p + p { margin-top: 0.75rem; }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 1.25rem 0;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        footer a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 200ms var(--ease-out);
+        }
+
+        footer a:hover { color: var(--text); }
+
+        .footer-links { display: flex; gap: 1.5rem; }
+
+        @media (max-width: 640px) {
+            .page { padding-left: 1.25rem; padding-right: 1.25rem; }
+            .legal-inner { padding: 1.5rem; }
+            footer { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">KImotools</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="tools.html" class="nav-link">Tools</a>
+            <a href="compare.html" class="nav-link">Vergleichen</a>
+            <a href="compare.html" class="nav-cta">Vergleichen →</a>
+        </div>
+    </nav>
+
+    <main class="page">
+
+        <span class="page-eyebrow">Rechtliches</span>
+        <h1 class="page-title">Impressum</h1>
+
+        <div class="legal-shell">
+            <div class="legal-inner">
+                <p class="legal-section-title">Angaben gemäß § 5 TMG</p>
+                <address>
+                    <strong>Daniel-Alexander Siller</strong><br>
+                    Im Schänzle 5<br>
+                    74906 Bad Rappenau<br>
+                    Deutschland
+                </address>
+            </div>
+        </div>
+
+        <div class="legal-shell">
+            <div class="legal-inner">
+                <p class="legal-section-title">Kontakt</p>
+                <p>E-Mail: <a href="mailto:kontakt@kimotools.de">kontakt@kimotools.de</a></p>
+            </div>
+        </div>
+
+        <div class="legal-shell">
+            <div class="legal-inner">
+                <p class="legal-section-title">Redaktionell verantwortlich</p>
+                <p>
+                    <strong>Daniel-Alexander Siller</strong><br>
+                    Im Schänzle 5, 74906 Bad Rappenau
+                </p>
+            </div>
+        </div>
+
+        <div class="legal-shell">
+            <div class="legal-inner">
+                <p class="legal-section-title">Haftung für Inhalte</p>
+                <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+                <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+            </div>
+        </div>
+
+        <div class="legal-shell">
+            <div class="legal-inner">
+                <p class="legal-section-title">Haftung für Links</p>
+                <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+                <p>Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+            </div>
+        </div>
+
+        <div class="legal-shell">
+            <div class="legal-inner">
+                <p class="legal-section-title">Urheberrecht</p>
+                <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+                <p>Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <span>© 2026 KImotools</span>
+        <div class="footer-links">
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="mailto:kontakt@kimotools.de">Kontakt</a>
+        </div>
+    </footer>
+
+</body>
+</html>

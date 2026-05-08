@@ -3,176 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI-Tools Vergleichen — KImo</title>
+    <title>KI-Tools Vergleichen — KImotools</title>
     <meta name="description" content="Vergleiche bis zu 4 KI-Tools für Immobilienmakler direkt miteinander. Preise, Features und Bewertungen auf einen Blick.">
 
-    <!-- Premium Fonts: Fraunces (Serif) + Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Phosphor Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
-        /* ═══════════════════════════════════════════════════════════
-           DESIGN SYSTEM: Editorial Luxury (Real Estate Vibe)
-        ═══════════════════════════════════════════════════════════ */
-
         :root {
-            /* Warm Cream & Sage Tones */
-            --bg-cream: #FDFBF7;
-            --bg-warm: #F5F2EB;
-            --bg-sage: #E8EDE6;
-            --bg-deep: #1A1A18;
+            --bg: #06060e;
+            --surface: #0e0e1a;
+            --surface-2: #13131f;
+            --border: rgba(255,255,255,0.07);
+            --border-hover: rgba(255,255,255,0.14);
+            --text: #f0f0f5;
+            --text-secondary: rgba(240,240,245,0.55);
+            --text-tertiary: rgba(240,240,245,0.32);
+            --accent: #7c5cfc;
+            --accent-glow: rgba(124,92,252,0.18);
+            --accent-subtle: rgba(124,92,252,0.1);
 
-            /* Text Hierarchy */
-            --text-primary: #1A1A18;
-            --text-secondary: #4A4A45;
-            --text-tertiary: #8A8A82;
-            --text-inverse: #FDFBF7;
+            --color-expose: #a78bfa;
+            --color-foto:   #34d399;
+            --color-staging:#fb923c;
+            --color-leads:  #60a5fa;
+            --color-video:  #f472b6;
+            --color-automation: #a3a07a;
 
-            /* Category Colors */
-            --color-expose: #B8755C;
-            --color-foto: #7B9E87;
-            --color-staging: #9B8AA3;
-            --color-leads: #C4956A;
-            --color-video: #6B8FAD;
-
-            /* Accent */
-            --accent-primary: #B8755C;
-            --accent-warm: rgba(184, 117, 92, 0.1);
-
-            /* Borders */
-            --border-light: rgba(26, 26, 24, 0.08);
-            --border-medium: rgba(26, 26, 24, 0.15);
-
-            /* Shadows */
-            --shadow-soft: 0 4px 24px rgba(26, 26, 24, 0.06);
-            --shadow-medium: 0 8px 40px rgba(26, 26, 24, 0.08);
-            --shadow-lift: 0 16px 48px rgba(26, 26, 24, 0.12);
-
-            /* Motion */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --duration-fast: 200ms;
-            --duration-medium: 500ms;
-            --duration-slow: 800ms;
-
-            /* Spacing */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-2xl: 4rem;
-            --space-3xl: 6rem;
-            --space-4xl: 8rem;
-
-            /* Radii */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --radius-xl: 28px;
-            --radius-full: 9999px;
+            --ease: cubic-bezier(0.32, 0.72, 0, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-cream);
-            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Film Grain */
-        .grain {
+        /* Ambient glow */
+        body::before {
+            content: '';
             position: fixed;
-            inset: 0;
-            z-index: 1;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            top: -20vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 60vh;
+            background: radial-gradient(ellipse at center, rgba(124,92,252,0.06) 0%, transparent 70%);
             pointer-events: none;
+            z-index: 0;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           NAVIGATION
-        ═══════════════════════════════════════════════════════════ */
+        /* ─── NAV ─── */
         .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 100;
-            padding: var(--space-md) var(--space-xl);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: rgba(253, 251, 247, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
+            gap: 2rem;
+            padding: 0.6rem 0.6rem 0.6rem 1.5rem;
+            background: rgba(14,14,26,0.75);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            white-space: nowrap;
         }
 
         .nav-logo {
-            font-family: 'Fraunces', serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-family: 'Instrument Serif', serif;
+            font-size: 20px;
+            color: var(--text);
             text-decoration: none;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
         }
 
         .nav-links {
             display: flex;
-            gap: var(--space-lg);
+            gap: 0.25rem;
             align-items: center;
         }
 
         .nav-link {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color var(--duration-fast) var(--ease-out-expo);
+            padding: 0.4rem 0.9rem;
+            border-radius: 100px;
+            transition: color 200ms var(--ease-out), background 200ms var(--ease-out);
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--text-primary);
-        }
+        .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav-link.active { color: var(--text); background: rgba(255,255,255,0.08); }
 
         .nav-cta {
-            padding: 0.6rem 1.2rem;
-            background: var(--text-primary);
-            color: var(--text-inverse);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.1rem;
+            background: var(--accent);
+            color: #fff;
             font-size: 13px;
             font-weight: 600;
             text-decoration: none;
-            border-radius: var(--radius-sm);
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            border-radius: 100px;
+            transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
         }
 
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
+        .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
-        /* ═══════════════════════════════════════════════════════════
-           HERO
-        ═══════════════════════════════════════════════════════════ */
+        /* ─── HERO ─── */
         .hero {
             position: relative;
             z-index: 2;
-            padding: calc(80px + var(--space-3xl)) var(--space-xl) var(--space-2xl);
+            padding: calc(6rem + 80px) 3rem 4rem;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -180,60 +136,52 @@
         .hero-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-xs);
-            padding: 0.5rem 1rem;
-            background: var(--accent-warm);
-            border-radius: var(--radius-full);
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: var(--accent);
+            border-radius: 100px;
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--accent-primary);
-            margin-bottom: var(--space-md);
-
+            color: #fff;
+            margin-bottom: 1.5rem;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp 800ms var(--ease-out-expo) 200ms forwards;
+            animation: fadeUp 700ms var(--ease-out) 200ms forwards;
         }
 
         @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-title {
-            font-family: 'Fraunces', serif;
+            font-family: 'Instrument Serif', serif;
             font-size: clamp(48px, 8vw, 80px);
-            font-weight: 500;
-            line-height: 1.1;
+            font-weight: 400;
+            line-height: 1.05;
             letter-spacing: -0.03em;
-            color: var(--text-primary);
-            margin-bottom: var(--space-md);
-
+            color: var(--text);
+            margin-bottom: 1.25rem;
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeUp 1000ms var(--ease-out-expo) 400ms forwards;
+            animation: fadeUp 900ms var(--ease-out) 350ms forwards;
         }
 
         .hero-subtitle {
             font-size: 18px;
             color: var(--text-secondary);
-            max-width: 600px;
-
+            max-width: 540px;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp 1000ms var(--ease-out-expo) 600ms forwards;
+            animation: fadeUp 900ms var(--ease-out) 500ms forwards;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           SELECTOR GRID
-        ═══════════════════════════════════════════════════════════ */
+        /* ─── SELECTOR ─── */
         .selector-section {
             position: relative;
             z-index: 2;
-            padding: 0 var(--space-xl) var(--space-2xl);
+            padding: 0 3rem 4rem;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -241,74 +189,86 @@
         .selector-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-md);
+            gap: 1rem;
         }
 
-        /* Slot Shell (Double-Bezel) */
+        /* Double-Bezel Slot */
         .selector-shell {
-            padding: 5px;
-            background: var(--bg-warm);
-            border: 2px dashed var(--border-medium);
-            border-radius: var(--radius-lg);
-            transition: all var(--duration-medium) var(--ease-out-expo);
+            padding: 4px;
+            background: var(--surface);
+            border: 1.5px dashed var(--border-hover);
+            border-radius: 1.25rem;
             cursor: pointer;
+            transition: border-color 300ms var(--ease-out), background 300ms var(--ease-out);
         }
 
         .selector-shell:hover {
-            border-color: var(--accent-primary);
             border-style: solid;
+            border-color: var(--accent);
+            background: rgba(124,92,252,0.05);
         }
 
         .selector-shell.filled {
             border-style: solid;
-            border-color: var(--border-medium);
+            border-color: var(--border-hover);
         }
 
         .selector-slot {
-            padding: var(--space-xl);
-            background: var(--bg-cream);
-            border-radius: calc(var(--radius-lg) - 5px);
+            padding: 2rem;
+            background: var(--surface-2);
+            border-radius: calc(1.25rem - 4px);
             min-height: 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+            gap: 0;
+        }
+
+        .slot-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
         }
 
         .slot-icon {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg-warm);
+            background: rgba(255,255,255,0.05);
             border-radius: 50%;
             color: var(--text-tertiary);
-            font-size: 28px;
-            margin-bottom: var(--space-md);
-            transition: all var(--duration-medium) var(--ease-out-expo);
+            font-size: 24px;
+            margin-bottom: 1rem;
+            transition: all 300ms var(--ease-out);
         }
 
         .selector-shell:hover .slot-icon {
-            background: var(--accent-warm);
-            color: var(--accent-primary);
+            background: var(--accent-subtle);
+            color: var(--accent);
             transform: scale(1.1);
         }
 
         .slot-label {
             font-size: 14px;
             font-weight: 500;
-            color: var(--text-tertiary);
+            color: var(--text-secondary);
+            display: block;
         }
 
         .slot-sublabel {
             font-size: 12px;
             color: var(--text-tertiary);
-            margin-top: var(--space-xs);
+            display: block;
+            margin-top: 0.2rem;
         }
 
-        /* Filled Slot */
+        /* Filled slot */
         .tool-selected {
             display: none;
             flex-direction: column;
@@ -316,31 +276,25 @@
             text-align: center;
         }
 
-        .filled .slot-empty {
-            display: none;
-        }
-
-        .filled .tool-selected {
-            display: flex;
-        }
+        .filled .slot-empty  { display: none; }
+        .filled .tool-selected { display: flex; }
 
         .selected-icon {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: var(--radius-md);
-            font-size: 32px;
-            margin-bottom: var(--space-md);
+            border-radius: 0.75rem;
+            font-size: 28px;
+            margin-bottom: 1rem;
         }
 
         .selected-name {
-            font-family: 'Fraunces', serif;
+            font-family: 'Instrument Serif', serif;
             font-size: 18px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--text);
+            margin-bottom: 0.25rem;
         }
 
         .selected-category {
@@ -349,280 +303,311 @@
         }
 
         .remove-btn {
-            margin-top: var(--space-md);
-            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            padding: 0.4rem 1rem;
             background: transparent;
-            border: 1px solid var(--border-medium);
-            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            border-radius: 100px;
             font-family: inherit;
             font-size: 12px;
             font-weight: 500;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            transition: all 200ms var(--ease-out);
         }
 
         .remove-btn:hover {
-            background: var(--bg-warm);
-            color: var(--text-primary);
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
+            border-color: var(--border-hover);
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           TOOL PICKER MODAL
-        ═══════════════════════════════════════════════════════════ */
+        /* ─── PICKER MODAL ─── */
         .picker-overlay {
             position: fixed;
             inset: 0;
-            z-index: 200;
-            background: rgba(26, 26, 24, 0.5);
-            backdrop-filter: blur(8px);
+            z-index: 999;
+            background: rgba(6,6,14,0.75);
+            backdrop-filter: blur(12px) saturate(1.4);
+            -webkit-backdrop-filter: blur(12px) saturate(1.4);
             display: none;
             align-items: center;
             justify-content: center;
-            padding: var(--space-xl);
+            padding: 2rem;
         }
 
-        .picker-overlay.open {
-            display: flex;
-        }
+        .picker-overlay.open { display: flex; }
 
         .picker-modal {
-            background: var(--bg-cream);
-            border-radius: var(--radius-xl);
+            background: var(--surface);
+            border: 1px solid var(--border-hover);
+            border-radius: 1.5rem;
             width: 100%;
             max-width: 800px;
-            max-height: 80vh;
+            height: 72vh;
+            max-height: 640px;
+            min-height: 480px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: var(--shadow-lift);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
         }
 
         .picker-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: var(--space-lg);
-            border-bottom: 1px solid var(--border-light);
+            padding: 1.5rem 1.75rem;
+            border-bottom: 1px solid var(--border);
         }
 
         .picker-title {
-            font-family: 'Fraunces', serif;
+            font-family: 'Instrument Serif', serif;
             font-size: 24px;
-            font-weight: 500;
+            font-weight: 400;
+            color: var(--text);
         }
 
         .picker-close {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent;
-            border: 1px solid var(--border-light);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
             border-radius: 50%;
             cursor: pointer;
             color: var(--text-secondary);
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            font-size: 18px;
+            transition: all 200ms var(--ease-out);
         }
 
         .picker-close:hover {
-            background: var(--bg-warm);
-            color: var(--text-primary);
+            background: rgba(255,255,255,0.1);
+            color: var(--text);
         }
 
         .picker-search {
-            padding: var(--space-md) var(--space-lg);
-            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 1.75rem;
+            border-bottom: 1px solid var(--border);
         }
 
         .picker-search input {
             width: 100%;
-            padding: var(--space-sm) var(--space-md);
-            background: var(--bg-warm);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-md);
+            padding: 0.7rem 1rem;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
             font-family: inherit;
             font-size: 14px;
-            color: var(--text-primary);
+            color: var(--text);
             outline: none;
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            transition: all 200ms var(--ease-out);
         }
 
+        .picker-search input::placeholder { color: var(--text-tertiary); }
+
         .picker-search input:focus {
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px var(--accent-warm);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
 
         .picker-categories {
             display: flex;
-            gap: var(--space-xs);
-            padding: var(--space-md) var(--space-lg);
-            border-bottom: 1px solid var(--border-light);
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.75rem 1.75rem;
+            border-bottom: 1px solid var(--border);
             overflow-x: auto;
+            scrollbar-width: none;
+            flex-wrap: nowrap;
         }
 
+        .picker-categories::-webkit-scrollbar { display: none; }
+
         .picker-cat {
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.9rem;
             background: transparent;
-            border: 1px solid var(--border-medium);
-            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            border-radius: 100px;
             font-family: inherit;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
             cursor: pointer;
             white-space: nowrap;
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            transition: all 200ms var(--ease-out);
         }
 
-        .picker-cat:hover {
-            background: var(--bg-warm);
-        }
+        .picker-cat:hover { background: rgba(255,255,255,0.05); color: var(--text); }
 
         .picker-cat.active {
-            background: var(--text-primary);
-            color: var(--text-inverse);
-            border-color: var(--text-primary);
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
         }
 
         .picker-list {
-            padding: var(--space-md);
+            padding: 1.25rem;
             overflow-y: auto;
             flex: 1;
+            min-height: 0;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.12) transparent;
+            position: relative;
         }
 
         .picker-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-sm);
+            gap: 0.6rem;
+            min-width: 0;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+        }
+
+        .picker-grid.switching {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 150ms ease-in, transform 150ms ease-in;
         }
 
         .picker-item {
-            padding: var(--space-md);
-            background: var(--bg-warm);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 0.875rem;
             cursor: pointer;
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            transition: all 200ms var(--ease-out);
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
+            gap: 1rem;
         }
 
         .picker-item:hover {
-            border-color: var(--accent-primary);
+            border-color: var(--accent);
+            background: rgba(124,92,252,0.06);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-soft);
         }
 
         .picker-item-icon {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: var(--radius-sm);
-            font-size: 24px;
+            border-radius: 0.625rem;
+            font-size: 22px;
+            flex-shrink: 0;
+            overflow: hidden;
         }
 
-        .picker-item-info {
-            flex: 1;
+        .picker-item-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            border-radius: 6px;
         }
+
+        .picker-item-info { flex: 1; min-width: 0; }
 
         .picker-item-name {
             font-weight: 600;
             font-size: 14px;
-            color: var(--text-primary);
+            color: var(--text);
         }
 
         .picker-item-cat {
             font-size: 12px;
             color: var(--text-tertiary);
+            margin-top: 2px;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           COMPARISON TABLE
-        ═══════════════════════════════════════════════════════════ */
+        /* ─── COMPARISON TABLE ─── */
         .compare-section {
             position: relative;
             z-index: 2;
-            padding: var(--space-2xl) var(--space-xl) var(--space-4xl);
+            padding: 2rem 3rem 6rem;
             max-width: 1400px;
             margin: 0 auto;
             display: none;
         }
 
-        .compare-section.visible {
-            display: block;
-        }
+        .compare-section.visible { display: block; }
 
         .compare-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--space-xl);
+            margin-bottom: 2rem;
         }
 
         .compare-title {
-            font-family: 'Fraunces', serif;
+            font-family: 'Instrument Serif', serif;
             font-size: 36px;
-            font-weight: 500;
+            font-weight: 400;
+            color: var(--text);
         }
 
         .reset-btn {
             display: flex;
             align-items: center;
-            gap: var(--space-xs);
-            padding: 0.75rem 1.5rem;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
             background: transparent;
-            border: 1px solid var(--border-medium);
-            border-radius: var(--radius-full);
+            border: 1px solid var(--border-hover);
+            border-radius: 100px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            transition: all 200ms var(--ease-out);
         }
 
         .reset-btn:hover {
-            background: var(--bg-warm);
-            color: var(--text-primary);
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            border-color: rgba(255,255,255,0.2);
         }
 
-        /* Table Shell */
+        /* Double-Bezel Table */
         .table-shell {
-            padding: 6px;
-            background: var(--bg-warm);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-xl);
+            padding: 4px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
         }
 
         .compare-table {
-            background: var(--bg-cream);
-            border-radius: calc(var(--radius-xl) - 6px);
+            background: var(--surface-2);
+            border-radius: calc(1.5rem - 4px);
             overflow: hidden;
         }
 
         .table-row {
             display: grid;
             grid-template-columns: 200px repeat(4, 1fr);
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border);
         }
 
-        .table-row:last-child {
-            border-bottom: none;
-        }
+        .table-row:last-child { border-bottom: none; }
+
+        .table-row:first-child { background: rgba(255,255,255,0.02); }
 
         .table-cell {
-            padding: var(--space-md);
+            padding: 1.1rem 1.25rem;
             display: flex;
             align-items: center;
+            border-right: 1px solid var(--border);
         }
 
+        .table-cell:last-child { border-right: none; }
+
         .table-header {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -637,86 +622,84 @@
 
         .table-value {
             font-size: 14px;
-            color: var(--text-primary);
+            color: var(--text);
             justify-content: center;
             text-align: center;
         }
 
         .table-value .check {
-            color: #4CAF50;
+            color: #34d399;
             font-size: 20px;
         }
 
         .table-value .cross {
-            color: #E57373;
+            color: rgba(240,240,245,0.25);
             font-size: 20px;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           FOOTER
-        ═══════════════════════════════════════════════════════════ */
+        /* ─── CATEGORY ICON COLORS ─── */
+        .icon-expose  { background: rgba(167,139,250,0.12); color: var(--color-expose); }
+        .icon-foto    { background: rgba(52,211,153,0.12);  color: var(--color-foto); }
+        .icon-staging { background: rgba(251,146,60,0.12);  color: var(--color-staging); }
+        .icon-leads   { background: rgba(96,165,250,0.12);  color: var(--color-leads); }
+        .icon-video   { background: rgba(244,114,182,0.12); color: var(--color-video); }
+
+        /* ─── FOOTER ─── */
         footer {
             position: relative;
             z-index: 2;
-            padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+            padding: 4rem 3rem 2.5rem;
             max-width: 1400px;
             margin: 0 auto;
-            border-top: 1px solid var(--border-light);
+            border-top: 1px solid var(--border);
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr repeat(3, 1fr);
-            gap: var(--space-xl);
-            margin-bottom: var(--space-3xl);
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-brand {
-            font-family: 'Fraunces', serif;
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-sm);
+            font-family: 'Instrument Serif', serif;
+            font-size: 26px;
+            color: var(--text);
+            margin-bottom: 0.75rem;
         }
 
         .footer-tagline {
             font-size: 14px;
             color: var(--text-tertiary);
-            max-width: 280px;
+            max-width: 260px;
         }
 
         .footer-col h4 {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             color: var(--text-secondary);
-            margin-bottom: var(--space-md);
+            margin-bottom: 1.25rem;
         }
 
-        .footer-col ul {
-            list-style: none;
-        }
+        .footer-col ul { list-style: none; }
 
-        .footer-col li {
-            margin-bottom: var(--space-xs);
-        }
+        .footer-col li { margin-bottom: 0.5rem; }
 
         .footer-col a {
             font-size: 14px;
             color: var(--text-tertiary);
             text-decoration: none;
-            transition: color var(--duration-fast) var(--ease-out-expo);
+            transition: color 200ms var(--ease-out);
         }
 
-        .footer-col a:hover {
-            color: var(--text-primary);
-        }
+        .footer-col a:hover { color: var(--text); }
 
         .footer-bottom {
             text-align: center;
-            padding-top: var(--space-xl);
-            border-top: 1px solid var(--border-light);
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
         }
 
         .footer-copy {
@@ -724,68 +707,22 @@
             color: var(--text-tertiary);
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           RESPONSIVE
-        ═══════════════════════════════════════════════════════════ */
+        /* ─── RESPONSIVE ─── */
         @media (max-width: 1024px) {
-            .selector-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .picker-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .table-row {
-                grid-template-columns: 150px repeat(4, 1fr);
-            }
+            .selector-grid { grid-template-columns: repeat(2, 1fr); }
+            .picker-grid { grid-template-columns: 1fr; }
+            .table-row { grid-template-columns: 150px repeat(4, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .hero,
-            .selector-section,
-            .compare-section {
-                padding-left: var(--space-md);
-                padding-right: var(--space-md);
-            }
-
-            .nav {
-                padding: var(--space-sm) var(--space-md);
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .selector-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .table-row {
-                grid-template-columns: 1fr;
-            }
-
-            .table-cell {
-                justify-content: flex-start;
-            }
-
-            .table-header {
-                background: var(--bg-warm);
-            }
+            .hero, .selector-section, .compare-section { padding-left: 1.25rem; padding-right: 1.25rem; }
+            .selector-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .table-row { grid-template-columns: 1fr; }
+            .table-cell { justify-content: flex-start; border-right: none; }
+            footer { padding-left: 1.25rem; padding-right: 1.25rem; }
         }
 
-        /* Category Icon Colors */
-        .icon-expose { background: rgba(184, 117, 92, 0.12); color: var(--color-expose); }
-        .icon-foto { background: rgba(123, 158, 135, 0.12); color: var(--color-foto); }
-        .icon-staging { background: rgba(155, 138, 163, 0.12); color: var(--color-staging); }
-        .icon-leads { background: rgba(196, 149, 106, 0.12); color: var(--color-leads); }
-        .icon-video { background: rgba(107, 143, 173, 0.12); color: var(--color-video); }
-
-        /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -795,16 +732,18 @@
     </style>
 </head>
 <body>
-    <div class="grain"></div>
 
     <!-- Navigation -->
     <nav class="nav">
-        <a href="index.html" class="nav-logo">KImo</a>
+        <a href="index.html" class="nav-logo">KImotools</a>
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
             <a href="tools.html" class="nav-link">Tools</a>
             <a href="compare.html" class="nav-link active">Vergleichen</a>
-            <a href="tools.html" class="nav-cta">Alle Tools</a>
+            <a href="tools.html" class="nav-cta">
+                Alle Tools
+                <i class="ph ph-arrow-right"></i>
+            </a>
         </div>
     </nav>
 
@@ -814,7 +753,7 @@
             <i class="ph ph-scales"></i>
             <span>Bis zu 4 Tools vergleichen</span>
         </div>
-        <h1 class="hero-title">Vergleichen</h1>
+        <h1 class="hero-title">Vergleichen.</h1>
         <p class="hero-subtitle">Wähle deine favorisierten KI-Tools und vergleiche sie direkt miteinander.</p>
     </section>
 
@@ -824,17 +763,13 @@
             <div class="selector-shell" data-slot="0">
                 <div class="selector-slot">
                     <div class="slot-empty">
-                        <div class="slot-icon">
-                            <i class="ph ph-plus"></i>
-                        </div>
+                        <div class="slot-icon"><i class="ph ph-plus"></i></div>
                         <span class="slot-label">Tool wählen</span>
                     </div>
                     <div class="tool-selected">
-                        <div class="selected-icon icon-expose">
-                            <i class="ph ph-chat-circle-text"></i>
-                        </div>
-                        <span class="selected-name">ChatGPT</span>
-                        <span class="selected-category">Exposé</span>
+                        <div class="selected-icon"></div>
+                        <span class="selected-name"></span>
+                        <span class="selected-category"></span>
                         <button class="remove-btn">Entfernen</button>
                     </div>
                 </div>
@@ -843,9 +778,7 @@
             <div class="selector-shell" data-slot="1">
                 <div class="selector-slot">
                     <div class="slot-empty">
-                        <div class="slot-icon">
-                            <i class="ph ph-plus"></i>
-                        </div>
+                        <div class="slot-icon"><i class="ph ph-plus"></i></div>
                         <span class="slot-label">Tool wählen</span>
                     </div>
                     <div class="tool-selected">
@@ -860,9 +793,7 @@
             <div class="selector-shell" data-slot="2">
                 <div class="selector-slot">
                     <div class="slot-empty">
-                        <div class="slot-icon">
-                            <i class="ph ph-plus"></i>
-                        </div>
+                        <div class="slot-icon"><i class="ph ph-plus"></i></div>
                         <span class="slot-label">Optional</span>
                         <span class="slot-sublabel">Drittes Tool hinzufügen</span>
                     </div>
@@ -878,9 +809,7 @@
             <div class="selector-shell" data-slot="3">
                 <div class="selector-slot">
                     <div class="slot-empty">
-                        <div class="slot-icon">
-                            <i class="ph ph-plus"></i>
-                        </div>
+                        <div class="slot-icon"><i class="ph ph-plus"></i></div>
                         <span class="slot-label">Optional</span>
                         <span class="slot-sublabel">Viertes Tool hinzufügen</span>
                     </div>
@@ -905,7 +834,7 @@
                 </button>
             </div>
             <div class="picker-search">
-                <input type="text" id="pickerSearch" placeholder="Tool suchen...">
+                <input type="text" id="pickerSearch" placeholder="Tool suchen…">
             </div>
             <div class="picker-categories">
                 <button class="picker-cat active" data-cat="all">Alle</button>
@@ -916,9 +845,7 @@
                 <button class="picker-cat" data-cat="video">Video</button>
             </div>
             <div class="picker-list">
-                <div class="picker-grid" id="pickerGrid">
-                    <!-- Tools populated by JS -->
-                </div>
+                <div class="picker-grid" id="pickerGrid"></div>
             </div>
         </div>
     </div>
@@ -932,11 +859,8 @@
                 Neu starten
             </button>
         </div>
-
         <div class="table-shell">
-            <div class="compare-table" id="compareTable">
-                <!-- Table rows generated by JS -->
-            </div>
+            <div class="compare-table" id="compareTable"></div>
         </div>
     </section>
 
@@ -944,7 +868,7 @@
     <footer>
         <div class="footer-grid">
             <div>
-                <div class="footer-brand">KImo</div>
+                <div class="footer-brand">KImotools</div>
                 <p class="footer-tagline">KI-Tools für moderne Immobilienmakler.</p>
             </div>
             <div class="footer-col">
@@ -966,127 +890,146 @@
             <div class="footer-col">
                 <h4>Rechtliches</h4>
                 <ul>
-                    <li><a href="/impressum.html">Impressum</a></li>
-                    <li><a href="/datenschutz.html">Datenschutz</a></li>
+                    <li><a href="impressum.html">Impressum</a></li>
+                    <li><a href="datenschutz.html">Datenschutz</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p class="footer-copy">&copy; 2026 KImo. Alle Rechte vorbehalten.</p>
+            <p class="footer-copy">&copy; 2026 KImotools. Alle Rechte vorbehalten.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
-        // Tool Data
+        // favicon via Google S2 — reliable, no API key needed
+        function logo(domain) {
+            return `https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
+        }
+
         const tools = [
-            { id: 'chatgpt', name: 'ChatGPT', category: 'expose', icon: 'chat-circle-text', price: '$20/mo', free: true, api: true },
-            { id: 'jasper', name: 'Jasper AI', category: 'expose', icon: 'pen-nib', price: '$49/mo', free: false, api: true },
-            { id: 'copyai', name: 'Copy.ai', category: 'expose', icon: 'article', price: '$49/mo', free: true, api: false },
-            { id: 'writesonic', name: 'Writesonic', category: 'expose', icon: 'text-aa', price: '$16/mo', free: true, api: true },
-            { id: 'rytr', name: 'Rytr', category: 'expose', icon: 'coins', price: '$9/mo', free: true, api: false },
-            { id: 'neuroflash', name: 'Neuroflash', category: 'expose', icon: 'flag', price: '€30/mo', free: true, api: false },
-            { id: 'claude', name: 'Claude', category: 'expose', icon: 'robot', price: '$20/mo', free: true, api: true },
-            { id: 'anyword', name: 'Anyword', category: 'expose', icon: 'chart-line-up', price: '$39/mo', free: false, api: true },
-            { id: 'photoroom', name: 'Photoroom', category: 'foto', icon: 'image', price: '$9.99/mo', free: true, api: true },
-            { id: 'lightroom', name: 'Lightroom AI', category: 'foto', icon: 'camera', price: '$9.99/mo', free: false, api: false },
-            { id: 'topaz', name: 'Topaz Photo AI', category: 'foto', icon: 'arrows-out', price: '$199', free: false, api: false },
-            { id: 'removebg', name: 'Remove.bg', category: 'foto', icon: 'eraser', price: '$9/mo', free: true, api: true },
-            { id: 'luminar', name: 'Luminar AI', category: 'foto', icon: 'magic-wand', price: '$79', free: false, api: false },
-            { id: 'canva', name: 'Canva AI', category: 'foto', icon: 'palette', price: '$12.99/mo', free: true, api: false },
-            { id: 'boxbrownie', name: 'BoxBrownie', category: 'staging', icon: 'couch', price: '$24/img', free: false, api: false },
-            { id: 'vsai', name: 'Virtual Staging AI', category: 'staging', icon: 'lightning', price: '$16/img', free: true, api: true },
-            { id: 'styldod', name: 'Styldod', category: 'staging', icon: 'wallet', price: '$16/img', free: false, api: false },
-            { id: 'rooomy', name: 'Rooomy', category: 'staging', icon: 'cube', price: 'Custom', free: false, api: false },
-            { id: 'applydesign', name: 'Apply Design', category: 'staging', icon: 'paint-roller', price: '$29/mo', free: true, api: false },
-            { id: 'salesforce', name: 'Salesforce Einstein', category: 'leads', icon: 'cloud', price: 'Custom', free: false, api: true },
-            { id: 'hubspot', name: 'HubSpot AI', category: 'leads', icon: 'users-three', price: '$45/mo', free: true, api: true },
-            { id: 'apollo', name: 'Apollo.io', category: 'leads', icon: 'rocket', price: '$49/mo', free: true, api: true },
-            { id: 'linkedin', name: 'LinkedIn Sales Nav', category: 'leads', icon: 'linkedin-logo', price: '$79/mo', free: false, api: false },
-            { id: 'zapier', name: 'Zapier AI', category: 'leads', icon: 'plugs-connected', price: '$19.99/mo', free: true, api: true },
-            { id: 'pipedrive', name: 'Pipedrive', category: 'leads', icon: 'funnel', price: '$14/mo', free: false, api: true },
-            { id: 'instantly', name: 'Instantly.ai', category: 'leads', icon: 'envelope', price: '$37/mo', free: false, api: true },
-            { id: 'matterport', name: 'Matterport', category: 'video', icon: 'cube-focus', price: '$69/mo', free: true, api: true },
-            { id: 'descript', name: 'Descript', category: 'video', icon: 'text-align-left', price: '$12/mo', free: true, api: false },
-            { id: 'runway', name: 'Runway', category: 'video', icon: 'film-strip', price: '$15/mo', free: true, api: true },
-            { id: 'synthesia', name: 'Synthesia', category: 'video', icon: 'user-circle', price: '$22/mo', free: false, api: true },
-            { id: 'heygen', name: 'HeyGen', category: 'video', icon: 'user-focus', price: '$24/mo', free: true, api: true },
-            { id: 'invideo', name: 'InVideo AI', category: 'video', icon: 'video', price: '$25/mo', free: true, api: false },
-            { id: 'capcut', name: 'CapCut AI', category: 'video', icon: 'scissors', price: 'Free', free: true, api: false }
+            { id: 'chatgpt',    name: 'ChatGPT',             category: 'expose',  icon: 'chat-circle-text', logo: logo('chat.openai.com'),       price: '$20/mo',    free: true,  api: true  },
+            { id: 'jasper',     name: 'Jasper AI',           category: 'expose',  icon: 'pen-nib',          logo: logo('jasper.ai'),              price: '$49/mo',    free: false, api: true  },
+            { id: 'copyai',     name: 'Copy.ai',             category: 'expose',  icon: 'article',          logo: logo('copy.ai'),                price: '$49/mo',    free: true,  api: false },
+            { id: 'writesonic', name: 'Writesonic',          category: 'expose',  icon: 'text-aa',          logo: logo('writesonic.com'),         price: '$16/mo',    free: true,  api: true  },
+            { id: 'rytr',       name: 'Rytr',                category: 'expose',  icon: 'coins',            logo: logo('rytr.me'),                price: '$9/mo',     free: true,  api: false },
+            { id: 'neuroflash', name: 'Neuroflash',          category: 'expose',  icon: 'flag',             logo: logo('neuroflash.com'),         price: '€30/mo',    free: true,  api: false },
+            { id: 'claude',     name: 'Claude',              category: 'expose',  icon: 'robot',            logo: logo('claude.ai'),              price: '$20/mo',    free: true,  api: true  },
+            { id: 'anyword',    name: 'Anyword',             category: 'expose',  icon: 'chart-line-up',    logo: logo('anyword.com'),            price: '$39/mo',    free: false, api: true  },
+            { id: 'photoroom',  name: 'Photoroom',           category: 'foto',    icon: 'image',            logo: logo('photoroom.com'),          price: '$9.99/mo',  free: true,  api: true  },
+            { id: 'lightroom',  name: 'Lightroom AI',        category: 'foto',    icon: 'camera',           logo: logo('lightroom.adobe.com'),    price: '$9.99/mo',  free: false, api: false },
+            { id: 'topaz',      name: 'Topaz Photo AI',      category: 'foto',    icon: 'arrows-out',       logo: logo('topazlabs.com'),          price: '$199',      free: false, api: false },
+            { id: 'removebg',   name: 'Remove.bg',           category: 'foto',    icon: 'eraser',           logo: logo('remove.bg'),              price: '$9/mo',     free: true,  api: true  },
+            { id: 'luminar',    name: 'Luminar AI',          category: 'foto',    icon: 'magic-wand',       logo: logo('skylum.com'),             price: '$79',       free: false, api: false },
+            { id: 'canva',      name: 'Canva AI',            category: 'foto',    icon: 'palette',          logo: logo('canva.com'),              price: '$12.99/mo', free: true,  api: false },
+            { id: 'boxbrownie', name: 'BoxBrownie',          category: 'staging', icon: 'couch',            logo: logo('boxbrownie.com'),         price: '$24/img',   free: false, api: false },
+            { id: 'vsai',       name: 'Virtual Staging AI',  category: 'staging', icon: 'lightning',        logo: logo('virtualstagingai.app'),   price: '$16/img',   free: true,  api: true  },
+            { id: 'styldod',    name: 'Styldod',             category: 'staging', icon: 'wallet',           logo: logo('styldod.com'),            price: '$16/img',   free: false, api: false },
+            { id: 'rooomy',     name: 'Rooomy',              category: 'staging', icon: 'cube',             logo: logo('rooomy.com'),             price: 'Custom',    free: false, api: false },
+            { id: 'applydesign',name: 'Apply Design',        category: 'staging', icon: 'paint-roller',     logo: logo('applydesign.io'),         price: '$29/mo',    free: true,  api: false },
+            { id: 'salesforce', name: 'Salesforce Einstein', category: 'leads',   icon: 'cloud',            logo: logo('salesforce.com'),         price: 'Custom',    free: false, api: true  },
+            { id: 'hubspot',    name: 'HubSpot AI',          category: 'leads',   icon: 'users-three',      logo: logo('hubspot.com'),            price: '$45/mo',    free: true,  api: true  },
+            { id: 'apollo',     name: 'Apollo.io',           category: 'leads',   icon: 'rocket',           logo: logo('apollo.io'),              price: '$49/mo',    free: true,  api: true  },
+            { id: 'linkedin',   name: 'LinkedIn Sales Nav',  category: 'leads',   icon: 'linkedin-logo',    logo: logo('linkedin.com'),           price: '$79/mo',    free: false, api: false },
+            { id: 'zapier',     name: 'Zapier AI',           category: 'leads',   icon: 'plugs-connected',  logo: logo('zapier.com'),             price: '$19.99/mo', free: true,  api: true  },
+            { id: 'pipedrive',  name: 'Pipedrive',           category: 'leads',   icon: 'funnel',           logo: logo('pipedrive.com'),          price: '$14/mo',    free: false, api: true  },
+            { id: 'instantly',  name: 'Instantly.ai',        category: 'leads',   icon: 'envelope',         logo: logo('instantly.ai'),           price: '$37/mo',    free: false, api: true  },
+            { id: 'matterport', name: 'Matterport',          category: 'video',   icon: 'cube-focus',       logo: logo('matterport.com'),         price: '$69/mo',    free: true,  api: true  },
+            { id: 'descript',   name: 'Descript',            category: 'video',   icon: 'text-align-left',  logo: logo('descript.com'),           price: '$12/mo',    free: true,  api: false },
+            { id: 'runway',     name: 'Runway',              category: 'video',   icon: 'film-strip',       logo: logo('runwayml.com'),           price: '$15/mo',    free: true,  api: true  },
+            { id: 'synthesia',  name: 'Synthesia',           category: 'video',   icon: 'user-circle',      logo: logo('synthesia.io'),           price: '$22/mo',    free: false, api: true  },
+            { id: 'heygen',     name: 'HeyGen',              category: 'video',   icon: 'user-focus',       logo: logo('heygen.com'),             price: '$24/mo',    free: true,  api: true  },
+            { id: 'invideo',    name: 'InVideo AI',          category: 'video',   icon: 'video',            logo: logo('invideo.io'),             price: '$25/mo',    free: true,  api: false },
+            { id: 'capcut',     name: 'CapCut AI',           category: 'video',   icon: 'scissors',         logo: logo('capcut.com'),             price: 'Free',      free: true,  api: false }
         ];
 
-        // State
         let selectedTools = [null, null, null, null];
         let currentSlot = null;
 
-        // DOM Elements
-        const pickerOverlay = document.getElementById('pickerOverlay');
-        const pickerClose = document.getElementById('pickerClose');
-        const pickerSearch = document.getElementById('pickerSearch');
-        const pickerGrid = document.getElementById('pickerGrid');
-        const pickerCats = document.querySelectorAll('.picker-cat');
+        const pickerOverlay  = document.getElementById('pickerOverlay');
+        const pickerClose    = document.getElementById('pickerClose');
+        const pickerSearch   = document.getElementById('pickerSearch');
+        const pickerGrid     = document.getElementById('pickerGrid');
+        const pickerCats     = document.querySelectorAll('.picker-cat');
         const selectorShells = document.querySelectorAll('.selector-shell');
         const compareSection = document.getElementById('compareSection');
-        const compareTable = document.getElementById('compareTable');
-        const resetBtn = document.getElementById('resetBtn');
+        const compareTable   = document.getElementById('compareTable');
+        const resetBtn       = document.getElementById('resetBtn');
 
-        // Render Picker Grid
-        function renderPicker(filter = 'all', search = '') {
+        const catLabel = { expose: 'Exposé', foto: 'Foto', staging: 'Staging', leads: 'Leads', video: 'Video' };
+
+        function renderPicker(filter = 'all', search = '', animate = false) {
             const filtered = tools.filter(t => {
-                const matchCat = filter === 'all' || t.category === filter;
+                const matchCat    = filter === 'all' || t.category === filter;
                 const matchSearch = t.name.toLowerCase().includes(search.toLowerCase());
                 return matchCat && matchSearch;
             });
 
-            pickerGrid.innerHTML = filtered.map(t => `
-                <div class="picker-item" data-id="${t.id}">
-                    <div class="picker-item-icon icon-${t.category}">
-                        <i class="ph ph-${t.icon}"></i>
+            const doRender = () => {
+                pickerGrid.innerHTML = filtered.map(t => `
+                    <div class="picker-item" data-id="${t.id}">
+                        <div class="picker-item-icon icon-${t.category}">
+                            <img src="${t.logo}" alt="${t.name}" onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'ph ph-${t.icon}'}))">
+                        </div>
+                        <div class="picker-item-info">
+                            <div class="picker-item-name">${t.name}</div>
+                            <div class="picker-item-cat">${catLabel[t.category] || t.category}</div>
+                        </div>
                     </div>
-                    <div class="picker-item-info">
-                        <div class="picker-item-name">${t.name}</div>
-                        <div class="picker-item-cat">${t.category.charAt(0).toUpperCase() + t.category.slice(1)}</div>
-                    </div>
-                </div>
-            `).join('');
+                `).join('');
 
-            // Add click handlers
-            pickerGrid.querySelectorAll('.picker-item').forEach(item => {
-                item.addEventListener('click', () => selectTool(item.dataset.id));
-            });
+                pickerGrid.querySelectorAll('.picker-item').forEach(item => {
+                    item.addEventListener('click', () => selectTool(item.dataset.id));
+                });
+
+                pickerGrid.closest('.picker-list').scrollTop = 0;
+            };
+
+            if (animate) {
+                // Phase 1: fade out
+                pickerGrid.classList.add('switching');
+                setTimeout(() => {
+                    // Phase 2: swap content while invisible
+                    doRender();
+                    // Phase 3: force reflow so transition fires, then fade in
+                    pickerGrid.getBoundingClientRect();
+                    pickerGrid.classList.remove('switching');
+                }, 180);
+            } else {
+                doRender();
+            }
         }
 
-        // Select Tool
         function selectTool(toolId) {
             if (currentSlot === null) return;
-
             const tool = tools.find(t => t.id === toolId);
             if (!tool) return;
-
             selectedTools[currentSlot] = tool;
             updateSlots();
             closePicker();
             updateComparison();
         }
 
-        // Update Slots
+        function logoImg(t, size = 32) {
+            return `<img src="${t.logo}" alt="${t.name}" style="width:${size}px;height:${size}px;object-fit:contain;border-radius:6px" onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'ph ph-${t.icon}'}))">`;
+        }
+
         function updateSlots() {
             selectorShells.forEach((shell, i) => {
                 const tool = selectedTools[i];
                 if (tool) {
                     shell.classList.add('filled');
-                    const selected = shell.querySelector('.tool-selected');
-                    selected.querySelector('.selected-icon').className = `selected-icon icon-${tool.category}`;
-                    selected.querySelector('.selected-icon').innerHTML = `<i class="ph ph-${tool.icon}"></i>`;
-                    selected.querySelector('.selected-name').textContent = tool.name;
-                    selected.querySelector('.selected-category').textContent = tool.category.charAt(0).toUpperCase() + tool.category.slice(1);
+                    const sel = shell.querySelector('.tool-selected');
+                    const iconEl = sel.querySelector('.selected-icon');
+                    iconEl.className = `selected-icon icon-${tool.category}`;
+                    iconEl.innerHTML = logoImg(tool, 36);
+                    sel.querySelector('.selected-name').textContent = tool.name;
+                    sel.querySelector('.selected-category').textContent = catLabel[tool.category] || tool.category;
                 } else {
                     shell.classList.remove('filled');
                 }
             });
         }
 
-        // Update Comparison Table
         function updateComparison() {
             const selected = selectedTools.filter(t => t !== null);
             if (selected.length < 2) {
@@ -1096,31 +1039,39 @@
 
             compareSection.classList.add('visible');
 
+            const cols = `200px repeat(${selected.length}, 1fr)`;
+
             compareTable.innerHTML = `
-                <div class="table-row">
+                <div class="table-row" style="grid-template-columns:${cols}">
                     <div class="table-cell table-header">Feature</div>
-                    ${selected.map(t => `<div class="table-cell table-header">${t.name}</div>`).join('')}
+                    ${selected.map(t => `
+                        <div class="table-cell" style="flex-direction:column;align-items:center;gap:0.5rem;padding:1.25rem">
+                            <div class="icon-${t.category}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:22px;flex-shrink:0">
+                                ${logoImg(t, 30)}
+                            </div>
+                            <span style="font-size:13px;font-weight:600;color:var(--text);text-align:center">${t.name}</span>
+                        </div>
+                    `).join('')}
                 </div>
-                <div class="table-row">
+                <div class="table-row" style="grid-template-columns:${cols}">
                     <div class="table-cell table-label">Preis</div>
                     ${selected.map(t => `<div class="table-cell table-value">${t.price}</div>`).join('')}
                 </div>
-                <div class="table-row">
+                <div class="table-row" style="grid-template-columns:${cols}">
                     <div class="table-cell table-label">Kostenlos verfügbar</div>
                     ${selected.map(t => `<div class="table-cell table-value">${t.free ? '<i class="ph ph-check-circle check"></i>' : '<i class="ph ph-x-circle cross"></i>'}</div>`).join('')}
                 </div>
-                <div class="table-row">
+                <div class="table-row" style="grid-template-columns:${cols}">
                     <div class="table-cell table-label">API verfügbar</div>
                     ${selected.map(t => `<div class="table-cell table-value">${t.api ? '<i class="ph ph-check-circle check"></i>' : '<i class="ph ph-x-circle cross"></i>'}</div>`).join('')}
                 </div>
-                <div class="table-row">
+                <div class="table-row" style="grid-template-columns:${cols}">
                     <div class="table-cell table-label">Kategorie</div>
-                    ${selected.map(t => `<div class="table-cell table-value">${t.category.charAt(0).toUpperCase() + t.category.slice(1)}</div>`).join('')}
+                    ${selected.map(t => `<div class="table-cell table-value">${catLabel[t.category] || t.category}</div>`).join('')}
                 </div>
             `;
         }
 
-        // Open Picker
         function openPicker(slot) {
             currentSlot = slot;
             pickerOverlay.classList.add('open');
@@ -1128,23 +1079,20 @@
             pickerSearch.focus();
         }
 
-        // Close Picker
         function closePicker() {
             pickerOverlay.classList.remove('open');
             currentSlot = null;
             pickerSearch.value = '';
         }
 
-        // Reset
         function reset() {
             selectedTools = [null, null, null, null];
             updateSlots();
             compareSection.classList.remove('visible');
         }
 
-        // Event Listeners
         selectorShells.forEach((shell, i) => {
-            shell.addEventListener('click', (e) => {
+            shell.addEventListener('click', e => {
                 if (e.target.classList.contains('remove-btn')) {
                     selectedTools[i] = null;
                     updateSlots();
@@ -1156,9 +1104,7 @@
         });
 
         pickerClose.addEventListener('click', closePicker);
-        pickerOverlay.addEventListener('click', (e) => {
-            if (e.target === pickerOverlay) closePicker();
-        });
+        pickerOverlay.addEventListener('click', e => { if (e.target === pickerOverlay) closePicker(); });
 
         pickerSearch.addEventListener('input', () => {
             const activeCat = document.querySelector('.picker-cat.active').dataset.cat;
@@ -1169,18 +1115,14 @@
             cat.addEventListener('click', () => {
                 pickerCats.forEach(c => c.classList.remove('active'));
                 cat.classList.add('active');
-                renderPicker(cat.dataset.cat, pickerSearch.value);
+                renderPicker(cat.dataset.cat, pickerSearch.value, true);
             });
         });
 
         resetBtn.addEventListener('click', reset);
 
-        // Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closePicker();
-        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closePicker(); });
 
-        // Initialize
         renderPicker();
     </script>
 </body>
