@@ -458,10 +458,10 @@
     <div class="cinematic" id="cinematic">
         <div class="cinematic-sticky" id="cinematicSticky">
 
-            <!-- BG LAYER 0: Video (scroll-scrubbed, not autoplay) -->
-            <video id="bgVideo" class="bg-video" muted playsinline preload="auto" style="opacity:1;">
-                <source src="images/hero.mp4" type="video/mp4">
-            </video>
+            <!-- BG LAYER 0: Canvas frame-scrubber (smoother than video currentTime) -->
+            <canvas id="bgCanvas" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></canvas>
+            <!-- Video kept as fallback / hidden -->
+            <video id="bgVideo" class="bg-video" muted playsinline preload="auto" style="opacity:0;pointer-events:none;position:absolute;"></video>
 
             <!-- BG LAYER 1: Before (construction) -->
             <img id="bgBefore" class="bg-img" src="images/hero-before.jpg" alt="Baustelle" style="opacity:0;">
@@ -628,72 +628,119 @@
     (() => {
         'use strict';
 
+        const TOTAL_FRAMES = 121;
+        const TOTAL_SCENES = 6;
+        const VIDEO_END    = 0.55; // progress at which canvas fades to after-image
+
         const cinematic = document.getElementById('cinematic');
-        const bgVideo   = document.getElementById('bgVideo');
-        const bgBefore  = document.getElementById('bgBefore');
+        const canvas    = document.getElementById('bgCanvas');
+        const ctx       = canvas.getContext('2d');
         const bgAfter   = document.getElementById('bgAfter');
+        const bgBefore  = document.getElementById('bgBefore');
         const scenes    = [0,1,2,3,4,5].map(i => document.getElementById('scene' + i));
         const pdots     = document.querySelectorAll('.pdot');
         const mainNav   = document.getElementById('mainNav');
 
-        const TOTAL_SCENES = 6;
+        // ── Resize canvas to fill viewport ──
+        function resizeCanvas() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drawFrame(currentFrameIndex);
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        // ── Preload all frames ──
+        const frames = [];
+        let loadedCount = 0;
+        let allLoaded   = false;
+        let currentFrameIndex = 0;
+
+        // Show loading progress on canvas
+        function drawLoadingBar(pct) {
+            ctx.fillStyle = '#06060e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            const barW = canvas.width * 0.3;
+            const barX = (canvas.width - barW) / 2;
+            const barY = canvas.height / 2;
+            ctx.fillStyle = 'rgba(255,255,255,0.08)';
+            ctx.beginPath();
+            ctx.roundRect(barX, barY, barW, 2, 1);
+            ctx.fill();
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.beginPath();
+            ctx.roundRect(barX, barY, barW * pct, 2, 1);
+            ctx.fill();
+        }
+
+        function drawFrame(index) {
+            const img = frames[index];
+            if (!img || !img.complete) return;
+            const cw = canvas.width;
+            const ch = canvas.height;
+            const iw = img.naturalWidth;
+            const ih = img.naturalHeight;
+            // object-fit: cover
+            const scale = Math.max(cw / iw, ch / ih);
+            const sw = iw * scale;
+            const sh = ih * scale;
+            const sx = (cw - sw) / 2;
+            const sy = (ch - sh) / 2;
+            ctx.drawImage(img, sx, sy, sw, sh);
+        }
+
+        // Initial canvas size
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        drawLoadingBar(0);
+
+        for (let i = 1; i <= TOTAL_FRAMES; i++) {
+            const img = new Image();
+            const idx = i - 1;
+            img.onload = () => {
+                loadedCount++;
+                if (loadedCount <= 20) {
+                    // Draw first frames immediately as they load
+                    if (idx === 0) drawFrame(0);
+                    drawLoadingBar(loadedCount / TOTAL_FRAMES);
+                }
+                if (loadedCount === TOTAL_FRAMES) {
+                    allLoaded = true;
+                    drawFrame(currentFrameIndex);
+                }
+            };
+            img.src = `frames/f${String(i).padStart(4,'0')}.jpg`;
+            frames.push(img);
+        }
 
         // ── Easing ──
-        function easeQuart(t) {
-            return t < 0.5 ? 8*t*t*t*t : 1 - 8*(--t)*t*t*t;
-        }
-        function easeOut3(t) {
-            return 1 - Math.pow(1 - t, 3);
-        }
+        function easeQuart(t) { return t < 0.5 ? 8*t*t*t*t : 1 - 8*(--t)*t*t*t; }
+        function easeOut3(t)  { return 1 - Math.pow(1-t, 3); }
+        function clamp(v,lo,hi) { return v<lo?lo:v>hi?hi:v; }
+        function norm(v,a,b)    { return clamp((v-a)/(b-a),0,1); }
 
-        function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
-        function norm(v, a, b)    { return clamp((v - a) / (b - a), 0, 1); }
-
-        // ── Video scrubbing ──
-        // Video covers scroll progress 0 → 0.55 (scenes 0, 1, and half of 2)
-        // currentTime is driven directly by scroll — no autoplay loop
-        const VIDEO_END = 0.55; // how far into total progress the video plays to
-        let videoDuration = 0;
-        let videoReady    = false;
-
-        bgVideo.addEventListener('loadedmetadata', () => {
-            videoDuration = bgVideo.duration;
-            videoReady    = true;
-            bgVideo.pause();
-        });
-
-        // Fallback if metadata already loaded
-        if (bgVideo.readyState >= 1) {
-            videoDuration = bgVideo.duration;
-            videoReady    = true;
-            bgVideo.pause();
-        }
-
-        // ── Scene opacity: each scene owns 1/TOTAL_SCENES of progress ──
-        // Fades in over first 25% of its window, fades out over last 25%
+        // ── Scene opacity ──
         function sceneOpacity(progress, i, noFadeOut) {
-            const step    = 1 / TOTAL_SCENES;
-            const start   = i * step;
-            const fadeIn  = step * 0.25;
-            const fadeOut = step * 0.25;
-
+            const step   = 1 / TOTAL_SCENES;
+            const start  = i * step;
+            const fadeIn = step * 0.25;
+            const fadeOut= step * 0.25;
             if (progress < start) return 0;
             const local = progress - start;
             if (local > step && !noFadeOut) return 0;
-
             if (local < fadeIn) return easeOut3(norm(local, 0, fadeIn));
             if (!noFadeOut && local > step - fadeOut) return easeOut3(norm(step - local, 0, fadeOut));
             return 1;
         }
 
         function sceneTranslate(progress, i) {
-            const step  = 1 / TOTAL_SCENES;
-            const local = progress - i * step;
-            const rel   = clamp(local / step, 0, 1);
+            const step = 1 / TOTAL_SCENES;
+            const rel  = clamp((progress - i * step) / step, 0, 1);
             return (0.5 - rel) * 36;
         }
 
+        // ── Main update loop ──
         let ticking = false;
+        let lastProgress = -1;
 
         function update() {
             const scrollY  = window.scrollY;
@@ -701,73 +748,59 @@
             const height   = cinematic.offsetHeight - window.innerHeight;
             const progress = clamp((scrollY - top) / height, 0, 1);
 
-            // ── VIDEO SCRUBBING ──
-            // The video plays across progress 0 → VIDEO_END
-            // We scrub currentTime directly so the building transformation
-            // is perfectly in sync with scroll speed
-            if (videoReady && videoDuration > 0) {
-                const videoProgress = clamp(progress / VIDEO_END, 0, 1);
-                const targetTime    = videoProgress * videoDuration;
-                // Only update if diff > 1 frame (avoid micro-jitter)
-                if (Math.abs(bgVideo.currentTime - targetTime) > 0.02) {
-                    bgVideo.currentTime = targetTime;
-                }
+            // Skip if nothing changed
+            if (Math.abs(progress - lastProgress) < 0.0002) { ticking = false; return; }
+            lastProgress = progress;
+
+            // ── Canvas frame ──
+            // Video covers progress 0 → VIDEO_END
+            const videoProgress = clamp(progress / VIDEO_END, 0, 1);
+            const frameIndex    = Math.min(TOTAL_FRAMES - 1, Math.round(videoProgress * (TOTAL_FRAMES - 1)));
+            if (frameIndex !== currentFrameIndex) {
+                currentFrameIndex = frameIndex;
+                if (allLoaded || frames[frameIndex]?.complete) drawFrame(frameIndex);
             }
 
-            // ── BG LAYER OPACITIES ──
-            // Video: visible from start, fades out as we enter scene 3
-            const videoOpacity = 1 - easeQuart(norm(progress, VIDEO_END * 0.7, VIDEO_END));
-            bgVideo.style.opacity = clamp(videoOpacity, 0, 1);
+            // Canvas opacity: fades out as after-image fades in
+            const canvasOpacity = 1 - easeQuart(norm(progress, VIDEO_END * 0.65, VIDEO_END));
+            canvas.style.opacity = clamp(canvasOpacity, 0, 1);
 
-            // After image: crossfades IN as video fades out, stays to end
-            const afterOpacity = easeQuart(norm(progress, VIDEO_END * 0.6, VIDEO_END));
-            bgAfter.style.opacity = clamp(afterOpacity, 0, 1);
-
-            // Before image not needed — video already shows the before→after transformation
+            // After image
+            bgAfter.style.opacity = easeQuart(norm(progress, VIDEO_END * 0.6, VIDEO_END));
             bgBefore.style.opacity = 0;
 
-            // ── SCENE PANELS ──
+            // ── Scene panels ──
             for (let i = 0; i < 5; i++) {
-                const op = sceneOpacity(progress, i, false);
-                const ty = sceneTranslate(progress, i);
-                scenes[i].style.opacity   = op;
-                scenes[i].style.transform = `translateY(${ty}px)`;
+                scenes[i].style.opacity   = sceneOpacity(progress, i, false);
+                scenes[i].style.transform = `translateY(${sceneTranslate(progress, i)}px)`;
             }
-            // Last scene: no fade-out
-            const op5 = sceneOpacity(progress, 5, true);
-            const ty5 = sceneTranslate(progress, 5);
-            scenes[5].style.opacity   = op5;
-            scenes[5].style.transform = `translateY(${ty5}px)`;
+            scenes[5].style.opacity   = sceneOpacity(progress, 5, true);
+            scenes[5].style.transform = `translateY(${sceneTranslate(progress, 5)}px)`;
 
-            // ── PROGRESS DOTS ──
-            const activeScene = Math.min(5, Math.floor(progress * TOTAL_SCENES));
-            pdots.forEach((d, i) => d.classList.toggle('active', i === activeScene));
+            // ── Dots ──
+            const active = Math.min(5, Math.floor(progress * TOTAL_SCENES));
+            pdots.forEach((d,i) => d.classList.toggle('active', i === active));
 
-            // ── NAV: hide mid-cinematic, show at very start and at end ──
-            const navHide = progress > 0.08 && progress < 0.88;
-            mainNav.classList.toggle('hidden', navHide);
+            // ── Nav ──
+            mainNav.classList.toggle('hidden', progress > 0.08 && progress < 0.88);
 
             ticking = false;
         }
 
         window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(update);
-                ticking = true;
-            }
+            if (!ticking) { requestAnimationFrame(update); ticking = true; }
         }, { passive: true });
 
-        // Dot click → jump to scene
+        // Dot click
         pdots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
                 const top    = cinematic.offsetTop;
                 const height = cinematic.offsetHeight - window.innerHeight;
-                const target = top + (i / TOTAL_SCENES) * height + 10;
-                window.scrollTo({ top: target, behavior: 'smooth' });
+                window.scrollTo({ top: top + (i / TOTAL_SCENES) * height + 10, behavior: 'smooth' });
             });
         });
 
-        // Initial paint
+        resizeCanvas();
         update();
     })();
     </script>
