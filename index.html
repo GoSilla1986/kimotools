@@ -318,17 +318,43 @@
         }
 
         .cat-card {
+            position: relative;
             padding: 3px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 1.25rem;
             text-decoration: none;
             color: inherit;
+            overflow: hidden;
             transition: border-color 300ms var(--ease), transform 300ms var(--ease);
         }
-        .cat-card:hover { border-color: var(--border-2); transform: translateY(-3px); }
+
+        .cat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle at var(--x, 50%) var(--y, 50%),
+                rgba(124,92,252,0.15),
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 450ms var(--ease);
+            pointer-events: none;
+        }
+
+        .cat-card:hover {
+            border-color: var(--border-2);
+            transform: translateY(-3px);
+        }
+
+        .cat-card:hover::before {
+            opacity: 1;
+        }
 
         .cat-inner {
+            position: relative;
+            z-index: 1;
             background: rgba(255,255,255,0.02);
             border-radius: calc(1.25rem - 3px);
             padding: 1.75rem;
@@ -431,6 +457,7 @@
         }
 
         .pick-shell {
+            position: relative;
             padding: 3px;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -438,11 +465,36 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            overflow: hidden;
             transition: border-color 300ms var(--ease), transform 300ms var(--ease);
         }
-        .pick-shell:hover { border-color: var(--border-2); transform: translateY(-3px); }
+
+        .pick-shell::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle at var(--x, 50%) var(--y, 50%),
+                rgba(124,92,252,0.15),
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 450ms var(--ease);
+            pointer-events: none;
+        }
+
+        .pick-shell:hover {
+            border-color: var(--border-2);
+            transform: translateY(-3px);
+        }
+
+        .pick-shell:hover::before {
+            opacity: 1;
+        }
 
         .pick-inner {
+            position: relative;
+            z-index: 1;
             background: rgba(255,255,255,0.02);
             border-radius: calc(1.25rem - 3px);
             padding: 1.5rem 1.75rem;
@@ -870,6 +922,29 @@
             });
         }, { threshold: 0.06 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ── CARD HOVER RIPPLE EFFECTS ────────────────────────────────────
+        // Category cards
+        document.querySelectorAll('.cat-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--x', `${x}%`);
+                card.style.setProperty('--y', `${y}%`);
+            });
+        });
+
+        // Pick cards
+        document.querySelectorAll('.pick-shell').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--x', `${x}%`);
+                card.style.setProperty('--y', `${y}%`);
+            });
+        });
     </script>
 </body>
 </html>

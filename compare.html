@@ -194,12 +194,37 @@
 
         /* Double-Bezel Slot */
         .selector-shell {
+            position: relative;
             padding: 4px;
             background: var(--surface);
             border: 1.5px dashed var(--border-hover);
             border-radius: 1.25rem;
             cursor: pointer;
+            overflow: hidden;
             transition: border-color 300ms var(--ease-out), background 300ms var(--ease-out);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.7s var(--ease-out) forwards;
+        }
+
+        /* Staggered animation for selector slots */
+        .selector-shell:nth-child(1) { animation-delay: 0.1s; }
+        .selector-shell:nth-child(2) { animation-delay: 0.2s; }
+        .selector-shell:nth-child(3) { animation-delay: 0.3s; }
+        .selector-shell:nth-child(4) { animation-delay: 0.4s; }
+
+        .selector-shell::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle at var(--x, 50%) var(--y, 50%),
+                rgba(124,92,252,0.12),
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 400ms var(--ease-out);
+            pointer-events: none;
         }
 
         .selector-shell:hover {
@@ -208,12 +233,18 @@
             background: rgba(124,92,252,0.05);
         }
 
+        .selector-shell:hover::before {
+            opacity: 1;
+        }
+
         .selector-shell.filled {
             border-style: solid;
             border-color: var(--border-hover);
         }
 
         .selector-slot {
+            position: relative;
+            z-index: 1;
             padding: 2rem;
             background: var(--surface-2);
             border-radius: calc(1.25rem - 4px);
@@ -1122,6 +1153,18 @@
         resetBtn.addEventListener('click', reset);
 
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closePicker(); });
+
+        // ── Selector card hover ripple effect ──
+        const selectorShells = document.querySelectorAll('.selector-shell');
+        selectorShells.forEach(shell => {
+            shell.addEventListener('mousemove', (e) => {
+                const rect = shell.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                shell.style.setProperty('--x', `${x}%`);
+                shell.style.setProperty('--y', `${y}%`);
+            });
+        });
 
         renderPicker();
     </script>
