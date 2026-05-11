@@ -1155,7 +1155,6 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closePicker(); });
 
         // ── Selector card hover ripple effect ──
-        const selectorShells = document.querySelectorAll('.selector-shell');
         selectorShells.forEach(shell => {
             shell.addEventListener('mousemove', (e) => {
                 const rect = shell.getBoundingClientRect();
