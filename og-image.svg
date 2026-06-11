@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAFAF8"/>
+      <stop offset="100%" stop-color="#F0EFEA"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle decorative line -->
+  <line x1="80" y1="120" x2="200" y2="120" stroke="#2C4A3D" stroke-width="2"/>
+
+  <!-- Eyebrow -->
+  <text x="80" y="170" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="20" font-weight="500" fill="#2C4A3D" letter-spacing="2">
+    KIMOTOOLS — KI FÜR IMMOBILIEN
+  </text>
+
+  <!-- Main headline -->
+  <text x="80" y="290" font-family="'Instrument Serif', Georgia, serif" font-size="92" font-weight="400" fill="#0A0A0A">
+    KI-Tools für
+  </text>
+  <text x="80" y="395" font-family="'Instrument Serif', Georgia, serif" font-size="92" font-style="italic" font-weight="400" fill="#2C4A3D">
+    Immobilienmakler.
+  </text>
+
+  <!-- Subline -->
+  <text x="80" y="475" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="26" font-weight="400" fill="#5A5A5A">
+    33 Tools · 6 Kategorien · Kuratiert &amp; bewertet.
+  </text>
+
+  <!-- Bottom right brand mark -->
+  <text x="1120" y="580" text-anchor="end" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="18" font-weight="600" fill="#0A0A0A">
+    kimotools.de
+  </text>
+
+  <!-- Decorative dots -->
+  <circle cx="80" cy="555" r="4" fill="#2C4A3D"/>
+  <circle cx="100" cy="555" r="4" fill="#2C4A3D" opacity="0.5"/>
+  <circle cx="120" cy="555" r="4" fill="#2C4A3D" opacity="0.25"/>
+</svg>

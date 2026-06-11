@@ -1,0 +1,13 @@
+# Local archive (not deployed)
+_archive/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# Vercel
+.vercel
