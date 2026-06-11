@@ -9,6 +9,7 @@
     (function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;document.documentElement.classList.add('theme-no-transition');addEventListener('load',function(){requestAnimationFrame(function(){document.documentElement.classList.remove('theme-no-transition');});});}catch(e){document.documentElement.dataset.theme='light';}})();
     </script>
     <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/nav.css">
 
     <title>KImotools — KI-Tools für Immobilienmakler</title>
     <meta name="description" content="33 KI-Tools für Immobilienmakler — kuratiert, bewertet und direkt vergleichbar. Finde sofort das richtige Tool für Exposé, Foto, Virtual Staging, Lead-Generierung und Video.">
@@ -90,58 +91,7 @@
             display: none; /* glow handled per-section if needed */
         }
 
-        /* ── NAV ── */
-        nav {
-            position: fixed;
-            top: 1.5rem; left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            padding: 0.7rem 0.7rem 0.7rem 1.5rem;
-            background: var(--bg-translucent);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            white-space: nowrap;
-        }
-
-        .nav-logo {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.1rem;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .nav-links { display: flex; gap: 0.25rem; align-items: center; }
-        .nav-links a {
-            font-size: 0.83rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.4rem 0.875rem;
-            border-radius: 100px;
-            transition: color 200ms var(--ease), background 200ms var(--ease);
-        }
-        .nav-links a:hover { color: var(--text); background: var(--surface); }
-        .nav-links a.active { color: var(--text); }
-
-        .nav-cta {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.83rem;
-            font-weight: 600;
-            color: var(--accent-on);
-            background: var(--accent);
-            padding: 0.5rem 1.1rem;
-            border-radius: 100px;
-            text-decoration: none;
-            transition: opacity 200ms var(--ease), transform 200ms var(--ease);
-        }
-        .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+        /* ── NAV: see css/nav.css ── */
 
         /* ── HERO ── */
         .hero {
@@ -709,8 +659,6 @@
         }
 
         @media (max-width: 640px) {
-            nav { padding: 0.6rem 0.7rem 0.6rem 1.1rem; gap: 1rem; }
-            .nav-links { display: none; }
             .hero { padding: 7rem 1.5rem 4rem; }
             .stats { gap: 1.5rem; }
             .stat-divider { display: none; }
@@ -729,12 +677,12 @@
 </head>
 <body>
 
-    <nav>
+    <nav class="nav">
         <a href="index.html" class="nav-logo">KImotools</a>
         <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="tools.html">Alle Tools</a>
-            <a href="compare.html">Vergleichen</a>
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="tools.html" class="nav-link">Alle Tools</a>
+            <a href="compare.html" class="nav-link">Vergleichen</a>
         </div>
         <button class="theme-toggle" type="button" aria-label="Theme umschalten">
             <i class="ph ph-sun icon-light" aria-hidden="true"></i>

@@ -1,0 +1,109 @@
+/* =============================================================
+   KImotools — Unified Navigation
+   Single source of truth for the top nav across all pages.
+   Loaded after theme.css so it can use --bg-translucent etc.
+   ============================================================= */
+
+/* Outer pill nav — fixed at the top, centered */
+.nav {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.7rem 0.7rem 0.7rem 1.5rem;
+    background: var(--bg-translucent);
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+/* Logo */
+.nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.1rem;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+}
+
+/* Links container */
+.nav-links {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+/* Individual links — fixed widths for page-switch consistency */
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.4rem 0.875rem;
+    border-radius: 100px;
+    transition: color 200ms var(--ease), background 200ms var(--ease);
+}
+
+.nav-link:hover {
+    color: var(--text);
+    background: var(--surface);
+}
+
+.nav-link.active {
+    color: var(--text);
+    background: var(--surface-2);
+}
+
+/* Theme toggle is already styled in theme.css; just ensure spacing here */
+
+/* Primary CTA — always renders the same width regardless of label */
+.nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-width: 132px;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--accent-on);
+    background: var(--accent);
+    padding: 0.5rem 1.1rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: opacity 200ms var(--ease), transform 200ms var(--ease), background 200ms var(--ease);
+}
+
+.nav-cta:hover {
+    opacity: 0.92;
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.nav-cta i {
+    font-size: 1em;
+    line-height: 1;
+}
+
+/* Mobile: hide secondary links, keep logo + toggle + CTA */
+@media (max-width: 720px) {
+    .nav {
+        gap: 0.75rem;
+        padding: 0.55rem 0.55rem 0.55rem 1.2rem;
+    }
+    .nav-links {
+        display: none;
+    }
+    .nav-cta {
+        min-width: 0;
+        padding: 0.45rem 0.95rem;
+    }
+}

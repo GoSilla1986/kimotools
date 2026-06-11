@@ -9,6 +9,7 @@
     (function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;document.documentElement.classList.add('theme-no-transition');addEventListener('load',function(){requestAnimationFrame(function(){document.documentElement.classList.remove('theme-no-transition');});});}catch(e){document.documentElement.dataset.theme='light';}})();
     </script>
     <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/nav.css">
 
     <title>Bis zu 4 KI-Tools für Makler vergleichen | KImotools</title>
     <meta name="description" content="Vergleiche bis zu 4 KI-Tools für Immobilienmakler direkt: Preise, Features und Bewertungen auf einen Blick. Jetzt das passende Tool finden →">
@@ -102,67 +103,7 @@
             z-index: 0;
         }
 
-        /* ─── NAV ─── */
-        .nav {
-            position: fixed;
-            top: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            padding: 0.6rem 0.6rem 0.6rem 1.5rem;
-            background: var(--bg-translucent);
-            backdrop-filter: blur(24px) saturate(1.6);
-            -webkit-backdrop-filter: blur(24px) saturate(1.6);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            white-space: nowrap;
-        }
-
-        .nav-logo {
-            font-family: 'Instrument Serif', serif;
-            font-size: 20px;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.01em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.25rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.4rem 0.9rem;
-            border-radius: 100px;
-            transition: color 200ms var(--ease-out), background 200ms var(--ease-out);
-        }
-
-        .nav-link:hover { color: var(--text); background: var(--surface); }
-        .nav-link.active { color: var(--text); background: var(--surface-2); }
-
-        .nav-cta {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.55rem 1.1rem;
-            background: var(--accent);
-            color: var(--accent-on);
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 100px;
-            transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
-        }
-
-        .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+        /* ── NAV: see css/nav.css ── */
 
         /* ─── HERO ─── */
         .hero {
@@ -816,10 +757,7 @@
             <i class="ph ph-sun icon-light" aria-hidden="true"></i>
             <i class="ph ph-moon icon-dark" aria-hidden="true"></i>
         </button>
-        <a href="tools.html" class="nav-cta">
-            Alle Tools
-            <i class="ph ph-arrow-right"></i>
-        </a>
+        <a href="tools.html" class="nav-cta">Alle Tools <i class="ph ph-arrow-right"></i></a>
     </nav>
 
     <!-- Hero -->
