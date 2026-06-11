@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Theme: resolve before any paint to avoid FOUC -->
+    <script>
+    (function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;document.documentElement.classList.add('theme-no-transition');addEventListener('load',function(){requestAnimationFrame(function(){document.documentElement.classList.remove('theme-no-transition');});});}catch(e){document.documentElement.dataset.theme='light';}})();
+    </script>
+    <link rel="stylesheet" href="css/theme.css">
+
     <title>KImotools — KI-Tools für Immobilienmakler</title>
     <meta name="description" content="33 KI-Tools für Immobilienmakler — kuratiert, bewertet und direkt vergleichbar. Finde sofort das richtige Tool für Exposé, Foto, Virtual Staging, Lead-Generierung und Video.">
     <link rel="canonical" href="https://www.kimotools.de/">
@@ -61,24 +68,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        :root {
-            --bg: #06060e;
-            --surface: rgba(255,255,255,0.04);
-            --surface-2: rgba(255,255,255,0.07);
-            --border: rgba(255,255,255,0.08);
-            --border-2: rgba(255,255,255,0.13);
-            --text: #f0f0f5;
-            --text-secondary: rgba(240,240,245,0.55);
-            --text-muted: rgba(240,240,245,0.32);
-            --accent: #7c5cfc;
-            --accent-glow: rgba(124,92,252,0.18);
-            --ease: cubic-bezier(0.16,1,0.3,1);
-        }
+        /* :root tokens are defined in css/theme.css (Light + Dark variants) */
 
         html { scroll-behavior: smooth; }
 
@@ -105,7 +100,7 @@
             align-items: center;
             gap: 2rem;
             padding: 0.7rem 0.7rem 0.7rem 1.5rem;
-            background: rgba(6,6,14,0.7);
+            background: var(--bg-translucent);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--border);
@@ -130,7 +125,7 @@
             border-radius: 100px;
             transition: color 200ms var(--ease), background 200ms var(--ease);
         }
-        .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav-links a:hover { color: var(--text); background: var(--surface); }
         .nav-links a.active { color: var(--text); }
 
         .nav-cta {
@@ -176,8 +171,7 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background:
-                linear-gradient(to bottom, rgba(6,6,14,0.55) 0%, rgba(6,6,14,0.45) 50%, rgba(6,6,14,0.75) 100%);
+            background: var(--hero-overlay);
             z-index: 1;
         }
 
@@ -726,6 +720,10 @@
             <a href="tools.html">Alle Tools</a>
             <a href="compare.html">Vergleichen</a>
         </div>
+        <button class="theme-toggle" type="button" aria-label="Theme umschalten">
+            <i class="ph ph-sun icon-light" aria-hidden="true"></i>
+            <i class="ph ph-moon icon-dark" aria-hidden="true"></i>
+        </button>
         <a href="compare.html" class="nav-cta">Vergleichen <i class="ph ph-arrow-right"></i></a>
     </nav>
 
@@ -997,5 +995,6 @@
             });
         });
     </script>
+    <script src="js/theme.js"></script>
 </body>
 </html>

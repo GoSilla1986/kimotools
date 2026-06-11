@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Theme: resolve before any paint to avoid FOUC -->
+    <script>
+    (function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;document.documentElement.classList.add('theme-no-transition');addEventListener('load',function(){requestAnimationFrame(function(){document.documentElement.classList.remove('theme-no-transition');});});}catch(e){document.documentElement.dataset.theme='light';}})();
+    </script>
+    <link rel="stylesheet" href="css/theme.css">
+
     <title>Bis zu 4 KI-Tools für Makler vergleichen | KImotools</title>
     <meta name="description" content="Vergleiche bis zu 4 KI-Tools für Immobilienmakler direkt: Preise, Features und Bewertungen auf einen Blick. Jetzt das passende Tool finden →">
     <link rel="canonical" href="https://www.kimotools.de/compare.html">
@@ -53,22 +60,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
     <style>
+        /* Theme tokens (--bg/--surface/--text/--accent etc.) defined in css/theme.css */
         :root {
-            --bg: #06060e;
-            --surface: #0e0e1a;
-            --surface-2: #13131f;
-            --border: rgba(255,255,255,0.07);
-            --border-hover: rgba(255,255,255,0.14);
-            --text: #f0f0f5;
-            --text-secondary: rgba(240,240,245,0.55);
-            --text-tertiary: rgba(240,240,245,0.32);
-            --accent: #7c5cfc;
-            --accent-glow: rgba(124,92,252,0.18);
-            --accent-subtle: rgba(124,92,252,0.1);
-
+            /* Page-specific tokens (category colors) — theme-agnostic */
             --color-expose: #a78bfa;
             --color-foto:   #34d399;
             --color-staging:#fb923c;
@@ -77,7 +74,6 @@
             --color-automation: #a3a07a;
 
             --ease: cubic-bezier(0.32, 0.72, 0, 1);
-            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -149,7 +145,7 @@
             transition: color 200ms var(--ease-out), background 200ms var(--ease-out);
         }
 
-        .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav-link:hover { color: var(--text); background: var(--surface); }
         .nav-link.active { color: var(--text); background: rgba(255,255,255,0.08); }
 
         .nav-cta {
@@ -815,6 +811,10 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="tools.html" class="nav-link">Tools</a>
             <a href="compare.html" class="nav-link active">Vergleichen</a>
+            <button class="theme-toggle" type="button" aria-label="Theme umschalten">
+                <i class="ph ph-sun icon-light" aria-hidden="true"></i>
+                <i class="ph ph-moon icon-dark" aria-hidden="true"></i>
+            </button>
             <a href="tools.html" class="nav-cta">
                 Alle Tools
                 <i class="ph ph-arrow-right"></i>
@@ -1211,5 +1211,6 @@
 
         renderPicker();
     </script>
+    <script src="js/theme.js"></script>
 </body>
 </html>

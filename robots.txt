@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
 
-Disallow: /index-backup.html
-Disallow: /index-premium.html
-
 Sitemap: https://www.kimotools.de/sitemap.xml

@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Theme: resolve before any paint to avoid FOUC -->
+    <script>
+    (function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;document.documentElement.classList.add('theme-no-transition');addEventListener('load',function(){requestAnimationFrame(function(){document.documentElement.classList.remove('theme-no-transition');});});}catch(e){document.documentElement.dataset.theme='light';}})();
+    </script>
+    <link rel="stylesheet" href="css/theme.css">
+
     <title>Datenschutz — KImotools</title>
     <meta name="robots" content="noindex">
     <link rel="canonical" href="https://www.kimotools.de/datenschutz.html">
@@ -14,16 +21,7 @@
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        :root {
-            --bg: #06060e;
-            --surface: #0e0e1a;
-            --border: rgba(255,255,255,0.07);
-            --text: #f0f0f5;
-            --text-secondary: rgba(240,240,245,0.55);
-            --text-tertiary: rgba(240,240,245,0.32);
-            --accent: #7c5cfc;
-            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        /* :root tokens (--bg/--surface/--text/--accent) defined in css/theme.css */
 
         html { scroll-behavior: smooth; }
 
@@ -236,6 +234,10 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="tools.html" class="nav-link">Tools</a>
             <a href="compare.html" class="nav-link">Vergleichen</a>
+            <button class="theme-toggle" type="button" aria-label="Theme umschalten">
+                <i class="ph ph-sun icon-light" aria-hidden="true"></i>
+                <i class="ph ph-moon icon-dark" aria-hidden="true"></i>
+            </button>
             <a href="compare.html" class="nav-cta">Vergleichen →</a>
         </div>
     </nav>
@@ -321,5 +323,6 @@
         </div>
     </footer>
 
+    <script src="js/theme.js"></script>
 </body>
 </html>
