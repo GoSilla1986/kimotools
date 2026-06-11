@@ -167,7 +167,7 @@
             font-weight: 600;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: #fff;
+            color: var(--accent-on);
             background: var(--accent);
             padding: 0.35rem 1rem;
             border-radius: 100px;
@@ -305,7 +305,7 @@
             inset: 0;
             background: radial-gradient(
                 circle at var(--x, 50%) var(--y, 50%),
-                rgba(124,92,252,0.15),
+                var(--accent-glow),
                 transparent 60%
             );
             opacity: 0;
@@ -313,7 +313,7 @@
             pointer-events: none;
         }
 
-        .tool-shell:hover { background: rgba(124,92,252,0.06); }
+        .tool-shell:hover { background: var(--accent-subtle); }
         .tool-shell:hover::before { opacity: 1; }
 
         .tool-card {
@@ -366,8 +366,8 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--accent);
-            background: rgba(124,92,252,0.12);
-            border: 1px solid rgba(124,92,252,0.2);
+            background: var(--accent-subtle);
+            border: 1px solid var(--accent-glow);
             padding: 0.25rem 0.6rem;
             border-radius: 100px;
         }
@@ -426,8 +426,8 @@
             top: 0; right: 0; bottom: 0;
             z-index: 501;
             width: min(520px, 92vw);
-            background: #0a0a16;
-            border-left: 1px solid rgba(255,255,255,0.09);
+            background: var(--bg);
+            border-left: 1px solid var(--border-2);
             display: flex;
             flex-direction: column;
             transform: translateX(100%);
@@ -444,7 +444,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 1.5rem 1.75rem 1.25rem;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
+            border-bottom: 1px solid var(--border);
             flex-shrink: 0;
         }
 
@@ -489,7 +489,7 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-2);
             background: transparent;
             color: var(--text-secondary);
             font-size: 18px;
@@ -502,7 +502,7 @@
         }
 
         .drawer-close:hover {
-            background: rgba(255,255,255,0.07);
+            background: var(--surface);
             color: var(--text);
         }
 
@@ -514,18 +514,18 @@
             flex-direction: column;
             gap: 1.25rem;
             scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.1) transparent;
+            scrollbar-color: var(--border-2) transparent;
         }
 
         .drawer-desc {
             font-size: 15px;
-            color: rgba(240,240,245,0.8);
+            color: var(--text-secondary);
             line-height: 1.8;
         }
 
         .drawer-block {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 1rem;
             padding: 1.375rem 1.5rem;
         }
@@ -535,7 +535,7 @@
             font-weight: 700;
             letter-spacing: 0.13em;
             text-transform: uppercase;
-            color: rgba(240,240,245,0.5);
+            color: var(--text-muted);
             margin-bottom: 1.125rem;
         }
 
@@ -549,7 +549,7 @@
         .pro-list + .con-list {
             margin-top: 0.875rem;
             padding-top: 0.875rem;
-            border-top: 1px solid rgba(255,255,255,0.07);
+            border-top: 1px solid var(--border);
         }
 
         .pro-item, .con-item {
@@ -583,8 +583,8 @@
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background: rgba(124,92,252,0.18);
-            color: #a78bfa;
+            background: var(--accent-glow);
+            color: var(--accent);
             font-size: 12px;
             font-weight: 700;
             display: flex;
@@ -617,8 +617,8 @@
             align-items: center;
             gap: 0.4rem;
             padding: 0.35rem 0.85rem;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 100px;
             font-size: 12px;
             font-weight: 500;
@@ -632,7 +632,7 @@
 
         .drawer-footer {
             padding: 1.25rem 1.75rem;
-            border-top: 1px solid rgba(255,255,255,0.07);
+            border-top: 1px solid var(--border);
             flex-shrink: 0;
         }
 
@@ -644,7 +644,7 @@
             width: 100%;
             padding: 0.875rem;
             background: var(--accent);
-            color: #fff;
+            color: var(--accent-on);
             font-family: inherit;
             font-size: 14px;
             font-weight: 600;

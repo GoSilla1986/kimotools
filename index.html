@@ -134,7 +134,7 @@
             gap: 0.4rem;
             font-size: 0.83rem;
             font-weight: 600;
-            color: #fff;
+            color: var(--accent-on);
             background: var(--accent);
             padding: 0.5rem 1.1rem;
             border-radius: 100px;
@@ -188,7 +188,7 @@
             font-weight: 600;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: #fff;
+            color: var(--accent-on);
             background: var(--accent);
             padding: 0.35rem 1rem;
             border-radius: 100px;
@@ -246,7 +246,7 @@
             gap: 0.5rem;
             padding: 0.875rem 1.75rem;
             background: var(--accent);
-            color: #fff;
+            color: var(--accent-on);
             font-size: 0.9rem;
             font-weight: 600;
             text-decoration: none;
@@ -260,7 +260,7 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.875rem 1.75rem;
-            background: rgba(255,255,255,0.05);
+            background: var(--surface);
             border: 1px solid var(--border-2);
             color: var(--text-secondary);
             font-size: 0.9rem;
@@ -269,7 +269,7 @@
             border-radius: 100px;
             transition: color 200ms var(--ease), background 200ms var(--ease), transform 200ms var(--ease);
         }
-        .btn-secondary:hover { color: var(--text); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .btn-secondary:hover { color: var(--text); background: var(--surface-2); transform: translateY(-2px); }
 
         /* ── STAT ROW ── */
         .stats {
@@ -306,7 +306,7 @@
         .stat-divider {
             width: 1px;
             height: 36px;
-            background: rgba(255,255,255,0.2);
+            background: var(--border-2);
             align-self: center;
         }
 
@@ -380,7 +380,7 @@
             inset: 0;
             background: radial-gradient(
                 circle at var(--x, 50%) var(--y, 50%),
-                rgba(124,92,252,0.15),
+                var(--accent-glow),
                 transparent 60%
             );
             opacity: 0;
@@ -400,7 +400,7 @@
         .cat-inner {
             position: relative;
             z-index: 1;
-            background: rgba(255,255,255,0.02);
+            background: var(--surface);
             border-radius: calc(1.25rem - 3px);
             padding: 1.75rem;
             height: 100%;
@@ -468,7 +468,7 @@
         }
 
         .step-inner {
-            background: rgba(255,255,255,0.02);
+            background: var(--surface);
             border-radius: calc(1.25rem - 3px);
             padding: 2rem 1.75rem;
         }
@@ -476,7 +476,8 @@
         .step-num {
             font-family: 'Instrument Serif', serif;
             font-size: 2.5rem;
-            color: rgba(124,92,252,0.25);
+            color: var(--accent);
+            opacity: 0.35;
             line-height: 1;
             margin-bottom: 1.25rem;
         }
@@ -520,7 +521,7 @@
             inset: 0;
             background: radial-gradient(
                 circle at var(--x, 50%) var(--y, 50%),
-                rgba(124,92,252,0.15),
+                var(--accent-glow),
                 transparent 60%
             );
             opacity: 0;
@@ -540,7 +541,7 @@
         .pick-inner {
             position: relative;
             z-index: 1;
-            background: rgba(255,255,255,0.02);
+            background: var(--surface);
             border-radius: calc(1.25rem - 3px);
             padding: 1.5rem 1.75rem;
         }
@@ -610,7 +611,7 @@
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.05);
+            background: var(--surface);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -618,21 +619,22 @@
             font-size: 14px;
             transition: background 200ms var(--ease), color 200ms var(--ease);
         }
-        .pick-shell:hover .pick-arrow { background: var(--accent); color: #fff; }
+        .pick-shell:hover .pick-arrow { background: var(--accent); color: var(--accent-on); }
 
         /* ── COMPARE CTA ── */
         .compare-teaser {
             position: relative;
             z-index: 2;
             padding: 3px;
-            background: linear-gradient(135deg, rgba(124,92,252,0.3), rgba(124,92,252,0.05) 60%);
+            background: linear-gradient(135deg, var(--accent-glow), var(--accent-subtle) 60%);
             border-radius: 1.75rem;
             max-width: 1200px;
             margin: 0 auto 5rem;
         }
 
         .compare-inner {
-            background: #0d0d1c;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
             border-radius: calc(1.75rem - 3px);
             padding: 3.5rem;
             display: grid;
@@ -648,6 +650,7 @@
             line-height: 1.15;
             letter-spacing: -0.02em;
             margin-bottom: 0.875rem;
+            color: var(--text);
         }
 
         .compare-desc {
