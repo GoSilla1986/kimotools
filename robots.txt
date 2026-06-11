@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.kimotools.de/sitemap.xml
+Sitemap: https://kimotools.de/sitemap.xml
