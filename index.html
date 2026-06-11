@@ -206,6 +206,7 @@
             letter-spacing: -0.03em;
             max-width: 860px;
             margin-bottom: 1.5rem;
+            color: #f0f0f5;
             text-shadow: 0 2px 40px rgba(0,0,0,0.4);
             opacity: 0;
             transform: translateY(24px);
@@ -219,7 +220,7 @@
 
         .hero-subtitle {
             font-size: 1rem;
-            color: var(--text-secondary);
+            color: rgba(240,240,245,0.7);
             line-height: 1.75;
             max-width: 480px;
             margin-bottom: 2.5rem;
@@ -271,6 +272,17 @@
         }
         .btn-secondary:hover { color: var(--text); background: var(--surface-2); transform: translateY(-2px); }
 
+        /* Hero stays dark-themed regardless of light/dark mode (video is dark) */
+        .hero .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.13);
+            color: rgba(240,240,245,0.7);
+        }
+        .hero .btn-secondary:hover {
+            color: #f0f0f5;
+            background: rgba(255,255,255,0.10);
+        }
+
         /* ── STAT ROW ── */
         .stats {
             display: flex;
@@ -293,6 +305,7 @@
             font-size: 2rem;
             letter-spacing: -0.02em;
             line-height: 1;
+            color: #f0f0f5;
         }
 
         .stat-label {
@@ -306,7 +319,7 @@
         .stat-divider {
             width: 1px;
             height: 36px;
-            background: var(--border-2);
+            background: rgba(240,240,245,0.2);
             align-self: center;
         }
 

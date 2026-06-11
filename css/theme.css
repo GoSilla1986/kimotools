@@ -36,7 +36,9 @@
     /* Translucent backgrounds (frosted-glass nav, overlays) */
     --bg-translucent: rgba(250,250,248,0.75);
     --bg-translucent-strong: rgba(250,250,248,0.92);
-    --hero-overlay: linear-gradient(to bottom, rgba(250,250,248,0.55) 0%, rgba(250,250,248,0.45) 50%, rgba(250,250,248,0.75) 100%);
+    /* Hero overlay is theme-agnostic — always dark gradient over the video,
+       because the video itself is dark and hero text is always rendered light. */
+    --hero-overlay: linear-gradient(to bottom, rgba(6,6,14,0.55) 0%, rgba(6,6,14,0.45) 50%, rgba(6,6,14,0.75) 100%);
 
     /* Easings (theme-agnostic) */
     --ease: cubic-bezier(0.16,1,0.3,1);
