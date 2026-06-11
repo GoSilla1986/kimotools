@@ -3,28 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI-Tools Vergleichen — KImotools</title>
-    <meta name="description" content="Vergleiche bis zu 4 KI-Tools für Immobilienmakler direkt miteinander. Preise, Features und Bewertungen auf einen Blick.">
+
+    <!-- Theme: resolve before any paint to avoid FOUC -->
+    <script>
+    (function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;document.documentElement.classList.add('theme-no-transition');addEventListener('load',function(){requestAnimationFrame(function(){document.documentElement.classList.remove('theme-no-transition');});});}catch(e){document.documentElement.dataset.theme='light';}})();
+    </script>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/nav.css">
+
+    <title>Bis zu 4 KI-Tools für Makler vergleichen | KImotools</title>
+    <meta name="description" content="Vergleiche bis zu 4 KI-Tools für Immobilienmakler direkt: Preise, Features und Bewertungen auf einen Blick. Jetzt das passende Tool finden →">
+    <link rel="canonical" href="https://www.kimotools.de/compare.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.kimotools.de/compare.html">
+    <meta property="og:title" content="Bis zu 4 KI-Tools für Makler vergleichen | KImotools">
+    <meta property="og:description" content="Preise, Features und Bewertungen direkt nebeneinander — finde das richtige Tool für deinen Makler-Workflow.">
+    <meta property="og:image" content="https://www.kimotools.de/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="KImotools">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bis zu 4 KI-Tools für Makler vergleichen | KImotools">
+    <meta name="twitter:description" content="Preise, Features und Bewertungen direkt nebeneinander.">
+    <meta name="twitter:image" content="https://www.kimotools.de/og-image.jpg">
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Start", "item": "https://www.kimotools.de/" },
+            { "@type": "ListItem", "position": 2, "name": "Vergleichen", "item": "https://www.kimotools.de/compare.html" }
+          ]
+        },
+        {
+          "@type": "WebApplication",
+          "name": "KImotools Vergleichstool",
+          "url": "https://www.kimotools.de/compare.html",
+          "description": "Bis zu 4 KI-Tools für Immobilienmakler direkt vergleichen.",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "inLanguage": "de-DE",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+        }
+      ]
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
     <style>
+        /* Theme tokens (--bg/--surface/--text/--accent etc.) defined in css/theme.css */
         :root {
-            --bg: #06060e;
-            --surface: #0e0e1a;
-            --surface-2: #13131f;
-            --border: rgba(255,255,255,0.07);
-            --border-hover: rgba(255,255,255,0.14);
-            --text: #f0f0f5;
-            --text-secondary: rgba(240,240,245,0.55);
-            --text-tertiary: rgba(240,240,245,0.32);
-            --accent: #7c5cfc;
-            --accent-glow: rgba(124,92,252,0.18);
-            --accent-subtle: rgba(124,92,252,0.1);
-
+            /* Page-specific tokens (category colors) — theme-agnostic */
             --color-expose: #a78bfa;
             --color-foto:   #34d399;
             --color-staging:#fb923c;
@@ -33,7 +75,6 @@
             --color-automation: #a3a07a;
 
             --ease: cubic-bezier(0.32, 0.72, 0, 1);
-            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -57,72 +98,12 @@
             transform: translateX(-50%);
             width: 80vw;
             height: 60vh;
-            background: radial-gradient(ellipse at center, rgba(124,92,252,0.06) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center, var(--accent-subtle) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
 
-        /* ─── NAV ─── */
-        .nav {
-            position: fixed;
-            top: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            padding: 0.6rem 0.6rem 0.6rem 1.5rem;
-            background: rgba(14,14,26,0.75);
-            backdrop-filter: blur(24px) saturate(1.6);
-            -webkit-backdrop-filter: blur(24px) saturate(1.6);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            white-space: nowrap;
-        }
-
-        .nav-logo {
-            font-family: 'Instrument Serif', serif;
-            font-size: 20px;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.01em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.25rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.4rem 0.9rem;
-            border-radius: 100px;
-            transition: color 200ms var(--ease-out), background 200ms var(--ease-out);
-        }
-
-        .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
-        .nav-link.active { color: var(--text); background: rgba(255,255,255,0.08); }
-
-        .nav-cta {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.55rem 1.1rem;
-            background: var(--accent);
-            color: #fff;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 100px;
-            transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
-        }
-
-        .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+        /* ── NAV: see css/nav.css ── */
 
         /* ─── HERO ─── */
         .hero {
@@ -144,7 +125,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: #fff;
+            color: var(--accent-on);
             margin-bottom: 1.5rem;
             opacity: 0;
             transform: translateY(20px);
@@ -219,7 +200,7 @@
             inset: 0;
             background: radial-gradient(
                 circle at var(--x, 50%) var(--y, 50%),
-                rgba(124,92,252,0.12),
+                var(--accent-glow),
                 transparent 60%
             );
             opacity: 0;
@@ -230,7 +211,7 @@
         .selector-shell:hover {
             border-style: solid;
             border-color: var(--accent);
-            background: rgba(124,92,252,0.05);
+            background: var(--accent-subtle);
         }
 
         .selector-shell:hover::before {
@@ -271,7 +252,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255,255,255,0.05);
+            background: var(--surface);
             border-radius: 50%;
             color: var(--text-tertiary);
             font-size: 24px;
@@ -348,7 +329,7 @@
         }
 
         .remove-btn:hover {
-            background: rgba(255,255,255,0.06);
+            background: var(--surface-2);
             color: var(--text);
             border-color: var(--border-hover);
         }
@@ -381,7 +362,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+            box-shadow: 0 32px 80px var(--shadow-color-strong), 0 0 0 1px var(--border);
         }
 
         .picker-header {
@@ -405,7 +386,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255,255,255,0.05);
+            background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 50%;
             cursor: pointer;
@@ -415,7 +396,7 @@
         }
 
         .picker-close:hover {
-            background: rgba(255,255,255,0.1);
+            background: var(--surface-2);
             color: var(--text);
         }
 
@@ -471,11 +452,11 @@
             transition: all 200ms var(--ease-out);
         }
 
-        .picker-cat:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+        .picker-cat:hover { background: var(--surface); color: var(--text); }
 
         .picker-cat.active {
             background: var(--accent);
-            color: #fff;
+            color: var(--accent-on);
             border-color: var(--accent);
         }
 
@@ -485,7 +466,7 @@
             flex: 1;
             min-height: 0;
             scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.12) transparent;
+            scrollbar-color: var(--border-2) transparent;
             position: relative;
         }
 
@@ -519,7 +500,7 @@
 
         .picker-item:hover {
             border-color: var(--accent);
-            background: rgba(124,92,252,0.06);
+            background: var(--accent-subtle);
             transform: translateY(-2px);
         }
 
@@ -599,9 +580,9 @@
         }
 
         .reset-btn:hover {
-            background: rgba(255,255,255,0.05);
+            background: var(--surface);
             color: var(--text);
-            border-color: rgba(255,255,255,0.2);
+            border-color: var(--border-hover);
         }
 
         /* Double-Bezel Table */
@@ -626,7 +607,7 @@
 
         .table-row:last-child { border-bottom: none; }
 
-        .table-row:first-child { background: rgba(255,255,255,0.02); }
+        .table-row:first-child { background: var(--surface); }
 
         .table-cell {
             padding: 1.1rem 1.25rem;
@@ -769,13 +750,14 @@
         <a href="index.html" class="nav-logo">KImotools</a>
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
-            <a href="tools.html" class="nav-link">Tools</a>
+            <a href="tools.html" class="nav-link">Alle Tools</a>
             <a href="compare.html" class="nav-link active">Vergleichen</a>
-            <a href="tools.html" class="nav-cta">
-                Alle Tools
-                <i class="ph ph-arrow-right"></i>
-            </a>
         </div>
+        <button class="theme-toggle" type="button" aria-label="Theme umschalten">
+            <i class="ph ph-sun icon-light" aria-hidden="true"></i>
+            <i class="ph ph-moon icon-dark" aria-hidden="true"></i>
+        </button>
+        <a href="tools.html" class="nav-cta">Alle Tools <i class="ph ph-arrow-right"></i></a>
     </nav>
 
     <!-- Hero -->
@@ -1167,5 +1149,6 @@
 
         renderPicker();
     </script>
+    <script src="js/theme.js"></script>
 </body>
 </html>
